@@ -30,8 +30,21 @@ public class Person2 {
 	 * @return the modified string
 	 */
 	private String calc(String input) {
-	  //Person 2 put your implementation here
-	  return null;
+        	int length = input.length();
+        	
+        	ArrayList<Character> listOfChars = new ArrayList<Character>(length);
+        	for (char c : input.toCharArray()) {
+        		listOfChars.add(c);
+        	}
+        	Collections.shuffle(listOfChars);
+        	
+        	char[] scrambled = new char[listOfChars.size()];
+        	
+        	for (int i = 0; i < scrambled.length; i++) {
+        		scrambled[i] = listOfChars.get(i);
+        	}
+        	String shuffledWord = new String(scrambled);
+        	return shuffledWord;
 	}
 	/**
 	 * Return a string rep of this object
