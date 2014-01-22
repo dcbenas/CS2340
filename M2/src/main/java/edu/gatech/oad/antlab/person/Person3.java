@@ -43,8 +43,8 @@ public class Person3 {
 	 */
 	private String calc(String input) {
 	  //Person 3 put your implementation here
-		char c = 'a';
-		String result;
+		char c = ;
+		String result = "";
 		for (int i = input.length() - 1; i >= 0; i--) {
 			c = input.charAt(i);
 			result += c;
