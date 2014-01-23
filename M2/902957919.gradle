@@ -1,0 +1,15 @@
+apply plugin : 'java'
+
+buildscript {
+	dependencies {
+		classpath files('lib/resources.jar')
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java/edu/gatech/oad/antlab/pkg1'
+		}
+	}
+}
