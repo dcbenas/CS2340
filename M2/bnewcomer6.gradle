@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+
+task buildM2 << {
+	compileJava
+	compileTestJava
+	javadoc
+	clean
+	jar
+}
