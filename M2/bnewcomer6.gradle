@@ -1,10 +1,27 @@
 apply plugin: 'java'
 
 
+defaults 'jar'
+
 task buildM2 << {
 	compileJava
 	compileTestJava
 	javadoc
 	clean
 	jar
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java/edu/gatech/oad/antlab/pkg1'
+        }
+        resources {
+            srcDir 'lib'
+        }
+    }
+}
+
+manifest {
+	attributes Main-Class: 'src/main/java/edu/gatech/oad/antlab/pkg1/AntLabMain.java'
 }
