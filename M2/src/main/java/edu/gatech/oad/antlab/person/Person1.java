@@ -31,7 +31,7 @@ public class Person1 {
 	 */
 	private String calc(String input) {
 	  String majorPiece = input.substring(2, input.length());
-	  String minorPiece input.substring(0, 1);
+	  String minorPiece = input.substring(0, 1);
 	  String out = majorPiece + minorPiece;
 	  
 	  return out;
