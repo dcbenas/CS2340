@@ -3,13 +3,11 @@ apply plugin: 'java'
 
 defaultTasks 'jar'
 
-task buildM2 << {
-	compileJava
-	compileTestJava
-	javadoc
-	clean
-	jar
-}
+compileJava
+compileTestJava
+javadoc
+clean
+jar
 
 sourceSets {
     main {
@@ -22,11 +20,16 @@ sourceSets {
     }
 }
 
+dependencies {
+	compile files('lib/resources.jar')
+	
+}
+
 sourceCompatibility = 1.7
 version = 1.0
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version , 'Main-Class' : 'src/main/java/edu/gatech/oad/antlab/pkg1/AntLabMain.java'
+        attributes 'Implementation-Title': 'Gradle Quickstart', 'Implementation-Version': version , 'Main-Class' : 'edu.gatech.oad.antlab.pkg1.AntLabMain', 'Class-Path' : 'resources.'
     }
 }
