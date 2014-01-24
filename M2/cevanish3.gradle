@@ -21,8 +21,8 @@ sourceSets {
 }
 
 dependencies {
-	compile files('lib/resources.jar')
-	
+        compile files('lib/resources.jar')
+        
 }
 
 sourceCompatibility = 1.7
