@@ -1,4 +1,4 @@
-1. Register new user / create new user account
+1. Register new user / create new user account - Ben
 2. Login the user and allow access to information.
 3. Add or remove transactions.
 4. Generate Spending Category Report
