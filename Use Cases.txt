@@ -1,7 +1,7 @@
 1. Register new user / create new user account - Ben
 2. Login the user and allow access to information. - Matthew
 3. Add or remove transactions. - David
-4. Generate Spending Category Report
+4. Generate Spending Category Report - Inseok
 5. Generate of Income Source Report - Casey
 6. Generate of Cash Flow Report
 7. Generate of Account Listing Report
