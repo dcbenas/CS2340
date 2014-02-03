@@ -19,7 +19,7 @@ public class LoggedIn extends Activity {
 		//retrieve username and password info
 		Intent intent = getIntent();
 		String username = intent.getStringExtra(MainActivity.USERNAME);
-		//String password = intent.getStringExtra(MainActivity.PASSWORD);
+		String password = intent.getStringExtra(MainActivity.PASSWORD);
 		
 		setContentView(R.layout.activity_logged_in);
 		// Show the Up button in the action bar.
@@ -27,7 +27,7 @@ public class LoggedIn extends Activity {
 		
 		//set textView text
 		TextView displayUsernameTextView = (TextView) findViewById(R.id.display_username);
-		displayUsernameTextView.setText(getString(R.string.logged_in_message) + " " + username);
+		displayUsernameTextView.setText(getString(R.string.logged_in_message) + "\n" + username + "\n" + password);
 	}
 
 	/**

@@ -12,7 +12,7 @@ public class MainActivity extends Activity {
 	//constants for use in creating loggedIn intent
 	//password info not currently being used
 	public static final String USERNAME = "com.example.cs2340project.USERNAME";
-	//public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
+	public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +40,9 @@ public class MainActivity extends Activity {
 		intent.putExtra(USERNAME, username);
 		
 		//get password
-		//EditText field_password = (EditText) findViewById(R.id.field_password);
-		//String password = field_password.getText().toString();
-		//intent.putExtra(PASSWORD, password);
+		EditText field_password = (EditText) findViewById(R.id.field_password);
+		String password = field_password.getText().toString();
+		intent.putExtra(PASSWORD, password);
 		
 		startActivity(intent);
 	}
