@@ -32,7 +32,7 @@
         </activity>
 
         <service
-            android:name="com.example.cs2340project.LoginOpenHelper"
+            android:name="com.example.cs2340project.AccountOpenHelper"
             android:enabled="true"
             android:exported="true" >
         </service>
