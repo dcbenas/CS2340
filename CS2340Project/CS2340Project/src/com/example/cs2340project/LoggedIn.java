@@ -2,6 +2,7 @@ package com.example.cs2340project;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v4.app.NavUtils;
@@ -11,15 +12,23 @@ import android.os.Build;
 import android.widget.TextView;
 
 public class LoggedIn extends Activity {
+	
+	private static AccountOpenHelper accountHelper;
+	//private static final String NO_ACCOUNT_MSG = "The username/password combination is incorrect or the account does not exist.";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		accountHelper = new AccountOpenHelper(this);
 		
 		//retrieve username and password info
 		Intent intent = getIntent();
 		String username = intent.getStringExtra(MainActivity.USERNAME);
-		String password = intent.getStringExtra(MainActivity.PASSWORD);
+		//String password = intent.getStringExtra(MainActivity.PASSWORD);
+		
+		//query database for account info
+		User user = accountHelper.getUser(username);
+		Log.d("get user", String.valueOf(user.getId()));
 		
 		setContentView(R.layout.activity_logged_in);
 		// Show the Up button in the action bar.
@@ -27,7 +36,7 @@ public class LoggedIn extends Activity {
 		
 		//set textView text
 		TextView displayUsernameTextView = (TextView) findViewById(R.id.display_username);
-		displayUsernameTextView.setText(getString(R.string.logged_in_message) + "\n" + username + "\n" + password);
+		displayUsernameTextView.setText(getString(R.string.logged_in_message) + "\n" + user.getUsername() + "\n" + user.getPassword() + "\n" + user.getId());
 	}
 
 	/**
