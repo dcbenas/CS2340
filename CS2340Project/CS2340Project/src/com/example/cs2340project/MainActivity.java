@@ -19,7 +19,6 @@ import android.widget.EditText;
 public class MainActivity extends Activity {
 
 	//constants for use in creating loggedIn intent
-	//password info not currently being used
 	public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
 	
