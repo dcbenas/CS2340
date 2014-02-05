@@ -36,6 +36,15 @@
             android:enabled="true"
             android:exported="false" >
         </service>
+
+        <activity
+            android:name="com.example.cs2340project.RegisterActivity"
+            android:label="@string/title_activity_register"
+            android:parentActivityName="com.example.cs2340project.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

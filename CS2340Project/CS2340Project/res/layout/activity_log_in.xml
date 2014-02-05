@@ -9,23 +9,14 @@
     tools:context=".LogInActivity" >
 
     <TextView
-        android:id="@+id/display_login_message"
+        android:id="@+id/login_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="128dp"
         android:gravity="center"
+        android:hint="login message"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/dev_reset_db"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/display_login_message"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="61dp"
-        android:onClick="resetDatabase"
-        android:text="@string/reset_db" />
 
 </RelativeLayout>

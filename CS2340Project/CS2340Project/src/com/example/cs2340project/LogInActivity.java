@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.Intent;
@@ -37,12 +36,6 @@ public class LogInActivity extends Activity {
 		String username = intent.getStringExtra(MainActivity.USERNAME);
 		String password = intent.getStringExtra(MainActivity.PASSWORD);
 		
-		//add user based on input. addUser checks to see if user exists. 
-		//If user exists, addUser returns false, else adds new user to database
-		boolean success = accountHelper.addUser(new User(username, password));
-		//log success of addUser()
-		Log.d("LogInActivity.add_user", String.valueOf(success));
-		
 		//query database for user account info, assuming account exists
 		//If unsuccessful, getUser returns an empty user with Id -1
 		User user = accountHelper.getUser(username);
@@ -54,17 +47,17 @@ public class LogInActivity extends Activity {
 		setupActionBar();
 		
 		//set textView text with successful/unsuccessful login message
-		TextView displayUsernameTextView = (TextView) findViewById(R.id.display_login_message);
-		String loginMsg;
+		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
+		String loginMessage;
 		if (password.equals(user.getPassword())) {
-			loginMsg = getString(R.string.log_in_success) 
+			loginMessage = getString(R.string.log_in_success) 
 					+ "\n" + "Username: " + user.getUsername() 
 					+ "\n" + "Password: " + user.getPassword() 
 					+ "\n" + "User Id: " + user.getId();
 		} else {
-			loginMsg = getString(R.string.log_in_error_incorrect_password);
+			loginMessage = getString(R.string.log_in_error_incorrect_password);
 		}
-		displayUsernameTextView.setText(loginMsg);
+		loginMessageTextView.setText(loginMessage);
 
 	}
 
@@ -100,13 +93,6 @@ public class LogInActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	/**
-	 * resets database. for dev use only
-	 */
-	public void resetDatabase(View view) {
-		Log.d("reset db", String.valueOf(accountHelper.resetDatabase() > 0));
 	}
 
 }

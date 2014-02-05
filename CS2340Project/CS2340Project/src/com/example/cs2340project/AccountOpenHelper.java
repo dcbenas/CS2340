@@ -60,13 +60,15 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
      * username and password. Only adds user if user
      * does not already exist
      * @param user contains username and password
-     * @return true if successful
+     * @return User that has been added
      */
-    public boolean addUser(User user) {
+    public User addUser(User user) {
     	boolean userAlreadyExists = checkUserAlreadyExists(user);
     	Log.d("AccountOpenHelper.addUser.user_already_exists", String.valueOf(userAlreadyExists));
     	if (userAlreadyExists) {
-    		return false;
+    		User noUser = new User(null, null);
+    		user.setId(-1);
+    		return noUser;
     	}
     	
     	SQLiteDatabase db = this.getWritableDatabase();
@@ -77,7 +79,13 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	
     	long success = db.insert(LOGIN_TABLE, null, values);
     	db.close();
-    	return (success != -1);
+    	if (success != -1) {
+    		return user;
+    	} else {
+    		User noUser = new User(null, null);
+    		user.setId(-1);
+    		return noUser;
+    	}
     }
     
     /**
@@ -141,7 +149,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
         	
         	return user;
     	} else {
-    		User noUser = new User("null", "null");
+    		User noUser = new User(null, null);
     		noUser.setId(-1);
     		
     		return noUser;
@@ -175,11 +183,11 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     /**
      * deletes all rows in login table. For development use only
      * should be removed before deployment
-     * @return
+     * @return true if successful
      */
-    public int resetDatabase() {
+    public boolean resetDatabase() {
     	SQLiteDatabase db = this.getWritableDatabase();
-    	return db.delete(LOGIN_TABLE, null, null);
+    	return (db.delete(LOGIN_TABLE, null, null) > 0);
     }
 
     /**

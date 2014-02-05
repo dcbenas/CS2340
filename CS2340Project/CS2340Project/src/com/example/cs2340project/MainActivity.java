@@ -3,6 +3,7 @@ package com.example.cs2340project;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -36,11 +37,28 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
-	 * starts Logged In activity. Responds to click on Log In button
+	 * starts LogInActivity. Responds to click on Log In button
 	 * @param view
 	 */
 	public void logIn (View view) {
-		Intent intent = new Intent(this, LogInActivity.class);
+		startActivity(getIntent(LogInActivity.class));
+	}
+	
+	/**
+	 * starts RegisterActivity. Responds to click on Register button
+	 * @param view
+	 */
+	public void register(View view) {
+		startActivity(getIntent(RegisterActivity.class));
+	}
+	
+	/**
+	 * helper method for logIn and register. places username
+	 * and password into an intent
+	 * @return Intent with username and password
+	 */
+	private Intent getIntent(Class<?> activityClass) {
+		Intent intent = new Intent(this, activityClass);
 		
 		//get username
 		EditText field_username = (EditText) findViewById(R.id.field_username);
@@ -52,7 +70,30 @@ public class MainActivity extends Activity {
 		String password = field_password.getText().toString();
 		intent.putExtra(PASSWORD, password);
 		
-		startActivity(intent);
+		return intent;
 	}
+	
+	/**
+	 * resets database table login. for dev use only
+	 * will print to log false if unsuccessful or
+	 * if table is already empty
+	 */
+	public void resetDatabase(View view) {
+		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
+		boolean success = accountHelper.resetDatabase();
+		Log.d("reset db", String.valueOf(success));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
