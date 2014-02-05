@@ -23,8 +23,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.cs2340project.LogIn"
-            android:label="@string/title_activity_logged_in"
+            android:name="com.example.cs2340project.LogInActivity"
+            android:label="@string/title_activity_log_in"
             android:parentActivityName="com.example.cs2340project.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -34,7 +34,7 @@
         <service
             android:name="com.example.cs2340project.AccountOpenHelper"
             android:enabled="true"
-            android:exported="true" >
+            android:exported="false" >
         </service>
     </application>
 

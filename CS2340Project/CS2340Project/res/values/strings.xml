@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- general project -->
     <string name="app_name">CS2340 Project</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_logged_in">LoggedIn</string>
-    <string name="log_in_success">Welcome,</string>
+    <string name="title_activity_log_in">Log In</string>
+    <!-- main activity -->
+    <string name="username_hint">username</string>
+    <string name="password_hint">password</string>
+    <string name="log_in">Log In</string>
+    <string name="register">Register</string>
+    <!-- log in -->
+    <string name="reset_db">Reset db (for dev use only)</string>
+    <string name="log_in_success">Welcome!</string>
     <string name="log_in_error_incorrect_password">Sorry, the password you entered was incorrect</string>
     <string name="log_in_error_no_account">Sorry, the information you entered does not match an account.</string>
+    <string name="title_activity_register">RegisterActivity</string>
 
 </resources>

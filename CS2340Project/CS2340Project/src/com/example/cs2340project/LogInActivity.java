@@ -23,7 +23,7 @@ import android.widget.TextView;
  * @version 1.0
  *
  */
-public class LogIn extends Activity {
+public class LogInActivity extends Activity {
 	
 	private static AccountOpenHelper accountHelper;
 
@@ -41,13 +41,13 @@ public class LogIn extends Activity {
 		//If user exists, addUser returns false, else adds new user to database
 		boolean success = accountHelper.addUser(new User(username, password));
 		//log success of addUser()
-		Log.d("LogIn.add_user", String.valueOf(success));
+		Log.d("LogInActivity.add_user", String.valueOf(success));
 		
 		//query database for user account info, assuming account exists
 		//If unsuccessful, getUser returns an empty user with Id -1
 		User user = accountHelper.getUser(username);
 		//Log success of getUser()
-		if (user.getId() == -1) Log.d("LogIn.get_user", "user does not exist");
+		if (user.getId() == -1) Log.d("LogInActivity.get_user", "user does not exist");
 		
 		setContentView(R.layout.activity_log_in);
 		// Show the Up button in the action bar.
