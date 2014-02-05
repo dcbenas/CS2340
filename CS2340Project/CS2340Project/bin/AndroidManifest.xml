@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.cs2340project.LoggedIn"
+            android:name="com.example.cs2340project.LogIn"
             android:label="@string/title_activity_logged_in"
             android:parentActivityName="com.example.cs2340project.MainActivity" >
             <meta-data

@@ -12,6 +12,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 import android.util.Log;
 
+/**
+ * This class interfaces with the SQLite db and handles account CRUD.
+ * Currently supported actions: add new user (checks if user already exists),
+ * update user, delete user, get user, get all users, 
+ * reset database (for dev purposes only).
+ * @author Benjamin Newcomer
+ * @version 1.0
+ *
+ */
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class AccountOpenHelper extends SQLiteOpenHelper {
 
@@ -48,11 +57,18 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     
     /**
      * creates a new row in table and adds user 
-     * username and password
+     * username and password. Only adds user if user
+     * does not already exist
      * @param user contains username and password
      * @return true if successful
      */
     public boolean addUser(User user) {
+    	boolean userAlreadyExists = checkUserAlreadyExists(user);
+    	Log.d("AccountOpenHelper.addUser.user_already_exists", String.valueOf(userAlreadyExists));
+    	if (userAlreadyExists) {
+    		return false;
+    	}
+    	
     	SQLiteDatabase db = this.getWritableDatabase();
     	
     	ContentValues values = new ContentValues();
@@ -104,6 +120,8 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
      * searches table for user and returns User
      * @param username of the user to search for
      * @return User with username that was passed in
+     * If user does not exist, a null user with Id -1
+     * is returned
      */
     public User getUser(String username) {
     	SQLiteDatabase db = this.getReadableDatabase();
@@ -114,8 +132,8 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	Cursor cursor = db.query(false, LOGIN_TABLE, columns, selection, null, null, null, null, null, null);
     	if (cursor.getCount() != 0) {
     		cursor.moveToFirst();
-    		Log.d("cursor cols", String.valueOf(cursor.getColumnCount()));
-    		Log.d("cursor rows", String.valueOf(cursor.getCount()));
+    		Log.d("AccountOpenHelper.getUser.cursor_cols", String.valueOf(cursor.getColumnCount()));
+    		Log.d("AccountOpenHelper.getUser.cursor_rows", String.valueOf(cursor.getCount()));
     		User user = new User(
         			cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
         			cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
@@ -123,8 +141,10 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
         	
         	return user;
     	} else {
-    		Log.d("error", "no account with that username");
-    		return new User("null", "null");
+    		User noUser = new User("null", "null");
+    		noUser.setId(-1);
+    		
+    		return noUser;
     	}
     }
     
@@ -152,10 +172,24 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	return userList;
     }
     
+    /**
+     * deletes all rows in login table. For development use only
+     * should be removed before deployment
+     * @return
+     */
     public int resetDatabase() {
     	SQLiteDatabase db = this.getWritableDatabase();
     	return db.delete(LOGIN_TABLE, null, null);
     }
 
-
+    /**
+     * checks database to see if username already exists
+     * @param user
+     * @return
+     */
+    private boolean checkUserAlreadyExists(User user) {
+    	User dbUser = getUser(user.getUsername());
+    	//if user exists, user will have an Id other than -1
+    	return (dbUser.getId() != -1);
+    }
 }

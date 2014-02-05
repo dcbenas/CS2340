@@ -7,6 +7,14 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ *  This is the main activity. This activity is called on app startup.
+ *  Username/password fields are presented along with login and register buttons.
+ *  Currently only the login button is supported. The button starts the activity
+ *  LogIn and passes in username and password.
+ * @author Benjamin Newcomer
+ * @version 1.0
+ */
 public class MainActivity extends Activity {
 
 	//constants for use in creating loggedIn intent
@@ -32,7 +40,7 @@ public class MainActivity extends Activity {
 	 * @param view
 	 */
 	public void logIn (View view) {
-		Intent intent = new Intent(this, LoggedIn.class);
+		Intent intent = new Intent(this, LogIn.class);
 		
 		//get username
 		EditText field_username = (EditText) findViewById(R.id.field_username);
