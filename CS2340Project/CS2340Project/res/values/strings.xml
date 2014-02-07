@@ -11,6 +11,8 @@
     <string name="password_hint">password</string>
     <string name="log_in">Log In</string>
     <string name="register">Register</string>
+    <string name="default_user">admin</string>
+    <string name="default_password">pass123</string>
     <!-- log in -->
     <string name="reset_db">Reset db (for dev use only)</string>
     <string name="log_in_success">Welcome!</string>

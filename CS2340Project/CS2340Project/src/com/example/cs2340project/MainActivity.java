@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
+
 
 /**
  *  This is the main activity. This activity is called on app startup.
@@ -26,6 +28,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		createAdmin();
 	}
 
 	@Override
@@ -33,6 +36,21 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		//clear the password field upon return to MainActivity
+		EditText passwordEditText = (EditText) findViewById(R.id.field_password);
+		passwordEditText.setText(null);
+		
+		if (BuildConfig.DEBUG) {
+			//set db_info textview to display size of table
+			TextView dbInfoTextView = (TextView) findViewById(R.id.db_info);
+			dbInfoTextView.setText(getTableInfo());
+		}
 	}
 	
 	/**
@@ -75,13 +93,43 @@ public class MainActivity extends Activity {
 	/**
 	 * resets database table login. for dev use only
 	 * will print to log false if unsuccessful or
-	 * if table is already empty
+	 * if table is already empty. Does remove admin
 	 */
 	public void resetDatabase(View view) {
 		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
 		boolean success = accountHelper.resetDatabase();
 		Log.d("reset db", String.valueOf(success));
 	}
+	
+	/**
+	 * helper method that is called in MainActivity.onCreate()
+	 * creates an admin user (if one does not already exist)
+	 */
+	private void createAdmin() {
+		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
+		User admin = accountHelper.addUser(
+				new User(getString(R.string.default_user), getString(R.string.default_password)));
+		
+		//DEBUG
+		if (BuildConfig.DEBUG) {
+			if (admin.getId() != -1) {
+				Log.d("MainActivity.create_admin", "admin created");
+			} else {
+				Log.d("MainActivity.create_admin", "admin already exists");
+			}
+		}
+
+	}
+	
+	/**
+	 * @see AccountOpenHelper#getTableInfo()
+	 */
+	private String getTableInfo() {
+		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
+		return accountHelper.getTableInfo();
+	}
+	
+	
 	
 	
 	

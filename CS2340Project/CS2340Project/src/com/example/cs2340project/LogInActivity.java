@@ -27,9 +27,13 @@ public class LogInActivity extends AccountManagementActivity {
 		
 		//get user from database
 		User user = accountHelper.getUser(username);
-		//Log success of getUser()
-		if (user.getId() == -1) Log.d("LogInActivity.get_user", "user does not exist");
-
+		
+		//DEBUG
+		if (BuildConfig.DEBUG) {
+			//Log success of getUser()
+			if (user.getId() == -1) Log.d("LogInActivity.get_user", "user does not exist");
+		}
+		
 		//set textView text with successful login message or display alert dialog
 		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
 		if (password.equals(user.getPassword())) {

@@ -24,6 +24,7 @@ import android.util.Log;
 @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class AccountOpenHelper extends SQLiteOpenHelper {
 
+	//info specific to SQLite database and table
 	private static final int DATABASE_VERSION = 3;
 	private static final String DATABASE_NAME = "CeramicKoala";
     private static final String LOGIN_TABLE = "login";
@@ -64,28 +65,34 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
      */
     public User addUser(User user) {
     	boolean userAlreadyExists = checkUserAlreadyExists(user);
-    	Log.d("AccountOpenHelper.addUser.user_already_exists", String.valueOf(userAlreadyExists));
+    	
+    	//DEBUG
+    	if (BuildConfig.DEBUG) {
+        	Log.d("AccountOpenHelper.addUser.user_already_exists", String.valueOf(userAlreadyExists));
+    	}
+    	
     	if (userAlreadyExists) {
     		User noUser = new User(null, null);
     		user.setId(-1);
     		return noUser;
-    	}
-    	
-    	SQLiteDatabase db = this.getWritableDatabase();
-    	
-    	ContentValues values = new ContentValues();
-    	values.put(KEY_USERNAME, user.getUsername());
-    	values.put(KEY_PASSWORD, user.getPassword());
-    	
-    	long success = db.insert(LOGIN_TABLE, null, values);
-    	db.close();
-    	if (success != -1) {
-    		return user;
     	} else {
-    		User noUser = new User(null, null);
-    		user.setId(-1);
-    		return noUser;
+    		//add new user
+    		SQLiteDatabase db = this.getWritableDatabase();
+        	ContentValues values = new ContentValues();
+        	values.put(KEY_USERNAME, user.getUsername());
+        	values.put(KEY_PASSWORD, user.getPassword());
+        	
+        	long success = db.insert(LOGIN_TABLE, null, values);
+        	db.close();
+        	if (success != -1) {
+        		return user;
+        	} else {
+        		User noUser = new User(null, null);
+        		user.setId(-1);
+        		return noUser;
+        	}
     	}
+    	
     }
     
     /**
@@ -99,14 +106,19 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	SQLiteDatabase db = this.getWritableDatabase();
     	
     	ContentValues values = new ContentValues();
-    	values.put(KEY_PASSWORD, user.getUsername());
+    	values.put(KEY_USERNAME, user.getUsername());
     	values.put(KEY_PASSWORD, user.getPassword());
     	
-    	String where = KEY_ID + "=?";
-    	String[] whereArgs = {String.valueOf(user.getId())}; 
-    	
-    	int success = db.update(LOGIN_TABLE, values, where, whereArgs);
-    	return (success > 0);
+    	//update user if new username is not already in use
+    	if (checkUserAlreadyExists(user)) {
+    		return false;
+    	} else {
+    		String where = KEY_ID + "=?";
+        	String[] whereArgs = {String.valueOf(user.getId())};
+        	
+        	int success = db.update(LOGIN_TABLE, values, where, whereArgs);
+        	return (success > 0);
+    	}
     }
     
     /**
@@ -140,8 +152,14 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	Cursor cursor = db.query(false, LOGIN_TABLE, columns, selection, null, null, null, null, null, null);
     	if (cursor.getCount() != 0) {
     		cursor.moveToFirst();
-    		Log.d("AccountOpenHelper.getUser.cursor_cols", String.valueOf(cursor.getColumnCount()));
-    		Log.d("AccountOpenHelper.getUser.cursor_rows", String.valueOf(cursor.getCount()));
+    		
+    		//DEBUG
+    		if (BuildConfig.DEBUG) {
+    			Log.d("AccountOpenHelper.getUser.cursor_cols", String.valueOf(cursor.getColumnCount()));
+        		Log.d("AccountOpenHelper.getUser.cursor_rows", String.valueOf(cursor.getCount()));
+    		}
+    		
+    		//populate user with info from db
     		User user = new User(
         			cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
         			cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
@@ -167,27 +185,53 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	String orderBy = KEY_ID + " ASC";
     	
     	Cursor cursor = db.query(LOGIN_TABLE, columns, null, null, null, null, orderBy);
-    	if (cursor.getCount() != 0) cursor.moveToFirst();
     	
     	List<User> userList = new ArrayList<User>();
-    	do {
-    		User user = new User(
-    				cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
-    				cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
-    		userList.add(user);
-    	} while (cursor.moveToNext());
+    	if (cursor.getCount() != 0) {
+    		cursor.moveToFirst();
+        	
+        	do {
+        		User user = new User(
+        				cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
+        				cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
+        		userList.add(user);
+        	} while (cursor.moveToNext());
+    	}
     	
     	return userList;
     }
     
     /**
+     * gets number of rows for login table
+     * @return number of rows. return -1
+     * if error occurred
+     */
+    public int getTableSize() {
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	Cursor cursor = db.rawQuery("SELECT count (*) FROM " + LOGIN_TABLE + ";", null);
+    	if (cursor != null) {
+    		cursor.moveToFirst();
+        	return cursor.getInt(0);
+    	} else {
+    		return -1;
+    	}
+    }
+    
+    /**
+     * DEBUG
      * deletes all rows in login table. For development use only
      * should be removed before deployment
-     * @return true if successful
+     * @return true if successful, false if unsuccessful
+     * or if not in debug mode
      */
     public boolean resetDatabase() {
-    	SQLiteDatabase db = this.getWritableDatabase();
-    	return (db.delete(LOGIN_TABLE, null, null) > 0);
+    	//DEBUG
+    	if (BuildConfig.DEBUG) {
+    		SQLiteDatabase db = this.getWritableDatabase();
+        	return (db.delete(LOGIN_TABLE, null, null) > 0);
+    	} else {
+    		return false;
+    	}
     }
 
     /**
@@ -200,4 +244,28 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	//if user exists, user will have an Id other than -1
     	return (dbUser.getId() != -1);
     }
+    
+    /**
+     * gives info about the db login table
+     * info: size, list of usernames
+     * @return string containing info
+     */
+    public String getTableInfo() {
+    	StringBuffer info = new StringBuffer();
+    	info.append("table info: \n");
+    	info.append(this.getReadableDatabase().toString() + "\n");
+    	
+    	//get table size
+    	info.append("size: " + getTableSize() + "\n");
+    	
+    	//get all usernames
+    	info.append("users: ");
+    	List<User> users = getAllUsers();
+    	for (User user : users) {
+    		info.append(user.getUsername() + ", ");
+    	}
+    	
+    	return info.toString();
+    }
+    
 }

@@ -23,8 +23,12 @@ public class RegisterActivity extends AccountManagementActivity {
 				
 		//add user to database
 		User user = accountHelper.addUser(new User(username, password));
-		//log success of addUser()
-		Log.d("LogInActivity.add_user", String.valueOf(user.getId()));
+		
+		//DEBUG
+		if (BuildConfig.DEBUG) {
+			//log success of addUser()
+			Log.d("LogInActivity.add_user", String.valueOf(user.getId()));
+		}
 		
 		//set textView text with successful registration message or show alert dialog
 		TextView registerMessageTextView = (TextView) findViewById(R.id.register_message);
