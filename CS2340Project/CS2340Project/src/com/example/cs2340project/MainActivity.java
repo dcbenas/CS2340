@@ -2,6 +2,8 @@ package com.example.cs2340project;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -21,11 +23,16 @@ public class MainActivity extends Activity {
 	//constants for use in creating loggedIn intent
 	public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
+	protected AlertDialog loginWrong;
+	private AlertDialog passWrong;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		loginWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_user_at_least_six));
+		passWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_pass_at_least_six));
 	}
 
 	@Override
@@ -40,7 +47,8 @@ public class MainActivity extends Activity {
 	 * @param view
 	 */
 	public void logIn (View view) {
-		startActivity(getIntent(LogInActivity.class));
+		if(checkCred() == true)
+			startActivity(getIntent(LogInActivity.class));
 	}
 	
 	/**
@@ -48,7 +56,27 @@ public class MainActivity extends Activity {
 	 * @param view
 	 */
 	public void register(View view) {
-		startActivity(getIntent(RegisterActivity.class));
+		if(checkCred() == true)
+			startActivity(getIntent(RegisterActivity.class));
+	}
+	
+	private boolean checkCred() {
+		EditText field_username = (EditText) findViewById(R.id.field_username);
+		String username = field_username.getText().toString();
+		
+		if(!username.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
+			loginWrong.show();
+			return false;
+		}
+		
+		EditText field_password = (EditText) findViewById(R.id.field_password);
+		String password = field_password.getText().toString();
+		if(!password.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
+			passWrong.show();
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -83,16 +111,16 @@ public class MainActivity extends Activity {
 		Log.d("reset db", String.valueOf(success));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	protected AlertDialog setUpAlertDialog(String title, String message) {
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(title);
+		alertDialog.setMessage(message);
+		alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		return alertDialog;
+	}
 
 }

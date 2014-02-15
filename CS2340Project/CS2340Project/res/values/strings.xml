@@ -22,5 +22,7 @@
     <string name="register_error_username_already_exists">The username you have entered already exists</string>
     <string name="register_hint">Register</string>
     <string name="title_activity_account_management">AccountManagementActivity</string>
+    <string name="log_in_error_user_at_least_six">The username has to be at least six letters long.</string>
+    <string name="log_in_error_pass_at_least_six">The password must be at least six letters long.</string>
 
 </resources>
