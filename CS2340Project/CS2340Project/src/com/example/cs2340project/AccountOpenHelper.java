@@ -21,7 +21,7 @@ import android.util.Log;
  * @version 1.0
  *
  */
-@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class AccountOpenHelper extends SQLiteOpenHelper {
 
 	//info specific to SQLite database and table
@@ -149,7 +149,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	String selection = KEY_USERNAME + "=" + "'" + username + "'";
     	
     	//Cursor cursor = db.rawQuery("SELECT * FROM login WHERE username = '" , selectionArgs)
-    	Cursor cursor = db.query(false, LOGIN_TABLE, columns, selection, null, null, null, null, null, null);
+    	Cursor cursor = db.query(LOGIN_TABLE, columns, selection, null, null, null, null);
     	if (cursor.getCount() != 0) {
     		cursor.moveToFirst();
     		
