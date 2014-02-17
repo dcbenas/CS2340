@@ -1,4 +1,8 @@
-package com.example.cs2340project;
+package com.CeramicKoala.cs2340.activities;
+
+import com.CeramicKoala.cs2340.model.User;
+import com.example.cs2340project.BuildConfig;
+import com.example.cs2340project.R;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -26,7 +30,7 @@ public class LogInActivity extends AccountManagementActivity {
 		alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account));
 		
 		//get user from database
-		User user = accountHelper.getUser(username);
+		User user = dbModel.getUser(username);
 		
 		//DEBUG
 		if (BuildConfig.DEBUG) {
@@ -38,6 +42,7 @@ public class LogInActivity extends AccountManagementActivity {
 		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
 		if (password.equals(user.getPassword())) {
 			String loginMessage = getString(R.string.log_in_success) 
+					+ "\n" + "Full name: " + user.getFullName()
 					+ "\n" + "Username: " + user.getUsername() 
 					+ "\n" + "Password: " + user.getPassword() 
 					+ "\n" + "User Id: " + user.getId();

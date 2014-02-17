@@ -6,11 +6,17 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_log_in">Log In</string>
+    <!-- Intent values -->
+    <string name="user_constant">com.CeramicKoala.cs2340.USER</string>
+    <string name="username_constant">com.CeramicKoala.cs2340.USERNAME</string>
+    <string name="password_constant">com.CeramicKoala.cs2340.PASSWORD</string>
+    <string name="full_name_constant">com.CeramicKoala.cs2340.FULL_NAME</string>
     <!-- main activity -->
     <string name="username_hint">username</string>
     <string name="password_hint">password</string>
     <string name="log_in">Log In</string>
     <string name="register">Register</string>
+    <string name="default_full_name"></string>
     <string name="default_user">admin</string>
     <string name="default_password">pass123</string>
     <!-- log in -->
@@ -20,9 +26,12 @@
     <string name="log_in_error_no_account">Sorry, the information you entered does not match an account.</string>
     <string name="title_activity_register">RegisterActivity</string>
     <!-- register -->
+    <string name="full_name_hint">FirstName LastName</string>
     <string name="register_success">Your new account has been created</string>
     <string name="register_error_username_already_exists">The username you have entered already exists</string>
-    <string name="register_hint">Register</string>
+    <string name="register_message">Please enter your information and then click submit.</string>
     <string name="title_activity_account_management">AccountManagementActivity</string>
+    <string name="submit">Submit</string>
+    
 
 </resources>

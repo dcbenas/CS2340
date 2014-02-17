@@ -1,4 +1,4 @@
-package com.example.cs2340project;
+package com.CeramicKoala.cs2340.model;
 
 /**
  * this class represents a single user
@@ -11,9 +11,11 @@ package com.example.cs2340project;
 public class User {
 	private String username;
 	private String password;
+	private String fullName;
 	private int id;
 	
-	public User(String username, String password) {
+	public User(String fullName, String username, String password) {
+		this.fullName = fullName;
 		this.username = username;
 		this.password = password;
 	}
@@ -35,6 +37,14 @@ public class User {
 	}
 	
 	/**
+	 * accessor for fullName
+	 * @return fullName
+	 */
+	public String getFullName() {
+		return fullName;
+	}
+	
+	/**
 	 * setter for Id
 	 * @param id
 	 */
@@ -48,5 +58,18 @@ public class User {
 	 */
 	public int getId() {
 		return id;
+	}
+	
+	/**
+	 * returns string representation of user
+	 */
+	public String toString() {
+		StringBuilder out = new StringBuilder("user: ");
+		out.append("fullName=" + fullName + ", ");
+		out.append("username=" + username + ", ");
+		out.append("password=" + password + ", ");
+		out.append("id=" + id + ".");
+		
+		return out.toString();
 	}
 }

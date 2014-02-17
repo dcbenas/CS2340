@@ -1,10 +1,15 @@
-package com.example.cs2340project;
+package com.CeramicKoala.cs2340.activities;
+
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.DatabaseModelInterface;
+import com.example.cs2340project.R;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
@@ -13,7 +18,7 @@ import android.os.Build;
 
 public abstract class AccountManagementActivity extends Activity {
 	
-	protected static AccountOpenHelper accountHelper;
+	protected static DatabaseModelInterface dbModel;
 	protected AlertDialog alertDialog;
 	protected String username;
 	protected String password; 
@@ -22,12 +27,14 @@ public abstract class AccountManagementActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupActionBar();
-		accountHelper = new AccountOpenHelper(this);
+		dbModel = new AccountOpenHelper(this);
 		
 		//retrieve username and password info from intent sent by MainActivity
 		Intent intent = getIntent();
-		username = intent.getStringExtra(MainActivity.USERNAME);
-		password = intent.getStringExtra(MainActivity.PASSWORD);
+		String USERNAME = getText(R.string.username_constant).toString();
+		String PASSWORD = getText(R.string.password_constant).toString();
+		username = intent.getStringExtra(USERNAME);
+		password = intent.getStringExtra(PASSWORD);
 		
 	}
 
@@ -79,5 +86,28 @@ public abstract class AccountManagementActivity extends Activity {
 		});
 		return alertDialog;
 	}
-
+	
+	/**
+	 * helper method that places username and password
+	 * for logging in into an intent
+	 * @return Intent with username and password
+	 */
+	protected Intent getIntent(Class<?> activityClass) {
+		
+		final String USERNAME = getText(R.string.username_constant).toString();
+		final String PASSWORD = getText(R.string.password_constant).toString();
+		Intent intent = new Intent(this, activityClass);
+		
+		//set username
+		EditText register_username = (EditText) findViewById(R.id.register_username);
+		String username = register_username.getText().toString();
+		intent.putExtra(USERNAME, username);
+		
+		//set password
+		EditText register_password = (EditText) findViewById(R.id.register_password);
+		String password = register_password.getText().toString();
+		intent.putExtra(PASSWORD, password);
+		
+		return intent;
+	}
 }

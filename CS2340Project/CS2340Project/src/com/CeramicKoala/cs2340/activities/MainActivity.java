@@ -1,4 +1,10 @@
-package com.example.cs2340project;
+package com.CeramicKoala.cs2340.activities;
+
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.DatabaseModelInterface;
+import com.CeramicKoala.cs2340.model.User;
+import com.example.cs2340project.BuildConfig;
+import com.example.cs2340project.R;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,16 +25,11 @@ import android.widget.TextView;
  * @version 1.0
  */
 public class MainActivity extends Activity {
-
-	//constants for use in creating loggedIn intent
-	public static final String USERNAME = "com.example.cs2340project.USERNAME";
-	public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		createAdmin();
 	}
 
 	@Override
@@ -75,6 +76,10 @@ public class MainActivity extends Activity {
 	 * @return Intent with username and password
 	 */
 	private Intent getIntent(Class<?> activityClass) {
+		//TODO implement a method for sending Users through intents rather than individual fields
+		
+		final String USERNAME = getText(R.string.username_constant).toString();
+		final String PASSWORD = getText(R.string.password_constant).toString();
 		Intent intent = new Intent(this, activityClass);
 		
 		//get username
@@ -96,9 +101,12 @@ public class MainActivity extends Activity {
 	 * if table is already empty. Does remove admin
 	 */
 	public void resetDatabase(View view) {
-		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
-		boolean success = accountHelper.resetDatabase();
+		DatabaseModelInterface dbModel = new AccountOpenHelper(this);
+		boolean success = dbModel.resetDatabase();
+		//replace the admin that was just deleted
+		createAdmin();
 		Log.d("reset db", String.valueOf(success));
+		onResume();
 	}
 	
 	/**
@@ -106,9 +114,12 @@ public class MainActivity extends Activity {
 	 * creates an admin user (if one does not already exist)
 	 */
 	private void createAdmin() {
-		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
-		User admin = accountHelper.addUser(
-				new User(getString(R.string.default_user), getString(R.string.default_password)));
+		DatabaseModelInterface dbModel = new AccountOpenHelper(this);
+		User admin = dbModel.addUser(
+				new User(
+						getString(R.string.default_full_name),
+						getString(R.string.default_user), 
+						getString(R.string.default_password)));
 		
 		//DEBUG
 		if (BuildConfig.DEBUG) {
@@ -122,11 +133,11 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
-	 * @see AccountOpenHelper#getTableInfo()
+	 * @see DatabaseModelInterface#getTableInfo()
 	 */
 	private String getTableInfo() {
-		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
-		return accountHelper.getTableInfo();
+		DatabaseModelInterface dbModel = new AccountOpenHelper(this);
+		return dbModel.getTableInfo();
 	}
 	
 	

@@ -1,7 +1,9 @@
-package com.example.cs2340project;
+package com.CeramicKoala.cs2340.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.cs2340project.BuildConfig;
 
 import android.annotation.TargetApi;
 import android.content.ContentValues;
@@ -22,18 +24,19 @@ import android.util.Log;
  *
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class AccountOpenHelper extends SQLiteOpenHelper {
+public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModelInterface {
 
 	//info specific to SQLite database and table
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 	private static final String DATABASE_NAME = "CeramicKoala";
     private static final String LOGIN_TABLE = "login";
     private static final String KEY_ID = "id";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_FULL_NAME = "fullName";
     
 
-    AccountOpenHelper(Context context) {
+    public AccountOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -43,7 +46,8 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
                 "CREATE TABLE IF NOT EXISTS " + LOGIN_TABLE + 
                 "(" + KEY_ID + " INTEGER PRIMARY KEY, "
                 + KEY_USERNAME + " TEXT, "
-                + KEY_PASSWORD + " TEXT);";
+                + KEY_PASSWORD + " TEXT, "
+                + KEY_FULL_NAME + " TEXT);";
     	
         db.execSQL(LOGIN_TABLE_CREATE);
     }
@@ -56,13 +60,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	onCreate(db);
     }
     
-    /**
-     * creates a new row in table and adds user 
-     * username and password. Only adds user if user
-     * does not already exist
-     * @param user contains username and password
-     * @return User that has been added
-     */
+    @Override
     public User addUser(User user) {
     	boolean userAlreadyExists = checkUserAlreadyExists(user);
     	
@@ -72,13 +70,14 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	}
     	
     	if (userAlreadyExists) {
-    		User noUser = new User(null, null);
+    		User noUser = new User(null, null, null);
     		user.setId(-1);
     		return noUser;
     	} else {
     		//add new user
     		SQLiteDatabase db = this.getWritableDatabase();
         	ContentValues values = new ContentValues();
+        	values.put(KEY_FULL_NAME, user.getFullName());
         	values.put(KEY_USERNAME, user.getUsername());
         	values.put(KEY_PASSWORD, user.getPassword());
         	
@@ -87,7 +86,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
         	if (success != -1) {
         		return user;
         	} else {
-        		User noUser = new User(null, null);
+        		User noUser = new User(null, null, null);
         		user.setId(-1);
         		return noUser;
         	}
@@ -95,17 +94,12 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	
     }
     
-    /**
-     * updates user information (username or password)
-     * user Id cannot change and is therefore used to 
-     * query the database.
-     * @param user with updated information
-     * @return true if successful
-     */
+    @Override
     public boolean updateUser(User user) {
     	SQLiteDatabase db = this.getWritableDatabase();
     	
     	ContentValues values = new ContentValues();
+    	values.put(KEY_FULL_NAME, user.getFullName());
     	values.put(KEY_USERNAME, user.getUsername());
     	values.put(KEY_PASSWORD, user.getPassword());
     	
@@ -121,11 +115,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	}
     }
     
-    /**
-     * deletes a user from the db based on user Id
-     * @param user the user to be deleted
-     * @return true if successful
-     */
+    @Override
     public boolean deleteUser(User user) {
     	SQLiteDatabase db = this.getWritableDatabase();
     	
@@ -136,16 +126,10 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	return (success > 0);
     }
     
-    /**
-     * searches table for user and returns User
-     * @param username of the user to search for
-     * @return User with username that was passed in
-     * If user does not exist, a null user with Id -1
-     * is returned
-     */
+    @Override
     public User getUser(String username) {
     	SQLiteDatabase db = this.getReadableDatabase();
-    	String[] columns = {KEY_USERNAME, KEY_PASSWORD, KEY_ID};
+    	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD, KEY_ID};
     	String selection = KEY_USERNAME + "=" + "'" + username + "'";
     	
     	//Cursor cursor = db.rawQuery("SELECT * FROM login WHERE username = '" , selectionArgs)
@@ -161,27 +145,24 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     		
     		//populate user with info from db
     		User user = new User(
+    				cursor.getString(cursor.getColumnIndex(KEY_FULL_NAME)),
         			cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
         			cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
         	user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         	
         	return user;
     	} else {
-    		User noUser = new User(null, null);
+    		User noUser = new User(null, null, null);
     		noUser.setId(-1);
     		
     		return noUser;
     	}
     }
     
-    /**
-     * returns a list of all users currently in the table
-     * in order of id (which correlates to date created)
-     * @return list of all users
-     */
+    @Override
     public List<User> getAllUsers() {
     	SQLiteDatabase db = this.getReadableDatabase();
-    	String[] columns = {KEY_USERNAME, KEY_PASSWORD};
+    	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD};
     	String orderBy = KEY_ID + " ASC";
     	
     	Cursor cursor = db.query(LOGIN_TABLE, columns, null, null, null, null, orderBy);
@@ -192,6 +173,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
         	
         	do {
         		User user = new User(
+        				cursor.getString(cursor.getColumnIndex(KEY_FULL_NAME)),
         				cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
         				cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
         		userList.add(user);
@@ -201,11 +183,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	return userList;
     }
     
-    /**
-     * gets number of rows for login table
-     * @return number of rows. return -1
-     * if error occurred
-     */
+    @Override
     public int getTableSize() {
     	SQLiteDatabase db = this.getReadableDatabase();
     	Cursor cursor = db.rawQuery("SELECT count (*) FROM " + LOGIN_TABLE + ";", null);
@@ -217,13 +195,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	}
     }
     
-    /**
-     * DEBUG
-     * deletes all rows in login table. For development use only
-     * should be removed before deployment
-     * @return true if successful, false if unsuccessful
-     * or if not in debug mode
-     */
+    @Override
     public boolean resetDatabase() {
     	//DEBUG
     	if (BuildConfig.DEBUG) {
@@ -233,25 +205,12 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     		return false;
     	}
     }
-
-    /**
-     * checks database to see if username already exists
-     * @param user
-     * @return
-     */
-    private boolean checkUserAlreadyExists(User user) {
-    	User dbUser = getUser(user.getUsername());
-    	//if user exists, user will have an Id other than -1
-    	return (dbUser.getId() != -1);
-    }
     
-    /**
-     * gives info about the db login table
-     * info: size, list of usernames
-     * @return string containing info
-     */
+    @Override
     public String getTableInfo() {
-    	StringBuffer info = new StringBuffer();
+    	StringBuilder info = new StringBuilder();
+    	
+    	//table info
     	info.append("table info: \n");
     	info.append(this.getReadableDatabase().toString() + "\n");
     	
@@ -266,6 +225,17 @@ public class AccountOpenHelper extends SQLiteOpenHelper {
     	}
     	
     	return info.toString();
+    }
+    
+    /**
+     * checks database to see if username already exists
+     * @param user
+     * @return
+     */
+    private boolean checkUserAlreadyExists(User user) {
+    	User dbUser = getUser(user.getUsername());
+    	//if user exists, user will have an Id other than -1
+    	return (dbUser.getId() != -1);
     }
     
 }
