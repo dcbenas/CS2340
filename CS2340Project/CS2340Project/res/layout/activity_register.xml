@@ -62,7 +62,6 @@
         android:id="@+id/register_submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignCenter="@+id/register_message"
         android:layout_below="@+id/register_password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
