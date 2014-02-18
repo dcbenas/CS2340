@@ -1,8 +1,8 @@
 package com.CeramicKoala.cs2340.activities;
 
+import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseModelInterface;
-import com.example.cs2340project.R;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -80,10 +80,17 @@ public abstract class AccountManagementActivity extends Activity {
 		alertDialog.setTitle(title);
 		alertDialog.setMessage(message);
 		alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Go Back", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				finish();
 			}
 		});
+
 		return alertDialog;
 	}
 	

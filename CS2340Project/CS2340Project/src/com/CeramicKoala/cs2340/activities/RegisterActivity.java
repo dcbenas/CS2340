@@ -1,15 +1,14 @@
 package com.CeramicKoala.cs2340.activities;
 
+import com.CeramicKoala.cs2340.BuildConfig;
+import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.User;
-import com.example.cs2340project.BuildConfig;
-import com.example.cs2340project.R;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 
 /**
  * this activity handles new account registration. Takes in username and password
@@ -28,6 +27,7 @@ public class RegisterActivity extends AccountManagementActivity {
 	EditText register_full_name;
 	
 	//TODO add confirm password field and check password
+	//TODO prevent login activity from starting if username already exists
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,20 +77,13 @@ public class RegisterActivity extends AccountManagementActivity {
 			Log.d("LogInActivity.add_user", String.valueOf(user.getId()));
 		}
 		
-		//set textView text with successful registration message or show alert dialog
-		TextView registerMessageTextView = (TextView) findViewById(R.id.register_message);
-		String registerMessage;
 		if (password.equals(user.getPassword())) {
-			registerMessage = getString(R.string.register_success)
-					+ "\n" + "Full Name: " + user.getFullName()
-					+ "\n" + "Username: " + user.getUsername() 
-					+ "\n" + "Password: " + user.getPassword();
-			registerMessageTextView.setText(registerMessage);
+			startActivity(getIntent(LogInActivity.class));
 		} else {
 			alertDialog.show();
 		}
 				
-		startActivity(getIntent(LogInActivity.class));
+		
 	}
 	
 

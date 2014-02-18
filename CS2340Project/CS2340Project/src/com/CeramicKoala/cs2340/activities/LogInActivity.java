@@ -1,8 +1,8 @@
 package com.CeramicKoala.cs2340.activities;
 
+import com.CeramicKoala.cs2340.BuildConfig;
+import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.User;
-import com.example.cs2340project.BuildConfig;
-import com.example.cs2340project.R;
 
 import android.os.Bundle;
 import android.util.Log;

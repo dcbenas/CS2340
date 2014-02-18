@@ -3,7 +3,7 @@ package com.CeramicKoala.cs2340.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.cs2340project.BuildConfig;
+import com.CeramicKoala.cs2340.BuildConfig;
 
 import android.annotation.TargetApi;
 import android.content.ContentValues;
@@ -27,7 +27,7 @@ import android.util.Log;
 public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModelInterface {
 
 	//info specific to SQLite database and table
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 5;
 	private static final String DATABASE_NAME = "CeramicKoala";
     private static final String LOGIN_TABLE = "login";
     private static final String KEY_ID = "id";
