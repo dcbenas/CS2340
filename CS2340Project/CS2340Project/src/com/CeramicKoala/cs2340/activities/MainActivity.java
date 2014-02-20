@@ -27,7 +27,6 @@ import android.widget.TextView;
  * @version 1.0
  */
 public class MainActivity extends Activity {
-<<<<<<< HEAD:CS2340Project/CS2340Project/src/com/CeramicKoala/cs2340/activities/MainActivity.java
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
