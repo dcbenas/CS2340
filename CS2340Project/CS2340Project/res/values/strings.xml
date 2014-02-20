@@ -31,12 +31,10 @@
     <string name="register_error_username_already_exists">The username you have entered already exists</string>
     <string name="register_message">Please enter your information and then click submit.</string>
     <string name="title_activity_account_management">AccountManagementActivity</string>
-<<<<<<< HEAD
+
     <string name="submit">Submit</string>
     
-=======
     
     <string name="log_in_error_pass_at_least_six">The password must be at least six letters long.</string>
->>>>>>> master
 
 </resources>

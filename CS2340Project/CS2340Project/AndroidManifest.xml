@@ -31,12 +31,6 @@
                 android:value="com.example.cs2340project.MainActivity" />
         </activity>
 
-        <service
-            android:name="com.CeramicKoala.cs2340.model.AccountOpenHelper"
-            android:enabled="true"
-            android:exported="false" >
-        </service>
-
         <activity
             android:name="com.CeramicKoala.cs2340.activities.RegisterActivity"
             android:label="@string/title_activity_register"
