@@ -95,7 +95,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModel
     }
     
     @Override
-    public boolean updateUser(User user) {
+    public User updateUser(User user) {
     	SQLiteDatabase db = this.getWritableDatabase();
     	
     	ContentValues values = new ContentValues();
@@ -105,13 +105,18 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModel
     	
     	//update user if new username is not already in use
     	if (checkUserAlreadyExists(user)) {
-    		return false;
+    		return new User(null, null, null);
     	} else {
     		String where = KEY_ID + "=?";
         	String[] whereArgs = {String.valueOf(user.getId())};
         	
         	int success = db.update(LOGIN_TABLE, values, where, whereArgs);
-        	return (success > 0);
+        	if (success >0) {
+        		//return newly updated user
+        		return getUser(user.getUsername());
+        	} else {
+        		return new User(null, null, null);
+        	}
     	}
     }
     
@@ -152,10 +157,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModel
         	
         	return user;
     	} else {
-    		User noUser = new User(null, null, null);
-    		noUser.setId(-1);
-    		
-    		return noUser;
+    		return new User(null, null, null);
     	}
     }
     

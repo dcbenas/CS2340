@@ -37,7 +37,7 @@ public class LogInActivity extends AccountManagementActivity {
 		//DEBUG
 		if (BuildConfig.DEBUG) {
 			//Log success of getUser()
-			if (user.getId() == -1) Log.d("LogInActivity.get_user", "user does not exist");
+			if (user.getId() == 0) Log.d("LogInActivity.get_user", "user does not exist");
 		}
 		
 		//set textView text with successful login message or display alert dialog
