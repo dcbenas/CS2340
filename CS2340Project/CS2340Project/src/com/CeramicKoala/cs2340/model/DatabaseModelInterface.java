@@ -45,14 +45,38 @@ public interface DatabaseModelInterface {
      */
     public User getUser(String username);
     
+    /**
+     * gets a list of all users
+     * @return List<User> all users in database or empty list
+     * if there are no users
+     */
     public List<User> getAllUsers();
     
+    /**
+     * gets the number of rows in table
+     * @return int size of table
+     */
     public int getTableSize();
     
+    /**
+     * deletes all rows in the table
+     * @return
+     */
     public boolean resetDatabase();
     
+    /**
+     * gets table.toString, table size, and a list of
+     * all usernames
+     * @return String above information
+     */
     public String getTableInfo();
     
-    public boolean addAccount(User user, Account account);
+    /**
+     * adds a new account for a specific user
+     * @param user
+     * @param account
+     * @return User newly updated user with account added
+     */
+    public User addAccount(User user, Account account);
    
 }
