@@ -20,7 +20,9 @@ import android.widget.TextView;
  *
  */
 public class LogInActivity extends AccountManagementActivity {
-
+	//TODO prevent login activity from starting if username already exists
+	//TODO set content view to existing user xml if user has accounts and move setContentView down to bottom
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		

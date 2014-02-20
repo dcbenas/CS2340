@@ -9,6 +9,8 @@ package com.CeramicKoala.cs2340.model;
  *
  */
 public class User {
+	//TODO add account field (array of accounts) and getter/setters
+	
 	private String username;
 	private String password;
 	private String fullName;

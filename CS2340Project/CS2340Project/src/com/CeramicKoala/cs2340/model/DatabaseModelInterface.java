@@ -11,6 +11,7 @@ import android.util.Log;
 import com.CeramicKoala.cs2340.BuildConfig;
 
 public interface DatabaseModelInterface {
+	//TODO create classes for each account type
     
     
     public User addUser(User user);

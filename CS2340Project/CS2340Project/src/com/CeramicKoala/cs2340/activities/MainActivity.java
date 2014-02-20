@@ -27,6 +27,8 @@ import android.widget.TextView;
  * @version 1.0
  */
 public class MainActivity extends Activity {
+	
+	//TODO implement a method for sending Users through intents rather than individual fields
 
 	 //constants for use in creating loggedIn intent
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
