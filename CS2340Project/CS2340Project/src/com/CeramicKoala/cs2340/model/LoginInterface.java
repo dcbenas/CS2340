@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.CeramicKoala.cs2340.BuildConfig;
 
-public interface DatabaseModelInterface {
+public interface LoginInterface {
 	//TODO create classes for each account type
     
     /**
@@ -71,12 +71,5 @@ public interface DatabaseModelInterface {
      */
     public String getTableInfo();
     
-    /**
-     * adds a new account for a specific user
-     * @param user
-     * @param account
-     * @return User newly updated user with account added
-     */
-    public User addAccount(User user, Account account);
    
 }

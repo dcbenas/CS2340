@@ -25,7 +25,7 @@ import android.util.Log;
  *
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseModelInterface {
+public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface {
 	
 	//info specific to SQLite database and table
 	private static final int DATABASE_VERSION = 5;

@@ -3,7 +3,7 @@ package com.CeramicKoala.cs2340.activities;
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.DatabaseModelInterface;
+import com.CeramicKoala.cs2340.model.LoginInterface;
 import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
 	 * if table is already empty. Does remove admin
 	 */
 	public void resetDatabase(View view) {
-		DatabaseModelInterface dbModel = new LoginOpenHelper(this);
+		LoginInterface dbModel = new LoginOpenHelper(this);
 		boolean success = dbModel.resetDatabase();
 		//replace the admin that was just deleted
 		createAdmin();
@@ -146,7 +146,7 @@ public class MainActivity extends Activity {
 	 * creates an admin user (if one does not already exist)
 	 */
 	private void createAdmin() {
-		DatabaseModelInterface dbModel = new LoginOpenHelper(this);
+		LoginInterface dbModel = new LoginOpenHelper(this);
 		User admin = dbModel.addUser(
 				new User(
 						getString(R.string.default_full_name),
@@ -165,10 +165,10 @@ public class MainActivity extends Activity {
 	}
 	
 	/**
-	 * @see DatabaseModelInterface#getTableInfo()
+	 * @see LoginInterface#getTableInfo()
 	 */
 	private String getTableInfo() {
-		DatabaseModelInterface dbModel = new LoginOpenHelper(this);
+		LoginInterface dbModel = new LoginOpenHelper(this);
 		return dbModel.getTableInfo();
 	}
  

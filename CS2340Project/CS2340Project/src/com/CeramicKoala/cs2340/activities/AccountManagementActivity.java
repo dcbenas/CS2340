@@ -2,7 +2,7 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.DatabaseModelInterface;
+import com.CeramicKoala.cs2340.model.LoginInterface;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,7 +18,7 @@ import android.os.Build;
 
 public abstract class AccountManagementActivity extends Activity {
 	
-	protected static DatabaseModelInterface dbModel;
+	protected static LoginInterface dbModel;
 	protected AlertDialog alertDialog;
 	protected String username;
 	protected String password; 
