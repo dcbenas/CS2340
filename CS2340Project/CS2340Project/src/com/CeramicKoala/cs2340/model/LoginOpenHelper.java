@@ -17,13 +17,14 @@ import android.util.Log;
 /**
  * LoginOpenHelper provides an interface for performing CRUD operations on the
  * login table in the CeramicKoala SQLite Database
+ * @see com.CeramicKoala.cs2340.test.LoginOpenHelperTest
  * @author Benjamin Newcomer
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHelper<User> {
 	
 	//info specific to SQLite database and table
-	static final int DATABASE_VERSION = 5;
+	static final int DATABASE_VERSION = 1;
 	static final String DATABASE_NAME = "CeramicKoala";
 	//table holding login info
     static final String LOGIN_TABLE = "login";
@@ -57,6 +58,11 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHel
     			"DROP TABLE IF EXISTS " + LOGIN_TABLE + ";";
     	db.execSQL(upgrade);
     	onCreate(db);
+    }
+    
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    	//do nothing
     }
     
     @Override

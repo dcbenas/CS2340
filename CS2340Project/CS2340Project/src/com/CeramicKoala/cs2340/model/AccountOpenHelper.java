@@ -56,6 +56,11 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseOpenH
 
 	}
 	
+    @Override
+    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    	//do nothing
+    }
+	
 	@Override
     public Account addElement(Account account) throws DatabaseException {
     	//if (!loginHelper.checkUserAlreadyExists(user)) throw new DatabaseException("user does not exist.");

@@ -1,14 +1,16 @@
 package com.CeramicKoala.cs2340.model;
 
 public class DatabaseException extends Exception {
-	
-	private String message;
+
+	public DatabaseException(String message) {
+		super(message);
+	}
 	
 	public DatabaseException() {
-		message = "unknown database error";
+		this("unknown database error");
 	}
 	
-	public DatabaseException(String message) {
-		this.message = message;
-	}
+
+	
+	
 }

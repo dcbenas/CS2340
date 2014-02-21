@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	 public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
 	 protected AlertDialog loginWrong;
-	 private AlertDialog passWrong;
+	 //private AlertDialog passWrong;
 	 
 	
 	@Override
