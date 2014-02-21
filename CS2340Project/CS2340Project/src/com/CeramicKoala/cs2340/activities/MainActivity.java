@@ -2,8 +2,9 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.DatabaseException;
+import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.LoginInterface;
 import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
@@ -133,8 +134,8 @@ public class MainActivity extends Activity {
 	 * if table is already empty. Does remove admin
 	 */
 	public void resetDatabase(View view) {
-		LoginInterface dbModel = new LoginOpenHelper(this);
-		boolean success = dbModel.resetDatabase();
+		DatabaseOpenHelper<User> dbModel = new LoginOpenHelper(this);
+		boolean success = dbModel.resetTable();
 		//replace the admin that was just deleted
 		createAdmin();
 		Log.d("reset db", String.valueOf(success));
@@ -146,47 +147,40 @@ public class MainActivity extends Activity {
 	 * creates an admin user (if one does not already exist)
 	 */
 	private void createAdmin() {
-		LoginInterface dbModel = new LoginOpenHelper(this);
-		User admin = dbModel.addUser(
-				new User(
-						getString(R.string.default_full_name),
-						getString(R.string.default_user), 
-						getString(R.string.default_password)));
-		
-		//DEBUG
-		if (BuildConfig.DEBUG) {
-			if (admin.getId() != -1) {
-				Log.d("MainActivity.create_admin", "admin created");
-			} else {
-				Log.d("MainActivity.create_admin", "admin already exists");
+		DatabaseOpenHelper<User> dbModel = new LoginOpenHelper(this);
+		try {
+			dbModel.addElement( new User(
+							getString(R.string.default_full_name),
+							getString(R.string.default_user), 
+							getString(R.string.default_password)));
+			if (BuildConfig.DEBUG) {
+					Log.d("MainActivity.create_admin", "admin created");
+			}
+		} catch (DatabaseException e) {
+			if (BuildConfig.DEBUG) {
+				Log.d("MainActivity.create_admin", e.getMessage());
 			}
 		}
-
 	}
 	
 	/**
-	 * @see LoginInterface#getTableInfo()
+	 * @see DatabaseOpenHelper#getTableInfo()
 	 */
 	private String getTableInfo() {
-		LoginInterface dbModel = new LoginOpenHelper(this);
+		DatabaseOpenHelper<User> dbModel = new LoginOpenHelper(this);
 		return dbModel.getTableInfo();
 	}
  
- /*
-  * checks input requirements
-  */
- 
-
- 
-	 protected AlertDialog setUpAlertDialog(String title, String message) {
-	  AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-	  alertDialog.setTitle(title);
-	  alertDialog.setMessage(message);
-	  alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-	   public void onClick(DialogInterface dialog, int which) {
+	protected AlertDialog setUpAlertDialog(String title, String message) {
+		
+		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		alertDialog.setTitle(title);
+		alertDialog.setMessage(message);
+		alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
 	    
-	   }
-	  });
-	  return alertDialog;
-	 }
+			}
+		});
+		return alertDialog;
+	}
 }

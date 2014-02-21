@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.CeramicKoala.cs2340.BuildConfig;
-import com.CeramicKoala.cs2340.R;
 
 import android.annotation.TargetApi;
 import android.content.ContentValues;
@@ -16,13 +15,9 @@ import android.os.Build;
 import android.util.Log;
 
 /**
- * This class interfaces with the SQLite db and handles account CRUD.
- * Currently supported actions: add new user (checks if user already exists),
- * update user, delete user, get user, get all users, 
- * reset database (for dev purposes only).
+ * LoginOpenHelper provides an interface for performing CRUD operations on the
+ * login table in the CeramicKoala SQLite Database
  * @author Benjamin Newcomer
- * @version 1.0
- *
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHelper<User> {

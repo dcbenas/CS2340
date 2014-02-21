@@ -5,32 +5,41 @@ package com.CeramicKoala.cs2340.model;
  * will be created. Account will be set to abstract when child classes are written.
  * @author Benjamin Newcomer
  */
-public class Account {
+public class Account extends DatabaseElement {
 	
-	//the Id of the user associated with the account
 	private int userId;
-	//name of the account (selected by user)
-	private String name;
 	private double balance;
 	private double interestRate;
 	
 	/**
-	 * constructor to be used when there is no interest rate
-	 * @param name
-	 * @param balance
+	 * minimal constructor
+	 * @param accountId
+	 * @param userId
 	 */
-	public Account(String name, double balance) {
-		this.name = name;
-		this.balance = balance;
-		this.interestRate = 0;
+	public Account(int userId) {
+		this.userId = userId;
+		
+		id = 0;
+		name = "";
+		balance = 0;
+		interestRate = 0;
 	}
 	
 	/**
-	 * setter for name
-	 * @param name, new name
+	 * full constructor
+	 * @param accountId
+	 * @param userId
+	 * @param name
+	 * @param balance
+	 * @param interestRate
 	 */
-	public void setName(String name) {
+	public Account(int accountId, int userId, String name, double balance, double interestRate) {
+		this(userId);
+		
+		this.id = accountId;
 		this.name = name;
+		this.balance = balance;
+		this.interestRate = interestRate;
 	}
 	
 	/**
@@ -59,14 +68,6 @@ public class Account {
 	}
 	
 	/**
-	 * accessor for name
-	 * @return String name
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
 	 * accessor for balance
 	 * @return double balance
 	 */
@@ -80,6 +81,33 @@ public class Account {
 	 */
 	public double getInterestRate() {
 		return interestRate;
+	}
+	
+	/**
+	 * accessor for id
+	 * @return int id
+	 */
+	public int getUserId() {
+		return userId;
+	}
+	
+	/**
+	 * accessor for account id (stored as id)
+	 * @see DatabaseElement#getId()
+	 * @return account id
+	 */
+	public int getAccountId() {
+		return getId();
+	}
+	
+	public String toString() {
+		StringBuilder out = new StringBuilder();
+		out.append("name: " + name + ", ");
+		out.append("userId: " + userId + ", ");
+		out.append("accountId: " + id + ", ");
+		out.append("balance: " + balance + ", ");
+		out.append("interestRate: " + interestRate + ", ");
+		return out.toString();
 	}
 	
 }

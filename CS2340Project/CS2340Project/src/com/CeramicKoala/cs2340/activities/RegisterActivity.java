@@ -2,6 +2,7 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.User;
 
 import android.content.Intent;
@@ -69,21 +70,18 @@ public class RegisterActivity extends AccountManagementActivity {
 		fullName = register_full_name.getText().toString();
 		
 		//add user to database
-		User user = dbModel.addUser(new User(fullName, username, password));
-		
-		//DEBUG
-		if (BuildConfig.DEBUG) {
-			//log success of addUser()
-			Log.d("LogInActivity.add_user", String.valueOf(user.getId()));
-		}
-		
-		if (password.equals(user.getPassword())) {
-			startActivity(getIntent(LogInActivity.class));
-		} else {
+		try {
+			User user = loginHelper.addElement(new User(fullName, username, password));
+			if (password.equals(user.getPassword())) {
+				startActivity(getIntent(LogInActivity.class));
+			}
+		} catch (DatabaseException e) {
+			if (BuildConfig.DEBUG) {
+				alertDialog.setMessage(e.getMessage());
+			}
 			alertDialog.show();
 		}
 				
-		
 	}
 	
 

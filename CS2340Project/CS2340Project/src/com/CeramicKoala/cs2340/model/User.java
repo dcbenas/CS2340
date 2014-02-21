@@ -8,26 +8,22 @@ package com.CeramicKoala.cs2340.model;
  * @author Benjamin Newcomer
  *
  */
-public class User {
+public class User extends DatabaseElement {
 	//TODO add account field (array of accounts) and getter/setters
 	
-	private String username;
 	private String password;
 	private String fullName;
-	private int id;
-	
-	public User(String fullName, String username, String password) {
-		this.fullName = fullName;
-		this.username = username;
-		this.password = password;
-	}
 	
 	/**
-	 * accessor for username
-	 * @return username
+	 * constructor
+	 * @param fullName
+	 * @param username
+	 * @param password
 	 */
-	public String getUsername() {
-		return username;
+	public User(String fullName, String username, String password) {
+		this.fullName = fullName;
+		this.name = username;
+		this.password = password;
 	}
 	
 	/**
@@ -47,19 +43,20 @@ public class User {
 	}
 	
 	/**
-	 * setter for Id
-	 * @param id
+	 * accessor for username (stored as name)
+	 * @see DatabaseElement#getId()
+	 * @return username
 	 */
-	public void setId(int id) {
-		this.id = id;
+	public String getUsername() {
+		return getName();
 	}
 	
 	/**
-	 * accessor for Id
-	 * @return int Id
+	 * setter for fullName
+	 * @param fullName
 	 */
-	public int getId() {
-		return id;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	
 	/**
@@ -68,7 +65,7 @@ public class User {
 	public String toString() {
 		StringBuilder out = new StringBuilder("user: ");
 		out.append("fullName=" + fullName + ", ");
-		out.append("username=" + username + ", ");
+		out.append("username=" + name + ", ");
 		out.append("password=" + password + ", ");
 		out.append("id=" + id + ".");
 		

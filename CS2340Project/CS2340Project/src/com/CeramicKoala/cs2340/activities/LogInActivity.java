@@ -2,6 +2,7 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
@@ -31,14 +32,14 @@ public class LogInActivity extends AccountManagementActivity {
 		setContentView(R.layout.activity_log_in);
 		alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account));
 		
-		//get user from database
-		User user = dbModel.getUser(username);
-		
-		//DEBUG
-		if (BuildConfig.DEBUG) {
-			//Log success of getUser()
-			if (user.getId() == 0) Log.d("LogInActivity.get_user", "user does not exist");
+		User user = new User(null, null, null);
+		try {
+			//get user from database
+			user = loginHelper.getElementByName(username);
+		} catch (DatabaseException e) {
+			Log.d("LogInActivity.get_user", e.getMessage());
 		}
+
 		
 		//set textView text with successful login message or display alert dialog
 		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);

@@ -2,7 +2,7 @@ package com.CeramicKoala.cs2340.model;
 
 import java.util.List;
 
-public interface DatabaseOpenHelper<T> {
+public interface DatabaseOpenHelper<T extends DatabaseElement> {
 	
 	/**
      * adds a new element to the table. 
@@ -10,7 +10,7 @@ public interface DatabaseOpenHelper<T> {
      * @return T newly added element if successful
      * @throws DatabaseException if unsuccessful
      */
-    public T createElement(T t) throws DatabaseException;
+    public T addElement(T t) throws DatabaseException;
     
     /**
      * updates element in table
