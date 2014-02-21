@@ -36,12 +36,7 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_FULL_NAME = "fullName";
-//    //table holding Account info
-//    private static final String ACCOUNT_TABLE = "account";
-//    //uses KEY_ID from login table
-//    private static final String KEY_ACCOUNT_NAME = "accountName";
-//    private static final String KEY_ACCOUNT_BALANCE = "accountBalance";
-//    private static final String KEY_ACCOUNT_INTEREST_RATE = "accountInterestRate";
+
     
 
     public LoginOpenHelper(Context context) {
