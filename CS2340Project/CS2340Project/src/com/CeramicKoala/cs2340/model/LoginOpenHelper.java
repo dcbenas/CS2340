@@ -25,17 +25,17 @@ import android.util.Log;
  *
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface {
+public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHelper<User> {
 	
 	//info specific to SQLite database and table
-	private static final int DATABASE_VERSION = 5;
-	private static final String DATABASE_NAME = "CeramicKoala";
+	static final int DATABASE_VERSION = 5;
+	static final String DATABASE_NAME = "CeramicKoala";
 	//table holding login info
-    private static final String LOGIN_TABLE = "login";
-    private static final String KEY_ID = "id";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_FULL_NAME = "fullName";
+    static final String LOGIN_TABLE = "login";
+    static final String KEY_ID = "userId";
+    static final String KEY_USERNAME = "username";
+    static final String KEY_PASSWORD = "password";
+    static final String KEY_FULL_NAME = "fullName";
 
     
 
@@ -54,8 +54,6 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
                 + KEY_FULL_NAME + " TEXT);";
     	
         db.execSQL(LOGIN_TABLE_CREATE);
-        
-        //create account table if not exists
     }
     
     @Override
@@ -67,41 +65,30 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
     }
     
     @Override
-    public User addUser(User user) {
-    	boolean userAlreadyExists = checkUserAlreadyExists(user);
+    public User addElement(User user) throws DatabaseException {
+    	if (checkUserAlreadyExists(user)) throw new DatabaseException("user already exists"); 
     	
-    	//DEBUG
-    	if (BuildConfig.DEBUG) {
-        	Log.d("LoginOpenHelper.addUser.user_already_exists", String.valueOf(userAlreadyExists));
-    	}
+		//add new user
+		SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_FULL_NAME, user.getFullName());
+    	values.put(KEY_USERNAME, user.getUsername());
+    	values.put(KEY_PASSWORD, user.getPassword());
     	
-    	if (userAlreadyExists) {
+    	long success = db.insert(LOGIN_TABLE, null, values);
+    	db.close();
+    	if (success != -1) {
+    		return user;
+    	} else {
     		User noUser = new User(null, null, null);
     		user.setId(-1);
     		return noUser;
-    	} else {
-    		//add new user
-    		SQLiteDatabase db = this.getWritableDatabase();
-        	ContentValues values = new ContentValues();
-        	values.put(KEY_FULL_NAME, user.getFullName());
-        	values.put(KEY_USERNAME, user.getUsername());
-        	values.put(KEY_PASSWORD, user.getPassword());
-        	
-        	long success = db.insert(LOGIN_TABLE, null, values);
-        	db.close();
-        	if (success != -1) {
-        		return user;
-        	} else {
-        		User noUser = new User(null, null, null);
-        		user.setId(-1);
-        		return noUser;
-        	}
     	}
     	
     }
     
     @Override
-    public User updateUser(User user) {
+    public User updateElement(User user) {
     	SQLiteDatabase db = this.getWritableDatabase();
     	
     	ContentValues values = new ContentValues();
@@ -119,7 +106,11 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
         	int success = db.update(LOGIN_TABLE, values, where, whereArgs);
         	if (success >0) {
         		//return newly updated user
-        		return getUser(user.getUsername());
+        		try {
+                	return getElementByName(user.getUsername());
+        		} catch (DatabaseException e) {
+        			return new User(null, null, null);
+        		}
         	} else {
         		return new User(null, null, null);
         	}
@@ -127,7 +118,7 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
     }
     
     @Override
-    public boolean deleteUser(User user) {
+    public boolean deleteElement(User user) {
     	SQLiteDatabase db = this.getWritableDatabase();
     	
     	String where = KEY_ID + "=?";
@@ -138,7 +129,7 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
     }
     
     @Override
-    public User getUser(String username) {
+    public User getElementByName(String username) throws DatabaseException {
     	SQLiteDatabase db = this.getReadableDatabase();
     	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD, KEY_ID};
     	String selection = KEY_USERNAME + "=" + "'" + username + "'";
@@ -163,12 +154,17 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
         	
         	return user;
     	} else {
-    		return new User(null, null, null);
+    		throw new DatabaseException("user does not exist");
     	}
     }
     
     @Override
-    public List<User> getAllUsers() {
+    public User getElementById(int id) throws UnsupportedOperationException {
+    	throw new UnsupportedOperationException("use getElementByName(String username)");
+    }
+    
+    @Override
+    public List<User> getAllElements() {
     	SQLiteDatabase db = this.getReadableDatabase();
     	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD};
     	String orderBy = KEY_ID + " ASC";
@@ -204,7 +200,7 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
     }
     
     @Override
-    public boolean resetDatabase() {
+    public boolean resetTable() {
     	//DEBUG
     	if (BuildConfig.DEBUG) {
     		SQLiteDatabase db = this.getWritableDatabase();
@@ -227,7 +223,7 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
     	
     	//get all usernames
     	info.append("users: ");
-    	List<User> users = getAllUsers();
+    	List<User> users = getAllElements();
     	for (User user : users) {
     		info.append(user.getUsername() + ", ");
     	}
@@ -240,10 +236,13 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements LoginInterface 
      * @param user
      * @return
      */
-    private boolean checkUserAlreadyExists(User user) {
-    	User dbUser = getUser(user.getUsername());
-    	//if user exists, user will have an Id other than -1
-    	return (dbUser.getId() != -1);
+    boolean checkUserAlreadyExists(User user) {
+    	try {
+        	getElementByName(user.getUsername());
+        	return true;
+    	} catch (DatabaseException e) {
+        	return false;
+    	}
     }
     
 }
