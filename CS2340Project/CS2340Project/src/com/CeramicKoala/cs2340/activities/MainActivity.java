@@ -2,7 +2,7 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
-import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseModelInterface;
 import com.CeramicKoala.cs2340.model.User;
 
@@ -110,8 +110,8 @@ public class MainActivity extends Activity {
 	private Intent getIntent(Class<?> activityClass) {
 		//TODO implement a method for sending Users through intents rather than individual fields
 		
-		final String USERNAME = getText(R.string.username_constant).toString();
-		final String PASSWORD = getText(R.string.password_constant).toString();
+		final String USERNAME = getString(R.string.username_constant);
+		final String PASSWORD = getString(R.string.password_constant);
 		Intent intent = new Intent(this, activityClass);
 		
 		//get username
@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
 	 * if table is already empty. Does remove admin
 	 */
 	public void resetDatabase(View view) {
-		DatabaseModelInterface dbModel = new AccountOpenHelper(this);
+		DatabaseModelInterface dbModel = new LoginOpenHelper(this);
 		boolean success = dbModel.resetDatabase();
 		//replace the admin that was just deleted
 		createAdmin();
@@ -146,7 +146,7 @@ public class MainActivity extends Activity {
 	 * creates an admin user (if one does not already exist)
 	 */
 	private void createAdmin() {
-		DatabaseModelInterface dbModel = new AccountOpenHelper(this);
+		DatabaseModelInterface dbModel = new LoginOpenHelper(this);
 		User admin = dbModel.addUser(
 				new User(
 						getString(R.string.default_full_name),
@@ -168,7 +168,7 @@ public class MainActivity extends Activity {
 	 * @see DatabaseModelInterface#getTableInfo()
 	 */
 	private String getTableInfo() {
-		DatabaseModelInterface dbModel = new AccountOpenHelper(this);
+		DatabaseModelInterface dbModel = new LoginOpenHelper(this);
 		return dbModel.getTableInfo();
 	}
  

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.CeramicKoala.cs2340.BuildConfig;
+import com.CeramicKoala.cs2340.R;
 
 import android.annotation.TargetApi;
 import android.content.ContentValues;
@@ -24,24 +25,32 @@ import android.util.Log;
  *
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModelInterface {
-
+public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseModelInterface {
+	
 	//info specific to SQLite database and table
 	private static final int DATABASE_VERSION = 5;
 	private static final String DATABASE_NAME = "CeramicKoala";
+	//table holding login info
     private static final String LOGIN_TABLE = "login";
     private static final String KEY_ID = "id";
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_FULL_NAME = "fullName";
+//    //table holding Account info
+//    private static final String ACCOUNT_TABLE = "account";
+//    //uses KEY_ID from login table
+//    private static final String KEY_ACCOUNT_NAME = "accountName";
+//    private static final String KEY_ACCOUNT_BALANCE = "accountBalance";
+//    private static final String KEY_ACCOUNT_INTEREST_RATE = "accountInterestRate";
     
 
-    public AccountOpenHelper(Context context) {
+    public LoginOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+    	//create login table if not exists
     	final String LOGIN_TABLE_CREATE =
                 "CREATE TABLE IF NOT EXISTS " + LOGIN_TABLE + 
                 "(" + KEY_ID + " INTEGER PRIMARY KEY, "
@@ -50,6 +59,8 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModel
                 + KEY_FULL_NAME + " TEXT);";
     	
         db.execSQL(LOGIN_TABLE_CREATE);
+        
+        //create account table if not exists
     }
     
     @Override
@@ -66,7 +77,7 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModel
     	
     	//DEBUG
     	if (BuildConfig.DEBUG) {
-        	Log.d("AccountOpenHelper.addUser.user_already_exists", String.valueOf(userAlreadyExists));
+        	Log.d("LoginOpenHelper.addUser.user_already_exists", String.valueOf(userAlreadyExists));
     	}
     	
     	if (userAlreadyExists) {
@@ -144,8 +155,8 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseModel
     		
     		//DEBUG
     		if (BuildConfig.DEBUG) {
-    			Log.d("AccountOpenHelper.getUser.cursor_cols", String.valueOf(cursor.getColumnCount()));
-        		Log.d("AccountOpenHelper.getUser.cursor_rows", String.valueOf(cursor.getCount()));
+    			Log.d("LoginOpenHelper.getUser.cursor_cols", String.valueOf(cursor.getColumnCount()));
+        		Log.d("LoginOpenHelper.getUser.cursor_rows", String.valueOf(cursor.getCount()));
     		}
     		
     		//populate user with info from db

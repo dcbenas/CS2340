@@ -1,7 +1,7 @@
 package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
-import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseModelInterface;
 
 import android.os.Bundle;
@@ -27,12 +27,12 @@ public abstract class AccountManagementActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupActionBar();
-		dbModel = new AccountOpenHelper(this);
+		dbModel = new LoginOpenHelper(this);
 		
 		//retrieve username and password info from intent sent by MainActivity
 		Intent intent = getIntent();
-		String USERNAME = getText(R.string.username_constant).toString();
-		String PASSWORD = getText(R.string.password_constant).toString();
+		String USERNAME = getString(R.string.username_constant);
+		String PASSWORD = getString(R.string.password_constant);
 		username = intent.getStringExtra(USERNAME);
 		password = intent.getStringExtra(PASSWORD);
 		
@@ -101,8 +101,8 @@ public abstract class AccountManagementActivity extends Activity {
 	 */
 	protected Intent getIntent(Class<?> activityClass) {
 		
-		final String USERNAME = getText(R.string.username_constant).toString();
-		final String PASSWORD = getText(R.string.password_constant).toString();
+		final String USERNAME = getString(R.string.username_constant);
+		final String PASSWORD = getString(R.string.password_constant);
 		Intent intent = new Intent(this, activityClass);
 		
 		//set username

@@ -12,9 +12,9 @@ import android.widget.EditText;
 
 /**
  * this activity handles new account registration. Takes in username and password
- * from MainActivity. Uses AccountOpenHelper.addUser to add a new user. 
+ * from MainActivity. Uses LoginOpenHelper.addUser to add a new user. 
  * NOTE user Id cannot be displayed. User has a unique Id in the database, 
- * but AccountOpenHelper.addUser does not retrieve it
+ * but LoginOpenHelper.addUser does not retrieve it
  * @author Benjamin Newcomer
  */
 public class RegisterActivity extends AccountManagementActivity {
@@ -39,8 +39,8 @@ public class RegisterActivity extends AccountManagementActivity {
 		
 		//fill register_username and register_password fields with info from main activity
 		Intent intent = getIntent();
-		final String USERNAME = getText(R.string.username_constant).toString();
-		final String PASSWORD = getText(R.string.password_constant).toString();
+		final String USERNAME = getString(R.string.username_constant);
+		final String PASSWORD = getString(R.string.password_constant);
 		
 		//set register_username
 		register_username = (EditText) findViewById(R.id.register_username);

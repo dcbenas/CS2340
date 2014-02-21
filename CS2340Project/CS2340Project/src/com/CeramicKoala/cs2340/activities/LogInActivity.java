@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 /**
  * this class handles login processing and communicating with the SQLite db
- * via the AccountOpenHelper class. Currently, this activity only responds to
+ * via the LoginOpenHelper class. Currently, this activity only responds to
  * the login button. The button adds the user to the db if a unique username is
  * entered. If the username already exists, the password is checked. If a correct
  * password is entered, then login is successful. If incorrect, login is 
