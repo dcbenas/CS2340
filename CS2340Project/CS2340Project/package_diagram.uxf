@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>210</x>
+      <y>20</y>
+      <w>230</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Activities
+--
+left:MainActivity
+AccountManagementActivity
+LoginActivity
+RegisterActivity</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>350</x>
+      <y>250</y>
+      <w>160</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>View
+--
+left:activity_main
+activity_log_in
+activity_register</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>70</x>
+      <y>240</y>
+      <w>170</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Model
+--
+left:DatabaseElement
+Account
+User
+DatabaseOpenHelper
+AccountOpenHelper
+LoginOpenHelper
+DatabaseException
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>140</x>
+      <y>90</y>
+      <w>146</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;import&gt;&gt;</panel_attributes>
+    <additional_attributes>50;170;110;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>340</x>
+      <y>90</y>
+      <w>144</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;access&gt;&gt;</panel_attributes>
+    <additional_attributes>120;180;40;30</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Package</type>
+    <coordinates>
+      <x>30</x>
+      <y>200</y>
+      <w>290</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>Trusted</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
