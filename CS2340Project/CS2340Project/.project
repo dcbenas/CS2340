@@ -3,6 +3,7 @@
 	<name>CS2340Project</name>
 	<comment></comment>
 	<projects>
+		<project>CS2340RobolectricTest</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -71,4 +71,9 @@ public class User extends DatabaseElement {
 		
 		return out.toString();
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		return (this.name.equals(((User) o).getUsername()));
+	}
 }

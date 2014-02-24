@@ -32,6 +32,10 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseOpenH
         super(context, LoginOpenHelper.DATABASE_NAME, null, LoginOpenHelper.DATABASE_VERSION);
         loginHelper = new LoginOpenHelper(context);
     }
+    
+    public AccountOpenHelper(Context context, String databaseName, int databaseVersion) {
+    	super(context, databaseName,  null, databaseVersion);
+    }
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {

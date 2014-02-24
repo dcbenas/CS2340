@@ -38,6 +38,10 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHel
     public LoginOpenHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+    
+    public LoginOpenHelper(Context context, String databaseName, int databaseVersion) {
+    	super(context, databaseName,  null, databaseVersion);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
