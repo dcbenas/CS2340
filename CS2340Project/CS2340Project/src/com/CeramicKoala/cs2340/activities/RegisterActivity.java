@@ -26,6 +26,7 @@ public class RegisterActivity extends AccountManagementActivity {
 	EditText register_password;
 	EditText register_full_name;
 	
+	
 	//TODO add confirm password field and check password
 	//TODO prevent login activity from starting if username already exists
 	
@@ -68,21 +69,22 @@ public class RegisterActivity extends AccountManagementActivity {
 		password = register_password.getText().toString();
 		fullName = register_full_name.getText().toString();
 		
-		//add user to database
-		try {
-			User user = loginHelper.addElement(new User(fullName, username, password));
-			if (password.equals(user.getPassword())) {
-				startActivity(getIntent(LogInActivity.class));
+		if (checkCred(username, password)) {
+			//check if username and password is valid THEN add user to database
+			try {
+				User user = loginHelper.addElement(new User(fullName, username,
+						password));
+				if (password.equals(user.getPassword())) {
+					startActivity(getIntent(LogInActivity.class));
+				}
+			} catch (DatabaseException e) {
+				if (BuildConfig.DEBUG) {
+					alertDialog.setMessage(e.getMessage());
+				}
+				alertDialog.show();
 			}
-		} catch (DatabaseException e) {
-			if (BuildConfig.DEBUG) {
-				alertDialog.setMessage(e.getMessage());
-			}
-			alertDialog.show();
 		}
 				
 	}
-	
-
 
 }

@@ -34,9 +34,6 @@ public class MainActivity extends Activity {
 	 //constants for use in creating loggedIn intent
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	 public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
-	 protected AlertDialog loginWrong;
-	 //private AlertDialog passWrong;
-	 
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,14 +62,32 @@ public class MainActivity extends Activity {
 			dbInfoTextView.setText(getTableInfo());
 		}
 	}
-	//TODO change below logIn/register/checkCred
+
 	 /**
 	  * starts LogInActivity. Responds to click on Log In button
 	  * @param view
 	  */
 	 public void logIn (View view) {
-//	   if (checkCred())
-	     startActivity(getIntent(LogInActivity.class));
+	     if (notEmpty()) {
+			startActivity(getIntent(LogInActivity.class));
+		}
+	 }
+	 
+	 private boolean notEmpty() {
+		 final String USERNAME = getString(R.string.username_constant);
+		final String PASSWORD = getString(R.string.password_constant);
+		
+		//get username
+		EditText field_username = (EditText) findViewById(R.id.field_username);
+		String username = field_username.getText().toString();
+		if (username.isEmpty())
+			return false;
+		//get password
+		EditText field_password = (EditText) findViewById(R.id.field_password);
+		String password = field_password.getText().toString();
+		if (password.isEmpty())
+			return false;
+		return true;
 	 }
 	 
 	 /**
@@ -80,29 +95,9 @@ public class MainActivity extends Activity {
 	  * @param view
 	  */
 	 public void register(View view) {
-//	   if (checkCred())
 	     startActivity(getIntent(RegisterActivity.class));
 	 }
-//	
-//	 private boolean checkCred() {
-//		  EditText field_username = (EditText) findViewById(R.id.field_username);
-//		  String username = field_username.getText().toString();
-//		  
-//		  if(!username.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
-//		   loginWrong.show();
-//		   return false;
-//		  }
-//		  
-//		  EditText field_password = (EditText) findViewById(R.id.field_password);
-//		  String password = field_password.getText().toString();
-//		  if(!password.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
-//		   passWrong.show();
-//		   return false;
-//		  }
-//		  
-//		  return true;
-//		 }
-//	 
+ 
 	/**
 	 * helper method for logIn and register. places username
 	 * and password into an intent

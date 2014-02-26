@@ -16,8 +16,8 @@
     <string name="password_hint">password</string>
     <string name="log_in">Log In</string>
     <string name="register">Register</string>
-    <string name="default_full_name"></string>
-    <string name="default_user">admin</string>
+    <string name="default_full_name">administrator</string>
+    <string name="default_user">admin1</string>
     <string name="default_password">pass123</string>
     <!-- log in -->
     <string name="reset_db">Reset db (for dev use only)</string>
@@ -36,5 +36,6 @@
     
     
     <string name="log_in_error_pass_at_least_six">The password must be at least six letters long.</string>
+    <string name="empty_field_error">The required fields cannot be empty.</string>
 
 </resources>

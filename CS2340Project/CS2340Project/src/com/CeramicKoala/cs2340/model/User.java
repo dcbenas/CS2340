@@ -1,5 +1,7 @@
 package com.CeramicKoala.cs2340.model;
 
+import java.util.ArrayList;
+
 /**
  * this class represents a single user
  * accounts (or account Id's will be 
@@ -9,10 +11,10 @@ package com.CeramicKoala.cs2340.model;
  *
  */
 public class User extends DatabaseElement {
-	//TODO add account field (array of accounts) and getter/setters
 	
 	private String password;
 	private String fullName;
+	private ArrayList<Account> accounts;
 	
 	/**
 	 * constructor
@@ -52,11 +54,26 @@ public class User extends DatabaseElement {
 	}
 	
 	/**
+	 * returns a list of accounts
+	 */
+	public ArrayList<Account> getAccounts() {
+		return accounts;
+	}
+	
+	/**
 	 * setter for fullName
 	 * @param fullName
 	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+	
+	/**
+	 * adds account to User
+	 * @param acc
+	 */
+	public void addAccount(Account acc) {
+		accounts.add(acc);
 	}
 	
 	/**

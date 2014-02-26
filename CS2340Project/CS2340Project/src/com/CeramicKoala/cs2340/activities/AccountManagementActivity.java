@@ -21,6 +21,9 @@ public abstract class AccountManagementActivity extends Activity {
 	
 	protected static DatabaseOpenHelper<User> loginHelper;
 	protected AlertDialog alertDialog;
+	protected AlertDialog loginWrong;
+	protected AlertDialog passWrong;
+	protected AlertDialog emptyField;
 	protected String username;
 	protected String password; 
 
@@ -36,7 +39,9 @@ public abstract class AccountManagementActivity extends Activity {
 		String PASSWORD = getString(R.string.password_constant);
 		username = intent.getStringExtra(USERNAME);
 		password = intent.getStringExtra(PASSWORD);
-		
+		loginWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_user_at_least_six));
+		passWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_pass_at_least_six));
+		emptyField = setUpAlertDialog("Error", getString(R.string.empty_field_error));
 	}
 
 	/**
@@ -117,5 +122,22 @@ public abstract class AccountManagementActivity extends Activity {
 		intent.putExtra(PASSWORD, password);
 		
 		return intent;
+	}
+	
+	protected boolean checkCred(String user, String pass) {
+		username = user;
+
+		if(!username.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
+			loginWrong.show();
+			return false;
+		}
+
+		password = pass;
+		if(!password.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
+			passWrong.show();
+			return false;
+		}
+
+		return true;
 	}
 }
