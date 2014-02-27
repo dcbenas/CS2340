@@ -2,11 +2,7 @@ Code Standards
 for CeramicKoala
 
 Variable and Method Declaration and Instantiation:
-	-Place all class variable declarations at the top of the class
-	-Place all method variable declarations at the top of the method
-	-Place all loop/conditional specific variable declarations at the top of the loop/conditional
-	-Place similar blocks of code that initialize variables together
-		ex. initialize all TextView fields to be used at the top of a method
+	-Place all class variable declarations at the top of the block (class, method, or logic block)
 	-Group code blocks by logical function
 		ex. in a method, separate blocks by 
 			declarations, initializations, operations, output formatting and return
@@ -17,6 +13,7 @@ Debugging:
 		if (BuildConfig.DEBUG) {
 			place code here
 		}
+     -display only pertinent debug information. If your code is standalone and simple, there's no need to debug it.
 
 Formatting:
 	-Break up long lines of code with the following rules:
@@ -26,16 +23,13 @@ Formatting:
 										user.getId(),name, 
 										new Double(startingBalance), 
 										new Double(interestRate))); 
-		-make sure to use correct spacing:
-			-space in between conditional name and condition
-				ex. if (condition) {}
-			-space in between condition and opening bracket
-			-standard english rules for spaces around commas
+		-make sure to correctly use spaces
 
 Eclipse suggestions:
 	-Follow most Eclipse suggestions (that do not have a large impact on the code)
 		ex. use "Double.valueOf(int)" instead of "new Double(int)"
 
 Logic:
-      -Only use large data objects (Users, Accounts) for data display and editing. For things like logging in or populating a list of accounts, only use the pertinent information (username and password for logging in and account name, account Id for account list)
+      -Use as little data as necessary. Only use large data objects (Users, Accounts) for data display and editing. For things like logging in or populating a list of accounts, only store the pertinent information (username and password for logging in and account name, account Id for account list). The full object can always be retrieved later. 
+     -make sure all objects and classes stay within the bounds of their responsibilities. When you write new code, make sure you are writing it in the best possible place.
  	
