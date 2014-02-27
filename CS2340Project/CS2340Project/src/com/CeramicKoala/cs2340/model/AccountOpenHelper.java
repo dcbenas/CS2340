@@ -18,7 +18,7 @@ import android.util.Log;
  * Pertinent database fields are located in com.CeramicKoala.cs2340.model.LoginOpenHelper
  * @author Benjamin Newcomer
  */
-public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHelper<Account> {
+public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
 	
 	
 	LoginOpenHelper loginHelper;
@@ -29,40 +29,8 @@ public class AccountOpenHelper extends SQLiteOpenHelper implements DatabaseOpenH
 	static final String KEY_ACCOUNT_INTEREST_RATE = "interestRate";
 	
     public AccountOpenHelper(Context context) {
-        super(context, LoginOpenHelper.DATABASE_NAME, null, LoginOpenHelper.DATABASE_VERSION);
+        super(context);
         loginHelper = new LoginOpenHelper(context);
-    }
-    
-    public AccountOpenHelper(Context context, String databaseName, int databaseVersion) {
-    	super(context, databaseName,  null, databaseVersion);
-    }
-	
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-		//create account table if not exists
-    	final String ACCOUNT_TABLE_CREATE =
-                "CREATE TABLE IF NOT EXISTS " + ACCOUNT_TABLE + 
-                "(" + KEY_ACCOUNT_ID + " INTEGER PRIMARY KEY, "
-                + LoginOpenHelper.KEY_ID + " INTEGER, "
-                + KEY_ACCOUNT_NAME + " TEXT, "
-                + KEY_ACCOUNT_BALANCE + " TEXT, "
-                + KEY_ACCOUNT_INTEREST_RATE + " TEXT);";
-    	
-        db.execSQL(ACCOUNT_TABLE_CREATE);
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		final String upgrade = 
-    			"DROP TABLE IF EXISTS " + ACCOUNT_TABLE + ";";
-    	db.execSQL(upgrade);
-    	onCreate(db);
-
-	}
-	
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    	//do nothing
     }
 	
 	@Override

@@ -21,11 +21,9 @@ import android.util.Log;
  * @author Benjamin Newcomer
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHelper<User> {
+public class LoginOpenHelper extends DatabaseOpenHelper<User> {
 	
-	//info specific to SQLite database and table
-	static final int DATABASE_VERSION = 1;
-	static final String DATABASE_NAME = "CeramicKoala";
+
 	//table holding login info
     static final String LOGIN_TABLE = "login";
     static final String KEY_ID = "userId";
@@ -34,40 +32,10 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHel
     static final String KEY_FULL_NAME = "fullName";
 
     
-
     public LoginOpenHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-    
-    public LoginOpenHelper(Context context, String databaseName, int databaseVersion) {
-    	super(context, databaseName,  null, databaseVersion);
+        super(context);
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-    	//create login table if not exists
-    	final String LOGIN_TABLE_CREATE =
-                "CREATE TABLE IF NOT EXISTS " + LOGIN_TABLE + 
-                "(" + KEY_ID + " INTEGER PRIMARY KEY, "
-                + KEY_USERNAME + " TEXT, "
-                + KEY_PASSWORD + " TEXT, "
-                + KEY_FULL_NAME + " TEXT);";
-    	
-        db.execSQL(LOGIN_TABLE_CREATE);
-    }
-    
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    	final String upgrade = 
-    			"DROP TABLE IF EXISTS " + LOGIN_TABLE + ";";
-    	db.execSQL(upgrade);
-    	onCreate(db);
-    }
-    
-    @Override
-    public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    	//do nothing
-    }
     
     @Override
     public User addElement(User user) throws DatabaseException {
@@ -150,7 +118,7 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHel
         			cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
         	user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         	
-    		user = getAccountsForUser(user, db);
+    		user = getAccountsForUser(user);
         	
         	return user;
     	} else {
@@ -164,7 +132,10 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHel
      * @param db
      * @return
      */
-    private User getAccountsForUser(User user, SQLiteDatabase db) {
+    private User getAccountsForUser(User user) {
+    	AccountOpenHelper accountHelper = new AccountOpenHelper(context);
+    	SQLiteDatabase db = accountHelper.getReadableDatabase();
+    	
     	//query db for account list
 		String[] columns = {
 				AccountOpenHelper.KEY_ACCOUNT_NAME, 

@@ -2,10 +2,12 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.User;
+import com.CeramicKoala.cs2340.test.AccountOpenHelperTest;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -74,7 +76,7 @@ public class MainActivity extends Activity {
 	 }
 	 
 	 private boolean notEmpty() {
-		 final String USERNAME = getString(R.string.username_constant);
+		final String USERNAME = getString(R.string.username_constant);
 		final String PASSWORD = getString(R.string.password_constant);
 		
 		//get username
@@ -129,11 +131,13 @@ public class MainActivity extends Activity {
 	 * if table is already empty. Does remove admin
 	 */
 	public void resetDatabase(View view) {
-		DatabaseOpenHelper<User> dbModel = new LoginOpenHelper(this);
-		boolean success = dbModel.resetTable();
+		LoginOpenHelper loginHelper = new LoginOpenHelper(this);
+		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
+		boolean success1 = accountHelper.resetTable();
+		boolean success2 = loginHelper.resetTable();
 		//replace the admin that was just deleted
 		createAdmin();
-		Log.d("reset db", String.valueOf(success));
+		Log.d("reset db", String.valueOf(success1 && success2));
 		onResume();
 	}
 	
@@ -177,5 +181,10 @@ public class MainActivity extends Activity {
 			}
 		});
 		return alertDialog;
+	}
+	
+	public void test(View view) {
+		Intent intent = new Intent(this, AccountOpenHelperTest.class);
+		startActivity(intent);
 	}
 }

@@ -47,11 +47,7 @@
                 android:value="com.example.cs2340project.MainActivity" />
         </activity>
         <activity
-            android:name="com.CeramicKoala.cs2340.LoginOpenHelperTest"
-            android:label="@string/title_activity_login_open_helper_test" >
-        </activity>
-        <activity
-            android:name="com.CeramicKoala.cs2340.AccountOpenHelperTest"
+            android:name="com.CeramicKoala.cs2340.test.AccountOpenHelperTest"
             android:label="@string/title_activity_account_open_helper_test" >
         </activity>
     </application>
