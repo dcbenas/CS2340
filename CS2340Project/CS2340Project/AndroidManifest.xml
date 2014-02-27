@@ -18,6 +18,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,7 +30,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.MainActivity" />
         </activity>
-
         <activity
             android:name="com.CeramicKoala.cs2340.activities.RegisterActivity"
             android:label="@string/title_activity_register"
@@ -38,7 +38,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.MainActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.AccountManagementActivity"
             android:label="@string/title_activity_account_management"
@@ -46,6 +45,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.CeramicKoala.cs2340.LoginOpenHelperTest"
+            android:label="@string/title_activity_login_open_helper_test" >
+        </activity>
+        <activity
+            android:name="com.CeramicKoala.cs2340.AccountOpenHelperTest"
+            android:label="@string/title_activity_account_open_helper_test" >
         </activity>
     </application>
 
