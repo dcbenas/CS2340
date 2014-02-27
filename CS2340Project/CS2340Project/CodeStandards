@@ -3,7 +3,7 @@ for CeramicKoala
 
 Variable and Method Declaration and Instantiation:
 	-Place all class variable declarations at the top of the class
-	-Place all method variable declarations at the top of the class
+	-Place all method variable declarations at the top of the method
 	-Place all loop/conditional specific variable declarations at the top of the loop/conditional
 	-Place similar blocks of code that initialize variables together
 		ex. initialize all TextView fields to be used at the top of a method
