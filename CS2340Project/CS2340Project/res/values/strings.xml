@@ -20,7 +20,7 @@
     <string name="default_user">admin1</string>
     <string name="default_password">pass123</string>
     <!-- log in -->
-    <string name="reset_db">Reset db (for dev use only)</string>
+    <string name="reset_db">Reset db</string>
     <string name="log_in_success">Welcome!</string>
     <string name="log_in_error_incorrect_password">Sorry, the password you entered was incorrect</string>
     <string name="log_in_error_no_account">Sorry, the information you entered does not match an account.</string>

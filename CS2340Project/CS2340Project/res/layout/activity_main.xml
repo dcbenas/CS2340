@@ -87,16 +87,6 @@
         android:text="@string/register"
         android:width="@dimen/button_width" />
 
-    <Button
-        android:id="@+id/dev_reset_db"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:onClick="resetDatabase"
-        android:text="@string/reset_db" />
-
     <TextView
         android:id="@+id/db_info"
         android:layout_width="wrap_content"
@@ -105,5 +95,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:hint="db info" />
+
+    <Button
+        android:id="@+id/dev_reset_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/field_password"
+        android:layout_below="@+id/button_register"
+        android:layout_marginTop="20dp"
+        android:onClick="resetDatabase"
+        android:text="@string/reset_db" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/dev_reset_db"
+        android:layout_alignBottom="@+id/dev_reset_db"
+        android:layout_alignRight="@+id/button_register"
+        android:onClick="test"
+        android:text="Test" />
 
 </RelativeLayout>
