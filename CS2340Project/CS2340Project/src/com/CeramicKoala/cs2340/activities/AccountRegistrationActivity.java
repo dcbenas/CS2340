@@ -37,7 +37,7 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 			//get user from database
 			user = loginHelper.getElementByName(username);
 		} catch (DatabaseException e) {
-			Log.d("LogInActivity.get_user", e.getMessage());
+			Log.d("AccountRegisterActivity.get_user", e.getMessage());
 			alertDialog.show();
 		}
 	}
@@ -49,6 +49,8 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		return true;
 	}
 	
+	//TODO looks like this is not called (because this activity does not transition to 
+	//another activity right now. 
 	@Override
 	protected Intent getIntent(Class<?> activityClass) {
 		
@@ -62,7 +64,7 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		return intent;
 	}
 
-	private void createAccount(View view) {
+	public void createAccount(View view) {
 		System.out.println("Works");
 		EditText field_name = (EditText) findViewById(R.id.field_accountName);
 		String name = field_name.getText().toString();
