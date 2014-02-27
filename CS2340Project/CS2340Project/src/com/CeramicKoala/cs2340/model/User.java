@@ -58,6 +58,7 @@ public class User extends DatabaseElement {
 	
 	/**
 	 * returns a list of account names
+	 * TODO change return type back to String[]
 	 */
 	public Object[] getAccounts() {
 		if (accounts.isEmpty()) {
