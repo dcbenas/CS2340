@@ -1,6 +1,7 @@
 package com.CeramicKoala.cs2340.model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * this class represents a single user
@@ -14,7 +15,7 @@ public class User extends DatabaseElement {
 	
 	private String password;
 	private String fullName;
-	private ArrayList<Account> accounts;
+	private Map<String, Integer> accounts;
 	
 	/**
 	 * constructor
@@ -54,10 +55,10 @@ public class User extends DatabaseElement {
 	}
 	
 	/**
-	 * returns a list of accounts
+	 * returns a list of account names
 	 */
-	public ArrayList<Account> getAccounts() {
-		return accounts;
+	public String[] getAccounts() {
+		return (String[]) accounts.keySet().toArray();
 	}
 	
 	/**
@@ -70,10 +71,12 @@ public class User extends DatabaseElement {
 	
 	/**
 	 * adds account to User
-	 * @param acc
+	 * should only be used by database helpers
+	 * @param accountName
+	 * @param accountId
 	 */
-	public void addAccount(Account acc) {
-		accounts.add(acc);
+	public void addAccount(String accountName, int accountId) {
+		accounts.put(accountName, accountId);
 	}
 	
 	/**
@@ -85,6 +88,7 @@ public class User extends DatabaseElement {
 		out.append("username=" + name + ", ");
 		out.append("password=" + password + ", ");
 		out.append("id=" + id + ".");
+		out.append("accounts= " + getAccounts());
 		
 		return out.toString();
 	}

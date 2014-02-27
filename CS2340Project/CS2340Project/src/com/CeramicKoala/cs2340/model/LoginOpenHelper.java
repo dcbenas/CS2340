@@ -139,16 +139,9 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHel
     	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD, KEY_ID};
     	String selection = KEY_USERNAME + "=" + "'" + username + "'";
     	
-    	//Cursor cursor = db.rawQuery("SELECT * FROM login WHERE username = '" , selectionArgs)
     	Cursor cursor = db.query(LOGIN_TABLE, columns, selection, null, null, null, null);
     	if (cursor.getCount() != 0) {
     		cursor.moveToFirst();
-    		
-    		//DEBUG
-    		if (BuildConfig.DEBUG) {
-    			Log.d("LoginOpenHelper.getUser.cursor_cols", String.valueOf(cursor.getColumnCount()));
-        		Log.d("LoginOpenHelper.getUser.cursor_rows", String.valueOf(cursor.getCount()));
-    		}
     		
     		//populate user with info from db
     		User user = new User(
@@ -157,9 +150,44 @@ public class LoginOpenHelper extends SQLiteOpenHelper implements DatabaseOpenHel
         			cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
         	user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         	
+    		user = getAccountsForUser(user, db);
+        	
         	return user;
     	} else {
     		throw new DatabaseException("user does not exist");
+    	}
+    }
+    
+    /**
+     * populates user with account names and Id's
+     * @param user
+     * @param db
+     * @return
+     */
+    private User getAccountsForUser(User user, SQLiteDatabase db) {
+    	//query db for account list
+		String[] columns = {
+				AccountOpenHelper.KEY_ACCOUNT_NAME, 
+				AccountOpenHelper.KEY_ACCOUNT_ID};
+		String selection = KEY_ID + "=" + "'" + user.getId() + "'";
+    	Cursor cursor = db.query(AccountOpenHelper.ACCOUNT_TABLE, 
+    			columns, selection, null, null, null, null);
+    	
+    	if (cursor.getCount() != 0) {
+    		cursor.moveToFirst();
+    		do {
+    			user.addAccount(
+    					cursor.getString(
+    							cursor.getColumnIndex(
+    									AccountOpenHelper.KEY_ACCOUNT_NAME)), 
+    					cursor.getInt(
+    							cursor.getColumnIndex(
+    								AccountOpenHelper.KEY_ACCOUNT_ID)));
+    		} while (cursor.moveToNext());
+    		
+    		return user;
+    	} else {
+    		return user;
     	}
     }
     

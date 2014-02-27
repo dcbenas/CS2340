@@ -100,6 +100,7 @@ public class Account extends DatabaseElement {
 		return getId();
 	}
 	
+	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();
 		out.append("name: " + name + ", ");
@@ -109,5 +110,19 @@ public class Account extends DatabaseElement {
 		out.append("interestRate: " + interestRate + ", ");
 		return out.toString();
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof Account)) {
+			return false;
+		}
+		
+		Account a = (Account) o;
+		return (this.id == a.getId());
+	}
+
 	
 }
