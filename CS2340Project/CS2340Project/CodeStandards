@@ -35,4 +35,7 @@ Formatting:
 Eclipse suggestions:
 	-Follow most Eclipse suggestions (that do not have a large impact on the code)
 		ex. use "Double.valueOf(int)" instead of "new Double(int)"
+
+Logic:
+      -Only use large data objects (Users, Accounts) for data display and editing. For things like logging in or populating a list of accounts, only use the pertinent information (username and password for logging in and account name, account Id for account list)
  	
