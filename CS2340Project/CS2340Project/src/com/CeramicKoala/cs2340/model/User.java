@@ -1,6 +1,7 @@
 package com.CeramicKoala.cs2340.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,6 +28,7 @@ public class User extends DatabaseElement {
 		this.fullName = fullName;
 		this.name = username;
 		this.password = password;
+		accounts = new HashMap<String, Integer>();
 	}
 	
 	/**
@@ -59,6 +61,10 @@ public class User extends DatabaseElement {
 	 */
 	public String[] getAccounts() {
 		return (String[]) accounts.keySet().toArray();
+	}
+	
+	public int getAccountSize() {
+		return accounts.hashCode();
 	}
 	
 	/**

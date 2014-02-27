@@ -50,6 +50,10 @@
             android:name="com.CeramicKoala.cs2340.test.AccountOpenHelperTest"
             android:label="@string/title_activity_account_open_helper_test" >
         </activity>
+        <activity
+            android:name="com.CeramicKoala.cs2340.activities.AccountRegistrationActivity"
+            android:label="@string/title_activity_account_registration" >
+        </activity>
     </application>
 
 </manifest>

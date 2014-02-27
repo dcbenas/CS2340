@@ -21,7 +21,7 @@
     <string name="default_password">pass123</string>
     <!-- log in -->
     <string name="reset_db">Reset db</string>
-    <string name="log_in_success">Welcome!</string>
+    <string name="log_in_success">Welcome,</string>
     <string name="log_in_error_incorrect_password">Sorry, the password you entered was incorrect</string>
     <string name="log_in_error_no_account">Sorry, the information you entered does not match an account.</string>
     <string name="log_in_error_user_at_least_six">The username must be at least six letters long.</string>
@@ -37,5 +37,6 @@
     <string name="empty_field_error">The required fields cannot be empty.</string>
     <string name="title_activity_login_open_helper_test">LoginOpenHelperTest</string>
     <string name="title_activity_account_open_helper_test">AccountOpenHelperTest</string>
+    <string name="title_activity_account_registration">AccountRegistrationActivity</string>
 
 </resources>

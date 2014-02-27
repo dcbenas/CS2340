@@ -12,11 +12,29 @@
         android:id="@+id/login_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="128dp"
         android:gravity="center"
-        android:hint="login message"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:text="@string/log_in_success"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="28sp" />
+
+    <Spinner
+        android:id="@+id/account_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/login_message"
+        android:layout_below="@+id/login_message"
+        android:layout_marginTop="35dp" />
+
+    <Button
+        android:id="@+id/createAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/account_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:onClick="createAccount"
+        android:text="Create a new account" />
 
 </RelativeLayout>

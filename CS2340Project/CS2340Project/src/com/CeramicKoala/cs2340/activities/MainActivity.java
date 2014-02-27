@@ -7,7 +7,6 @@ import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.User;
-import com.CeramicKoala.cs2340.test.AccountOpenHelperTest;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -73,6 +72,7 @@ public class MainActivity extends Activity {
 	     if (notEmpty()) {
 			startActivity(getIntent(LogInActivity.class));
 		}
+	     finish();
 	 }
 	 
 	 private boolean notEmpty() {
@@ -121,6 +121,8 @@ public class MainActivity extends Activity {
 		EditText field_password = (EditText) findViewById(R.id.field_password);
 		String password = field_password.getText().toString();
 		intent.putExtra(PASSWORD, password);
+		
+		intent.putExtra("fromARA", false);
 		
 		return intent;
 	}
@@ -181,10 +183,5 @@ public class MainActivity extends Activity {
 			}
 		});
 		return alertDialog;
-	}
-	
-	public void test(View view) {
-		Intent intent = new Intent(this, AccountOpenHelperTest.class);
-		startActivity(intent);
 	}
 }

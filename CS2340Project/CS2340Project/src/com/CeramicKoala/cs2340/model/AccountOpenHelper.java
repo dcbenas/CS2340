@@ -208,8 +208,8 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
     }
     
     /**
-     * checks database to see if username already exists
-     * @param user
+     * checks database to see if account already exists
+     * @param account
      * @return
      */
     boolean checkAccountAlreadyExists(Account account) {
