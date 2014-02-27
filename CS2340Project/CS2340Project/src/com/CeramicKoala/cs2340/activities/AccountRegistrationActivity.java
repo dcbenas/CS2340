@@ -19,6 +19,8 @@ import android.widget.EditText;
 
 public class AccountRegistrationActivity extends AccountManagementActivity {
 	
+	//TODO Inseok - selecting account from spinner transitions to account activity
+	
 	private User user;
 	private AccountOpenHelper accountHelper;
 	private AlertDialog invalidNumber;

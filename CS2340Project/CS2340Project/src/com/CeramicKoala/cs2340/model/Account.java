@@ -7,6 +7,8 @@ package com.CeramicKoala.cs2340.model;
  */
 public class Account extends DatabaseElement {
 	
+	//TODO Ben - store transaction Id's
+	
 	private int userId;
 	private double balance;
 	private double interestRate;

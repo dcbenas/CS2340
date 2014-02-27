@@ -31,7 +31,8 @@ import android.widget.TextView;
 public class MainActivity extends Activity {
 	
 	//TODO implement a method for sending Users through intents rather than individual fields
-
+	//TODO Inseok - fix action bar (back button needs to work)
+	
 	 //constants for use in creating loggedIn intent
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	 public static final String PASSWORD = "com.example.cs2340project.PASSWORD";

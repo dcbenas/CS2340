@@ -28,6 +28,8 @@ import android.widget.TextView;
 public class LogInActivity extends AccountManagementActivity {
 	//TODO prevent login activity from starting if username already exists
 	//TODO set content view to existing user xml if user has accounts and move setContentView down to bottom
+	//TODO Inseok - selecting account from spinner transitions to account activity
+	//TODO Matthew - create Account activity
 	
 	private AlertDialog wrongPassword;
 	private User user;
