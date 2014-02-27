@@ -63,6 +63,7 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 	}
 
 	public void createAccount(View view) {
+		//TODO trying to create invalid account doesn't throw/handle exception
 		System.out.println("Works");
 		EditText field_name = (EditText) findViewById(R.id.field_accountName);
 		String name = field_name.getText().toString();
