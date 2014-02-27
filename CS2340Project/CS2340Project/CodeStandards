@@ -1,0 +1,38 @@
+Code Standards
+for CeramicKoala
+
+Variable and Method Declaration and Instantiation:
+	-Place all class variable declarations at the top of the class
+	-Place all method variable declarations at the top of the class
+	-Place all loop/conditional specific variable declarations at the top of the loop/conditional
+	-Place similar blocks of code that initialize variables together
+		ex. initialize all TextView fields to be used at the top of a method
+	-Group code blocks by logical function
+		ex. in a method, separate blocks by 
+			declarations, initializations, operations, output formatting and return
+
+Debugging:
+	-Use Log.d(String tag, String message) instead of System.out.println(String out)
+	-Place all debug code in conditional blocks using BuildConfig.DEBUG as follows
+		if (BuildConfig.DEBUG) {
+			place code here
+		}
+
+Formatting:
+	-Break up long lines of code with the following rules:
+		-break methods by placing each argument on a new line (Eclipse should auto-indent)
+			ex. accountHelper.addElement(new Account(
+										0, 
+										user.getId(),name, 
+										new Double(startingBalance), 
+										new Double(interestRate))); 
+		-make sure to use correct spacing:
+			-space in between conditional name and condition
+				ex. if (condition) {}
+			-space in between condition and opening bracket
+			-standard english rules for spaces around commas
+
+Eclipse suggestions:
+	-Follow most Eclipse suggestions (that do not have a large impact on the code)
+		ex. use "Double.valueOf(int)" instead of "new Double(int)"
+ 	
