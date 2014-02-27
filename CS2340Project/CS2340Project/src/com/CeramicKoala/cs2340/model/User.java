@@ -59,12 +59,12 @@ public class User extends DatabaseElement {
 	/**
 	 * returns a list of account names
 	 */
-	public String[] getAccounts() {
+	public Object[] getAccounts() {
 		if (accounts.isEmpty()) {
-			String[] out = {"no accounts"};
+			Object[] out = {"no accounts"};
 			return out;
 		}
-		return (String[]) accounts.keySet().toArray();
+		return accounts.keySet().toArray();
 	}
 	
 	public int getAccountSize() {

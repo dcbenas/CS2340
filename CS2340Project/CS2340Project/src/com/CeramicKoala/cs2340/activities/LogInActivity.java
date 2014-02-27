@@ -67,10 +67,10 @@ public class LogInActivity extends AccountManagementActivity {
 	}
 	
 	public void updateAccountSpinner() {
-		String[] accounts = user.getAccounts();
+		Object[] accounts = user.getAccounts();
 		System.out.println(accounts.length);
 		Spinner s = (Spinner) findViewById(R.id.account_spinner);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, accounts);
+		ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(this,android.R.layout.simple_spinner_item, accounts);
 		s.setAdapter(adapter);
 	}
 	
