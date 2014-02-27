@@ -48,6 +48,19 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		getMenuInflater().inflate(R.menu.account_registration, menu);
 		return true;
 	}
+	
+	@Override
+	protected Intent getIntent(Class<?> activityClass) {
+		
+		final String USERNAME = getString(R.string.username_constant);
+		final String PASSWORD = getString(R.string.password_constant);
+		Intent intent = new Intent(this, activityClass);
+		
+		intent.putExtra(USERNAME, username);
+		intent.putExtra(PASSWORD, password);
+		
+		return intent;
+	}
 
 	public void createAccount(View view) {
 		System.out.println("Works");

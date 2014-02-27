@@ -121,7 +121,7 @@ public class Account extends DatabaseElement {
 		}
 		
 		Account a = (Account) o;
-		return (this.id == a.getId());
+		return (this.name.equals(a.getName()));
 	}
 
 	
