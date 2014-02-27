@@ -48,21 +48,6 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		getMenuInflater().inflate(R.menu.account_registration, menu);
 		return true;
 	}
-	
-	//TODO looks like this is not called (because this activity does not transition to 
-	//another activity right now. 
-	@Override
-	protected Intent getIntent(Class<?> activityClass) {
-		
-		final String USERNAME = getString(R.string.username_constant);
-		final String PASSWORD = getString(R.string.password_constant);
-		Intent intent = new Intent(this, activityClass);
-		
-		intent.putExtra(USERNAME, USERNAME);
-		intent.putExtra(PASSWORD, PASSWORD);
-		
-		return intent;
-	}
 
 	public void createAccount(View view) {
 		System.out.println("Works");
@@ -77,8 +62,7 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		
 		try {
 			accountHelper.addElement(new Account(0, user.getId(),name, new Double(startingBalance), new Double(interestRate)));
-			//startActivity(getIntent(LogInActivity.class));
-			finish(); //goes back to LoginActivity
+			startActivity(getIntent(LogInActivity.class));
 		} catch (NumberFormatException e) {
 			invalidNumber.show();
 			e.printStackTrace();
