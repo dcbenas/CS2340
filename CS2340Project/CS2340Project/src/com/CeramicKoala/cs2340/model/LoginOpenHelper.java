@@ -79,22 +79,22 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     	values.put(KEY_PASSWORD, user.getPassword());
     	
     	//update user if new username is not already in use
-    	if (checkUserAlreadyExists(user)) {
-    		return new User(null, null, null);
+    	if (!checkUserAlreadyExists(user)) {
+    		return new User("user already exists", null, null);
     	} else {
     		String where = KEY_ID + "=?";
         	String[] whereArgs = {String.valueOf(user.getId())};
         	
         	int success = db.update(LOGIN_TABLE, values, where, whereArgs);
-        	if (success >0) {
+        	if (success > 0) {
         		//return newly updated user
         		try {
                 	return getElementByName(user.getUsername());
         		} catch (DatabaseException e) {
-        			return new User(null, null, null);
+        			return new User("getElement error", null, null);
         		}
         	} else {
-        		return new User(null, null, null);
+        		return new User("update no succes", null, null);
         	}
     	}
     }

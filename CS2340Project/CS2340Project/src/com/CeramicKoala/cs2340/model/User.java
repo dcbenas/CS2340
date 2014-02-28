@@ -111,6 +111,13 @@ public class User extends DatabaseElement {
 	
 	@Override
 	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof User)) {
+			return false;
+		}
+		
 		return (this.username.equals(((User) o).getUsername()));
 	}
 }
