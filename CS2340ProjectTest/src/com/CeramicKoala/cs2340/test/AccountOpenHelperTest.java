@@ -27,11 +27,15 @@ public class AccountOpenHelperTest extends AndroidTestCase {
 		super.setUp();
 		accountHelper = new AccountOpenHelper(getContext());
 		loginHelper = new LoginOpenHelper(getContext());
+		
 		testUser = new User("name", "username", "password");
 		testUser.setId(1);
 		testUser.addAccount(1);
+		
 		testAccount = new Account(1);
 		testAccount.setId(1);
+		
+		loginHelper.resetTable();
 		accountHelper.resetTable();
 	}
 	
