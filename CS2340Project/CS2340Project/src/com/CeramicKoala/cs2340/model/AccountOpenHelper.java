@@ -139,6 +139,20 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
     	}
     }
     
+    /**
+     * populates user with account names and Id's
+     * @param user
+     * @param db
+     * @return
+     */
+    public List<Account> getAccountsForUser(User user) throws DatabaseException {
+    	List<Account> accounts = new ArrayList<Account>();
+    	for (Integer id : user.getAccounts()) {
+    		accounts.add(this.getElementById(id));
+    	}
+    	return accounts;
+    }
+    
     @Override
     public List<Account> getAllElements() throws UnsupportedOperationException {
     	throw new UnsupportedOperationException("use getAllElements(User user)");

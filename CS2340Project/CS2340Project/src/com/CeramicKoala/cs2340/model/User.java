@@ -1,6 +1,8 @@
 package com.CeramicKoala.cs2340.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +15,7 @@ public class User extends DatabaseElement {
 	private String username;
 	private String password;
 	private String fullName;
-	private Map<String, Integer> accounts;
+	private List<Integer> accounts;
 	
 	/**
 	 * constructor
@@ -25,7 +27,7 @@ public class User extends DatabaseElement {
 		this.fullName = fullName;
 		this.username = username;
 		this.password = password;
-		accounts = new HashMap<String, Integer>();
+		accounts = new ArrayList<Integer>();
 	}
 	
 	/**
@@ -62,19 +64,19 @@ public class User extends DatabaseElement {
 	}
 	
 	/**
-	 * returns a list of account names
-	 * TODO change return type back to String[]
+	 * getter for accounts
+	 * @return accounts
 	 */
-	public Object[] getAccounts() {
-		if (accounts.isEmpty()) {
-			Object[] out = {"no accounts"};
-			return out;
-		}
-		return accounts.keySet().toArray();
+	public List<Integer> getAccounts() {
+		return accounts;
 	}
 	
+	/**
+	 * returns size of accounts list
+	 * @return size of accounts
+	 */
 	public int getAccountSize() {
-		return accounts.hashCode();
+		return accounts.size();
 	}
 	
 	/**
@@ -87,12 +89,10 @@ public class User extends DatabaseElement {
 	
 	/**
 	 * adds account to User
-	 * should only be used by database helpers
-	 * @param accountName
 	 * @param accountId
 	 */
-	public void addAccount(String accountName, int accountId) {
-		accounts.put(accountName, accountId);
+	public void addAccount(int accountId) {
+		accounts.add(accountId);
 	}
 	
 	/**

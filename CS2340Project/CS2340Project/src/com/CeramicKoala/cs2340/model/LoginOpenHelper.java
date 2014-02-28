@@ -136,7 +136,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     }
     
     /**
-     * populates user with account names and Id's
+     * populates user with account Id's
      * @param user
      * @param db
      * @return
@@ -157,9 +157,6 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     		cursor.moveToFirst();
     		do {
     			user.addAccount(
-    					cursor.getString(
-    							cursor.getColumnIndex(
-    									AccountOpenHelper.KEY_ACCOUNT_NAME)), 
     					cursor.getInt(
     							cursor.getColumnIndex(
     								AccountOpenHelper.KEY_ACCOUNT_ID)));
