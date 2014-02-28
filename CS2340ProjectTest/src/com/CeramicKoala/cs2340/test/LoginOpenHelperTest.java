@@ -35,7 +35,7 @@ public class LoginOpenHelperTest extends AndroidTestCase {
 	public void testAddElement() throws DatabaseException {
 		User user = loginHelper.addElement(testUser);
 		assertNotNull(user.getUsername());
-		assertEquals(user, testUser);
+		assertEquals(testUser, user);
 		loginHelper.resetTable();
 	}
 	
@@ -43,12 +43,12 @@ public class LoginOpenHelperTest extends AndroidTestCase {
 	public void testUpdateElement() throws DatabaseException {
 		loginHelper.addElement(testUser);
 		User updatedUser = loginHelper.getElementByName(testUser.getUsername());
-		assertEquals(updatedUser.getId(), 1);
-		updatedUser.setName("bob");
+		assertEquals(1, updatedUser.getId());
+		updatedUser.setFullName("bob");
 		User user = loginHelper.updateElement(updatedUser);
 		Log.d("LoginOpenHelperTest#testUpdateElement", user.getFullName());
 		assertNotNull(user.getUsername());
-		assertEquals(user, updatedUser);
+		assertEquals(updatedUser, user);
 		loginHelper.resetTable();
 	}
 	
@@ -65,7 +65,7 @@ public class LoginOpenHelperTest extends AndroidTestCase {
 	public void testGetElementByName() throws DatabaseException {
 		loginHelper.addElement(testUser);
 		User user = loginHelper.getElementByName(testUser.getUsername());
-		assertEquals(user, testUser);
+		assertEquals(testUser, user);
 		loginHelper.resetTable();
 	}
 	
@@ -76,8 +76,8 @@ public class LoginOpenHelperTest extends AndroidTestCase {
 		loginHelper.addElement(testUser2);
 		List<User> users = loginHelper.getAllElements();
 		assertEquals(2, users.size());
-		assertEquals(users.get(0), testUser);
-		assertEquals(users.get(1), testUser2);
+		assertEquals(testUser, users.get(0));
+		assertEquals(testUser2, users.get(1));
 		loginHelper.resetTable();
 	}
 }

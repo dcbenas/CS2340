@@ -119,12 +119,6 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
     	if (cursor.getCount() != 0) {
     		cursor.moveToFirst();
     		
-    		//DEBUG
-    		if (BuildConfig.DEBUG) {
-    			Log.d("LoginOpenHelper.getUser.cursor_cols", String.valueOf(cursor.getColumnCount()));
-        		Log.d("LoginOpenHelper.getUser.cursor_rows", String.valueOf(cursor.getCount()));
-    		}
-    		
     		//populate Account with info from db
     		Account account = new Account(
     				cursor.getInt(cursor.getColumnIndex(KEY_ACCOUNT_ID)),
@@ -143,14 +137,38 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
      * populates user with account names and Id's
      * @param user
      * @param db
-     * @return
+     * @return list of accounts
      */
     public List<Account> getAccountsForUser(User user) throws DatabaseException {
     	List<Account> accounts = new ArrayList<Account>();
-    	for (Integer id : user.getAccounts()) {
-    		accounts.add(this.getElementById(id));
+    	SQLiteDatabase db = this.getReadableDatabase();
+    	String[] columns = {
+    			KEY_ACCOUNT_NAME, 
+    			KEY_ACCOUNT_BALANCE, 
+    			KEY_ACCOUNT_INTEREST_RATE, 
+    			LoginOpenHelper.KEY_ID,
+    			KEY_ACCOUNT_ID};
+    	String selection = LoginOpenHelper.KEY_ID + "=" + "'" + user.getId() + "'";
+    	
+    	Cursor cursor = db.query(ACCOUNT_TABLE, columns, selection, null, null, null, null);
+    	if (cursor.getCount() != 0) {
+    		cursor.moveToFirst();
+    		do {
+    			//populate Account with info from db
+        		Account account = new Account(
+        				cursor.getInt(cursor.getColumnIndex(KEY_ACCOUNT_ID)),
+        				cursor.getInt(cursor.getColumnIndex(LoginOpenHelper.KEY_ID)),
+        				cursor.getString(cursor.getColumnIndex(KEY_ACCOUNT_NAME)),
+        				cursor.getDouble(cursor.getColumnIndex(KEY_ACCOUNT_BALANCE)),
+        				cursor.getDouble(cursor.getColumnIndex(KEY_ACCOUNT_INTEREST_RATE)));
+            	
+            	accounts.add(account);
+    		} while (cursor.moveToNext());
+    		
+    		return accounts;
+    	} else {
+    		throw new DatabaseException("account does not exist");
     	}
-    	return accounts;
     }
     
     @Override
