@@ -1,6 +1,10 @@
 package com.CeramicKoala.cs2340.activities;
 
+import java.util.List;
+
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.Account;
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.User;
 
@@ -69,11 +73,24 @@ public class LogInActivity extends AccountManagementActivity {
 	}
 	
 	public void updateAccountSpinner() {
-		Object[] accounts = user.getAccounts();
-		System.out.println(accounts.length);
-		Spinner s = (Spinner) findViewById(R.id.account_spinner);
-		ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(this,android.R.layout.simple_spinner_item, accounts);
-		s.setAdapter(adapter);
+		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
+		List<Account> accounts;
+		try {
+			accounts = accountHelper.getAccountsForUser(user);
+			Object[] accountNames = new Object[accounts.size()];
+			int counter = 0;
+			for (Account account : accounts) {
+				accountNames[counter++] = account.getName();
+			}
+			System.out.println(accounts.size());
+			Spinner s = (Spinner) findViewById(R.id.account_spinner);
+			ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(this,android.R.layout.simple_spinner_item, accountNames);
+			s.setAdapter(adapter);
+		} catch (DatabaseException e) {
+			//TODO decide what to do on error retrieving user account
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public void createAccount(View view) {
