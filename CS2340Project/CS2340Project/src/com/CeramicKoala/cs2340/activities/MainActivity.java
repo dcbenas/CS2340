@@ -107,7 +107,6 @@ public class MainActivity extends Activity {
 	 * @return Intent with username and password
 	 */
 	private Intent getIntent(Class<?> activityClass) {
-		//TODO implement a method for sending Users through intents rather than individual fields
 		
 		final String USERNAME = getString(R.string.username_constant);
 		final String PASSWORD = getString(R.string.password_constant);

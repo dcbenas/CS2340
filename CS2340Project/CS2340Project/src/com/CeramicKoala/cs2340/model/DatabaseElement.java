@@ -1,17 +1,14 @@
 package com.CeramicKoala.cs2340.model;
 
+/**
+ * DatabaseElement represents an abstract database element.
+ * Extending this class enforces the id property, which all
+ * database elements must have.
+ * @author Benjamin Newcomer
+ */
 public abstract class DatabaseElement {
 	
-	protected String name;
 	protected int id;
-	
-	/**
-	 * accessor for name
-	 * @return username
-	 */
-	public String getName() {
-		return name;
-	}
 
 	/**
 	 * accessor for Id
@@ -19,14 +16,6 @@ public abstract class DatabaseElement {
 	 */
 	public int getId() {
 		return id;
-	}
-	
-	/**
-	 * setter for name
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 	/**
@@ -40,7 +29,6 @@ public abstract class DatabaseElement {
 	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();
-		out.append("name: " + name + ", ");
 		out.append("id: " + id + ".");
 		return out.toString();
 	}

@@ -1,19 +1,16 @@
 package com.CeramicKoala.cs2340.model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * this class represents a single user
- * accounts (or account Id's will be 
- * added later in development)
- * 
+ * this class represents a single user. 
  * @author Benjamin Newcomer
  *
  */
 public class User extends DatabaseElement {
 	
+	private String username;
 	private String password;
 	private String fullName;
 	private Map<String, Integer> accounts;
@@ -26,9 +23,17 @@ public class User extends DatabaseElement {
 	 */
 	public User(String fullName, String username, String password) {
 		this.fullName = fullName;
-		this.name = username;
+		this.username = username;
 		this.password = password;
 		accounts = new HashMap<String, Integer>();
+	}
+	
+	/**
+	 * setter for account name
+	 * @param name account name
+	 */
+	public void setName(String name) {
+		username = name;
 	}
 	
 	/**
@@ -53,7 +58,7 @@ public class User extends DatabaseElement {
 	 * @return username
 	 */
 	public String getUsername() {
-		return getName();
+		return username;
 	}
 	
 	/**
@@ -96,7 +101,7 @@ public class User extends DatabaseElement {
 	public String toString() {
 		StringBuilder out = new StringBuilder("user: ");
 		out.append("fullName=" + fullName + ", ");
-		out.append("username=" + name + ", ");
+		out.append("username=" + username + ", ");
 		out.append("password=" + password + ", ");
 		out.append("id=" + id + ".");
 		out.append("accounts= " + getAccounts());
@@ -106,6 +111,6 @@ public class User extends DatabaseElement {
 	
 	@Override
 	public boolean equals(Object o) {
-		return (this.name.equals(((User) o).getUsername()));
+		return (this.username.equals(((User) o).getUsername()));
 	}
 }

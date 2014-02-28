@@ -14,12 +14,10 @@ import android.util.Log;
 
 /**
  * AccountOpenHelper provides an interface for performing CRUD operations on the
- * account table in the CeramicKoala SQLite Database
- * Pertinent database fields are located in com.CeramicKoala.cs2340.model.LoginOpenHelper
+ * account table in the CeramicKoala SQLite Database.
  * @author Benjamin Newcomer
  */
 public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
-	
 	
 	LoginOpenHelper loginHelper;
 	static final String ACCOUNT_TABLE = "account";
@@ -27,6 +25,17 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
 	static final String KEY_ACCOUNT_NAME = "name";
 	static final String KEY_ACCOUNT_BALANCE = "balance";
 	static final String KEY_ACCOUNT_INTEREST_RATE = "interestRate";
+	
+	//sql queries for DatabaseOpenHelper
+	static final String ACCOUNT_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + ACCOUNT_TABLE + 
+            "(" + KEY_ACCOUNT_ID + " INTEGER PRIMARY KEY, "
+            + LoginOpenHelper.KEY_ID + " INTEGER, "
+            + KEY_ACCOUNT_NAME + " TEXT, "
+            + KEY_ACCOUNT_BALANCE + " REAL, "
+            + KEY_ACCOUNT_INTEREST_RATE + " TEXT);";
+	static final String ACCOUNT_TABLE_UPGRADE = 
+			"DROP TABLE IF EXISTS " + ACCOUNT_TABLE + ";";
 	
     public AccountOpenHelper(Context context) {
         super(context);

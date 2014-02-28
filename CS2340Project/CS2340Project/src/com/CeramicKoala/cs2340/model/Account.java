@@ -1,17 +1,20 @@
 package com.CeramicKoala.cs2340.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- * The Account represents a bank account. TODO: child classes for each type of account (checking, savings, etc)
- * will be created. Account will be set to abstract when child classes are written.
+ * The Account represents a bank account. TODO: child classes for each type 
+ * of account (checking, savings, etc) will be created. Account will be set 
+ * to abstract when child classes are written.
  * @author Benjamin Newcomer
  */
 public class Account extends DatabaseElement {
 	
-	//TODO Ben - store transaction Id's
-	
 	private int userId;
 	private double balance;
 	private double interestRate;
+	private String accountName;
 	
 	/**
 	 * minimal constructor
@@ -22,7 +25,7 @@ public class Account extends DatabaseElement {
 		this.userId = userId;
 		
 		id = 0;
-		name = "";
+		accountName = "";
 		balance = 0;
 		interestRate = 0;
 	}
@@ -39,9 +42,17 @@ public class Account extends DatabaseElement {
 		this(userId);
 		
 		this.id = accountId;
-		this.name = name;
+		this.accountName = name;
 		this.balance = balance;
 		this.interestRate = interestRate;
+	}
+	
+	/**
+	 * setter for account name
+	 * @param name account name
+	 */
+	public void setName(String name) {
+		accountName = name;
 	}
 	
 	/**
@@ -67,6 +78,14 @@ public class Account extends DatabaseElement {
 	 */
 	public void setInterestRate(double interestRate) {
 		this.interestRate = interestRate;
+	}
+	
+	/**
+	 * getter for name
+	 * @return accountName
+	 */
+	public String getName() {
+		return accountName;
 	}
 	
 	/**
@@ -102,10 +121,11 @@ public class Account extends DatabaseElement {
 		return getId();
 	}
 	
+	
 	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();
-		out.append("name: " + name + ", ");
+		out.append("name: " + accountName + ", ");
 		out.append("userId: " + userId + ", ");
 		out.append("accountId: " + id + ", ");
 		out.append("balance: " + balance + ", ");
@@ -123,7 +143,7 @@ public class Account extends DatabaseElement {
 		}
 		
 		Account a = (Account) o;
-		return (this.name.equals(a.getName()));
+		return (this.accountName.equals(a.getName()));
 	}
 
 	

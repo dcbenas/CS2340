@@ -1,5 +1,6 @@
 package com.CeramicKoala.cs2340.model;
 
+import java.text.ParseException;
 import java.util.List;
 
 import android.content.Context;
@@ -10,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public abstract class DatabaseOpenHelper<T extends DatabaseElement> extends SQLiteOpenHelper {
 
 	//info specific to SQLite database and table
-	static final int DATABASE_VERSION = 12;
+	static final int DATABASE_VERSION = 13;
 	static final String DATABASE_NAME = "CeramicKoala";
     Context context;
 	
@@ -21,38 +22,22 @@ public abstract class DatabaseOpenHelper<T extends DatabaseElement> extends SQLi
 	
 	@Override
     public void onCreate(SQLiteDatabase db) {
-    	//create login table if not exists
-    	final String LOGIN_TABLE_CREATE =
-                "CREATE TABLE IF NOT EXISTS " + LoginOpenHelper.LOGIN_TABLE + 
-                "(" + LoginOpenHelper.KEY_ID + " INTEGER PRIMARY KEY, "
-                + LoginOpenHelper.KEY_USERNAME + " TEXT, "
-                + LoginOpenHelper.KEY_PASSWORD + " TEXT, "
-                + LoginOpenHelper.KEY_FULL_NAME + " TEXT);";
-    	
-        db.execSQL(LOGIN_TABLE_CREATE);
-        
-      //create account table if not exists
-    	final String ACCOUNT_TABLE_CREATE =
-                "CREATE TABLE IF NOT EXISTS " + AccountOpenHelper.ACCOUNT_TABLE + 
-                "(" + AccountOpenHelper.KEY_ACCOUNT_ID + " INTEGER PRIMARY KEY, "
-                + LoginOpenHelper.KEY_ID + " INTEGER, "
-                + AccountOpenHelper.KEY_ACCOUNT_NAME + " TEXT, "
-                + AccountOpenHelper.KEY_ACCOUNT_BALANCE + " TEXT, "
-                + AccountOpenHelper.KEY_ACCOUNT_INTEREST_RATE + " TEXT);";
-    	
-        db.execSQL(ACCOUNT_TABLE_CREATE);
+		//create login table if not exists
+        db.execSQL(LoginOpenHelper.LOGIN_TABLE_CREATE);
+        //create account table if not exists
+        db.execSQL(AccountOpenHelper.ACCOUNT_TABLE_CREATE);
+        //create transaction table if not exists
+        db.execSQL(TransactionOpenHelper.TRANSACTION_TABLE_CREATE);
     }
     
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    	final String LOGIN_TABLE_UPGRADE = 
-    			"DROP TABLE IF EXISTS " + LoginOpenHelper.LOGIN_TABLE + ";";
-    	db.execSQL(LOGIN_TABLE_UPGRADE);
-    	
-    	final String ACCOUNT_TABLE_UPGRADE = 
-    			"DROP TABLE IF EXISTS " + AccountOpenHelper.ACCOUNT_TABLE + ";";
-    	db.execSQL(ACCOUNT_TABLE_UPGRADE);
-    	
+    	//upgrade login table
+    	db.execSQL(LoginOpenHelper.LOGIN_TABLE_UPGRADE);
+    	//upgrade account table
+    	db.execSQL(AccountOpenHelper.ACCOUNT_TABLE_UPGRADE);
+    	//upgrade transaction table
+    	db.execSQL(TransactionOpenHelper.TRANSACTION_TABLE_UPGRADE);
     	onCreate(db);
     }
 	
@@ -70,7 +55,7 @@ public abstract class DatabaseOpenHelper<T extends DatabaseElement> extends SQLi
      * @return T new element if successful
      * @throws DatabaseException if unsuccessful
      */
-    public abstract T updateElement(T t) throws DatabaseException;
+    public abstract T updateElement(T t) throws DatabaseException, UnsupportedOperationException;
     
     /**
      * deletes an element permanently
@@ -102,8 +87,9 @@ public abstract class DatabaseOpenHelper<T extends DatabaseElement> extends SQLi
      * gets a list of all elements
      * @return List<T> all elements in table or empty list
      * @throws UnsupportedOperationException if unsupported
+     * @throws ParseException 
      */
-    public abstract List<T> getAllElements() throws UnsupportedOperationException;
+    public abstract List<T> getAllElements() throws UnsupportedOperationException, ParseException;
     
     /**
      * gets the number of rows in table

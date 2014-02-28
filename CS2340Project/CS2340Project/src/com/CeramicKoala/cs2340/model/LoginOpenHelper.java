@@ -23,13 +23,22 @@ import android.util.Log;
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class LoginOpenHelper extends DatabaseOpenHelper<User> {
 	
-
 	//table holding login info
     static final String LOGIN_TABLE = "login";
     static final String KEY_ID = "userId";
     static final String KEY_USERNAME = "username";
     static final String KEY_PASSWORD = "password";
     static final String KEY_FULL_NAME = "fullName";
+    
+    //sql queries for DatabaseOpenHelper
+    static final String LOGIN_TABLE_CREATE =
+            "CREATE TABLE IF NOT EXISTS " + LOGIN_TABLE + 
+            "(" + KEY_ID + " INTEGER PRIMARY KEY, "
+            + KEY_USERNAME + " TEXT, "
+            + KEY_PASSWORD + " TEXT, "
+            + KEY_FULL_NAME + " TEXT);";
+    static final String LOGIN_TABLE_UPGRADE = 
+			"DROP TABLE IF EXISTS " + LOGIN_TABLE + ";";
 
     
     public LoginOpenHelper(Context context) {
