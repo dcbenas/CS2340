@@ -16,7 +16,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
 
 	//table holding transaction info
-    static final String TRANSACTION_TABLE = "transaction";
+    static final String TRANSACTION_TABLE = "accountTransaction";
     static final String KEY_ID = "transactionId";
     static final String KEY_TYPE = "type";
     static final String KEY_AMOUNT = "amount";
