@@ -36,53 +36,59 @@ public class LogInActivity extends AccountManagementActivity {
 	//TODO Matthew - create Account activity
 	
 	private AlertDialog wrongPassword;
-	private User user;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
-		wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password));
-		
 		//setup
 		super.onCreate(savedInstanceState);
-
+		final String FROM_MAIN = getString(R.string.from_main_constant);
 		setContentView(R.layout.activity_log_in);
-		alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account));
-		
-		user = new User(null, null, null);
-		try {
-			//get user from database
-			user = loginHelper.getElementByName(username);
-			
-			//set textView text with successful login message or display alert dialog
-			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
-			if (checkCred(user.getUsername(), user.getPassword())) {
-				if (password.equals(user.getPassword())) {
-					String loginMessage = getString(R.string.log_in_success) + " "+ user.getFullName();
-					loginMessageTextView.setText(loginMessage);
-				} else {
-					wrongPassword.show();
+		alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account), true);
+		wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
+
+		if (intent.getBooleanExtra(FROM_MAIN, true) && loginHelper.getCurrentUser() == null) {
+			try {
+				//get user from database
+				loginHelper.getElementByName(username);
+				System.out.println("THIS");
+				//set textView text with successful login message or display alert dialog
+				TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
+				if (checkCred(loginHelper.getCurrentUser().getUsername(), loginHelper.getCurrentUser().getPassword())) {
+					if (password.equals(loginHelper.getCurrentUser().getPassword())) {
+						String loginMessage = getString(R.string.log_in_success) + " "+ loginHelper.getCurrentUser().getFullName();
+						loginMessageTextView.setText(loginMessage);
+					} else {
+						wrongPassword.show();
+					}
 				}
+				if (loginHelper.getCurrentUser().getAccountSize() !=0)
+					updateAccountSpinner();
+			} catch (DatabaseException e) {
+				Log.d("LogInActivity.get_user", e.getMessage());
+				alertDialog.show();
 			}
-		} catch (DatabaseException e) {
-			Log.d("LogInActivity.get_user", e.getMessage());
-			alertDialog.show();
+			
 		}
-		if (user.getAccountSize() !=0)
-			updateAccountSpinner();
+		else {
+			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
+			String loginMessage = getString(R.string.log_in_success) + " "+ loginHelper.getCurrentUser().getFullName();
+			loginMessageTextView.setText(loginMessage);
+			if (loginHelper.getCurrentUser().getAccountSize() !=0)
+				updateAccountSpinner();
+		}
 	}
 	
 	public void updateAccountSpinner() {
 		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
 		List<Account> accounts;
 		try {
-			accounts = accountHelper.getAccountsForUser(user);
+			accounts = accountHelper.getAccountsForUser(loginHelper.getCurrentUser());
 			Object[] accountNames = new Object[accounts.size()];
 			int counter = 0;
 			for (Account account : accounts) {
 				accountNames[counter++] = account.getName();
 			}
-			System.out.println(accounts.size());
 			Spinner s = (Spinner) findViewById(R.id.account_spinner);
 			ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(this,android.R.layout.simple_spinner_item, accountNames);
 			s.setAdapter(adapter);
@@ -95,23 +101,12 @@ public class LogInActivity extends AccountManagementActivity {
 	
 	public void createAccount(View view) {
 		startActivity(getIntent(AccountRegistrationActivity.class));
-		finish();
 	}
 	
 	@Override
 	protected Intent getIntent(Class<?> activityClass) {
-		
-		final String USERNAME = getString(R.string.username_constant);
-		final String PASSWORD = getString(R.string.password_constant);
 		Intent intent = new Intent(this, activityClass);
-		
-		//get username
-		String username = user.getUsername();
-		intent.putExtra(USERNAME, username);
-		
-		String password = user.getPassword();
-		intent.putExtra(PASSWORD, password);
-		
+		intent.putExtra(FROM_MAIN, false);
 		return intent;
 	}
 

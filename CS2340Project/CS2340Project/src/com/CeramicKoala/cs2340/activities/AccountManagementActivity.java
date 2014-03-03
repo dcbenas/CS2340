@@ -19,30 +19,35 @@ import android.os.Build;
 
 public abstract class AccountManagementActivity extends Activity {
 	
-	protected static DatabaseOpenHelper<User> loginHelper;
+	protected static LoginOpenHelper loginHelper;
 	protected AlertDialog alertDialog;
 	protected AlertDialog loginWrong;
 	protected AlertDialog passWrong;
 	protected AlertDialog emptyField;
 	protected String username;
 	protected String password; 
+	protected String FROM_MAIN;
+	protected Intent intent;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setupActionBar();
 		loginHelper = new LoginOpenHelper(this);
+		FROM_MAIN = getString(R.string.from_main_constant);
 		
 		//retrieve username and password info from intent sent by MainActivity
-		Intent intent = getIntent();
-		String USERNAME = getString(R.string.username_constant);
-		String PASSWORD = getString(R.string.password_constant);
-		username = intent.getStringExtra(USERNAME);
-		password = intent.getStringExtra(PASSWORD);
-		System.out.println(password);
-		loginWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_user_at_least_six));
-		passWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_pass_at_least_six));
-		emptyField = setUpAlertDialog("Error", getString(R.string.empty_field_error));
+		intent = getIntent();
+		String FROM_MAIN = getString(R.string.from_main_constant);
+		if (intent.getBooleanExtra(FROM_MAIN,true)) {
+			String USERNAME = getString(R.string.username_constant);
+			String PASSWORD = getString(R.string.password_constant);
+			username = intent.getStringExtra(USERNAME);
+			password = intent.getStringExtra(PASSWORD);
+			loginWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_user_at_least_six), false);
+			passWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_pass_at_least_six), false);
+			emptyField = setUpAlertDialog("Error", getString(R.string.empty_field_error), false);
+		}
 	}
 
 	/**
@@ -73,6 +78,7 @@ public abstract class AccountManagementActivity extends Activity {
 			//
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
+			System.out.println(NavUtils.getParentActivityName(this));
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		}
@@ -82,22 +88,24 @@ public abstract class AccountManagementActivity extends Activity {
 	/**
 	 * sets up alert dialog for 'error account info mismatch' dialog
 	 */
-	protected AlertDialog setUpAlertDialog(String title, String message) {
+	protected AlertDialog setUpAlertDialog(String title, String message, boolean quit) {
 		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setTitle(title);
 		alertDialog.setMessage(message);
-		alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-			}
-		});
-		alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Go Back", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
-				finish();
-			}
-		});
-
+		if (quit) {
+			alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+				}
+			});
+		} else {
+			alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			});
+		}
 		return alertDialog;
 	}
 	
@@ -108,20 +116,21 @@ public abstract class AccountManagementActivity extends Activity {
 	 */
 	protected Intent getIntent(Class<?> activityClass) {
 		
-		final String USERNAME = getString(R.string.username_constant);
-		final String PASSWORD = getString(R.string.password_constant);
 		Intent intent = new Intent(this, activityClass);
 		
-		//set username
-		EditText register_username = (EditText) findViewById(R.id.register_username);
-		String username = register_username.getText().toString();
-		intent.putExtra(USERNAME, username);
-		
-		//set password
-		EditText register_password = (EditText) findViewById(R.id.register_password);
-		String password = register_password.getText().toString();
-		intent.putExtra(PASSWORD, password);
-		
+		if (this.intent.getBooleanExtra(FROM_MAIN, true)) {
+			final String USERNAME = getString(R.string.username_constant);
+			final String PASSWORD = getString(R.string.password_constant);
+			
+			//set username
+			EditText register_username = (EditText) findViewById(R.id.register_username);
+			String username = register_username.getText().toString();
+			intent.putExtra(USERNAME, username);
+			//set password
+			EditText register_password = (EditText) findViewById(R.id.register_password);
+			String password = register_password.getText().toString();
+			intent.putExtra(PASSWORD, password);
+		}
 		return intent;
 	}
 	

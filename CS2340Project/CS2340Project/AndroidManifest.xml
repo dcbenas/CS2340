@@ -52,7 +52,11 @@
         </activity>
         <activity
             android:name="com.CeramicKoala.cs2340.activities.AccountRegistrationActivity"
-            android:label="@string/title_activity_account_registration" >
+            android:label="@string/title_activity_account_registration" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.LogInActivity" />
         </activity>
     </application>
 

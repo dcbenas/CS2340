@@ -29,6 +29,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     static final String KEY_USERNAME = "username";
     static final String KEY_PASSWORD = "password";
     static final String KEY_FULL_NAME = "fullName";
+    static User currentUser;
     
     //sql queries for DatabaseOpenHelper
     static final String LOGIN_TABLE_CREATE =
@@ -110,6 +111,10 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     	return (success > 0);
     }
     
+    public User getCurrentUser() {
+    	return currentUser;
+    }
+    
     @Override
     public User getElementByName(String username) throws DatabaseException {
     	SQLiteDatabase db = this.getReadableDatabase();
@@ -128,7 +133,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
         	user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         	
     		user = getAccountsForUser(user);
-        	
+        	currentUser = user;
         	return user;
     	} else {
     		throw new DatabaseException("user does not exist");

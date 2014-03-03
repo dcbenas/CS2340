@@ -38,5 +38,8 @@
     <string name="title_activity_login_open_helper_test">LoginOpenHelperTest</string>
     <string name="title_activity_account_open_helper_test">AccountOpenHelperTest</string>
     <string name="title_activity_account_registration">AccountRegistrationActivity</string>
+    <string name="log_in_error_field_empty">Both username and password must be filled in.</string>
+    <string name="account_registration_field_empty">Please enter all values into the fields.</string>
+    <string name="from_main_constant">com.CeramicKoala.cs2340.FROM_MAIN</string>
 
 </resources>

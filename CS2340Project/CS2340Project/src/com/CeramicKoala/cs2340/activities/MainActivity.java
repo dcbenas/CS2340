@@ -36,11 +36,13 @@ public class MainActivity extends Activity {
 	 //constants for use in creating loggedIn intent
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	 public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
+	 private AlertDialog isEmpty;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		isEmpty = setUpAlertDialog("Error",getString(R.string.log_in_error_field_empty));
 	}
 
 	@Override
@@ -72,8 +74,10 @@ public class MainActivity extends Activity {
 	 public void logIn (View view) {
 	     if (notEmpty()) {
 			startActivity(getIntent(LogInActivity.class));
+		} else {
+			isEmpty.show();
 		}
-	     finish();
+	     
 	 }
 	 
 	 private boolean notEmpty() {
@@ -122,8 +126,9 @@ public class MainActivity extends Activity {
 		String password = field_password.getText().toString();
 		intent.putExtra(PASSWORD, password);
 		
-		intent.putExtra("fromARA", false);
-		
+		//is from MainActivity
+		String FROM_MAIN = getString(R.string.from_main_constant);
+		intent.putExtra(FROM_MAIN, true);
 		return intent;
 	}
 	
