@@ -14,6 +14,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
+	
+	AccountOpenHelper accountHelper;
 
 	//table holding transaction info
     static final String TRANSACTION_TABLE = "accountTransaction";
@@ -37,10 +39,11 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
 
     public TransactionOpenHelper(Context context) {
         super(context);
+        accountHelper = new AccountOpenHelper(context);
     }
 	
 	@Override
-	public Transaction addElement(Transaction transaction) {
+	public Transaction addElement(Transaction transaction) throws DatabaseException {
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		String timestamp = formatDateToString(transaction.getTimestamp());
@@ -56,12 +59,24 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     	
     	long success = db.insert(TRANSACTION_TABLE, null, values);
     	db.close();
-    	if (success != -1) {
+    	if ((success != -1) && updateAccount(transaction)) {
     		return transaction;
     	} else {
     		Transaction noTransaction = new Transaction(0, null, 0, null);
     		return noTransaction;
     	}
+	}
+	
+	private boolean updateAccount(Transaction transaction) throws DatabaseException {
+		Account account = accountHelper.getElementById(transaction.getAccountId());
+		account.incrementBalance(transaction.getAmount());
+		Account updatedAccount = accountHelper.updateElement(account);
+		
+		if (updatedAccount.getBalance() == account.getBalance()) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	private String formatDateToString(Date date) {

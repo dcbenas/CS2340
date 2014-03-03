@@ -28,7 +28,7 @@ public class Transaction extends DatabaseElement {
 			return type;
 		}
 	};
-	private final TransactionType type;
+	private final String type;
 	private final double amount;
 	private final Timestamp timestamp;
 	private final int accountId;
@@ -43,7 +43,7 @@ public class Transaction extends DatabaseElement {
 	 */
 	public Transaction(int accountId, String type, double amount, Date date) {
 		this.accountId = accountId;
-		this.type = TransactionType.valueOf(type);
+		this.type = "bob"; //TransactionType.valueOf(type).toString();
 		this.amount = amount;
 		this.date = date;
 		
@@ -64,7 +64,7 @@ public class Transaction extends DatabaseElement {
 	 */
 	public Transaction(int accountId, String type, double amount, Date date, Date timestamp, int id) {
 		this.accountId = accountId;
-		this.type = TransactionType.valueOf(type);
+		this.type = TransactionType.valueOf(type).toString();
 		this.amount = amount;
 		this.date = date;
 		this.id = id;
@@ -85,7 +85,7 @@ public class Transaction extends DatabaseElement {
 	 * @return String type
 	 */
 	public String getType() {
-		return type.toString();
+		return type;
 	}
 	
 	/**
@@ -112,4 +112,15 @@ public class Transaction extends DatabaseElement {
 		return date;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) {
+			return false;
+		}
+		if (!(o instanceof Transaction)) {
+			return false;
+		}
+		
+		return (this.id == ((Transaction) o).getId());
+	}
 }
