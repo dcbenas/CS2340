@@ -58,6 +58,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.LogInActivity" />
         </activity>
+        
+        <activity
+            android:name="com.CeramicKoala.cs2340.activities.AccountHomeActivity"
+            android:label="@string/title_activity_account_home" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.LogInActivity" />
+        </activity>
+        
+        <activity
+            android:name="com.CeramicKoala.cs2340.activities.TransactionActivity"
+            android:label="@string/title_activity_account_home" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.AccountHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.AccountHomeActivity" />
+        </activity>
     </application>
 
 </manifest>
