@@ -1,4 +1,10 @@
-package com.example.myfirstapp;
+package com.CeramicKoala.cs2340.activities;
+
+import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
+import com.CeramicKoala.cs2340.model.LoginOpenHelper;
+import com.CeramicKoala.cs2340.model.User;
+import com.example.myfirstapp.AccountOpenHelper;
 
 import android.os.Bundle;
 import android.annotation.SuppressLint;
@@ -22,6 +28,9 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
 		String loginMessage = getString(R.string.log_in_success) + " "+ AccountOpenHelper.currentAccount.getName();
 		loginMessageTextView.setText(loginMessage);
+		TextView balanceMessageTextView = (TextView) findViewById(R.id.current_balance);
+		String balanceMessage = getString(R.string.balance_message) + " "+ AccountOpenHelper.currentAccount.getBalance();
+		balanceMessageTextView.setText(balanceMessage);
 		
 		
 	}

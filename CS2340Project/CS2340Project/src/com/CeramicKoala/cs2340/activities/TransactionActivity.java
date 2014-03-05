@@ -1,9 +1,17 @@
-package com.example.myfirstapp;
+package com.CeramicKoala.cs2340.activities;
+
+import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
+import com.CeramicKoala.cs2340.model.LoginOpenHelper;
+import com.CeramicKoala.cs2340.model.User;
+import com.example.myfirstapp.Account;
+import com.example.myfirstapp.AccountOpenHelper;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.EditText;
 
 public class TransactionActivity extends AccountHomeActivity {
 private AccountOpenHelper myHelper;
@@ -30,7 +38,17 @@ private AccountOpenHelper myHelper;
 	
 	public void makeTransaction(View view) {
 		try {
-			
+			EditText transactionAmount = (EditText) findViewById(R.id.transaction_amount);
+			String balChange = transactionAmount.getText().toString();
+			double balanceChange = new Double(balChange);
+			double currBal = AccountOpenHelper.currentAccount.getBalance();
+			double newBal = currBal + balanceChange;//hooAH;
+			AccountOpenHelper.currentAccount.setBalance(newBal);
+			Account tempAcc = AccountOpenHelper.currentAccount;
+			myHelper.updateElement(tempAcc);
+			finish();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
