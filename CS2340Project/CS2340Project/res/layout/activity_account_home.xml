@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AccountHomeActivity" >
+    
+    <TextView
+        android:id="@+id/login_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/log_in_success"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="28sp" />
+
+
+    <TextView
+        android:id="@+id/current_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/make_transaction"
+        android:layout_marginTop="22dp"
+        android:text="Current Balance" />
+
+
+
+  
+
+    <Button
+        android:id="@+id/make_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/current_balance"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="89dp"
+        android:onClick="startTransaction"
+        android:text="Perform a Transaction" />
+
+</RelativeLayout>
