@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.CeramicKoala.cs2340.BuildConfig;
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,6 +21,7 @@ import android.util.Log;
 public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
 	
 	LoginOpenHelper loginHelper;
+	public static Account currentAccount;
 	static final String ACCOUNT_TABLE = "account";
 	static final String KEY_ACCOUNT_ID = "accountId";
 	static final String KEY_ACCOUNT_NAME = "name";
@@ -65,6 +67,15 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
     	}
     	
     }
+	
+	public void updateCurrent() {
+		try {
+			updateElement(currentAccount);
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     
     @Override
     public Account updateElement(Account account) throws DatabaseException {
@@ -86,6 +97,19 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
        	} else {
     		throw new DatabaseException("account update failure.");
        	}
+    }
+    
+    public void updateBalance() {
+    	try {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_ACCOUNT_BALANCE, AccountOpenHelper.currentAccount.getBalance());
+    	String where = KEY_ACCOUNT_NAME + "=?";
+    	String[] whereArgs = {AccountOpenHelper.currentAccount.getName()};
+    	int success = db.update(ACCOUNT_TABLE, values, where, whereArgs);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
     
     @Override
@@ -126,7 +150,7 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
     				cursor.getString(cursor.getColumnIndex(KEY_ACCOUNT_NAME)),
     				cursor.getDouble(cursor.getColumnIndex(KEY_ACCOUNT_BALANCE)),
     				cursor.getDouble(cursor.getColumnIndex(KEY_ACCOUNT_INTEREST_RATE)));
-        	
+        	currentAccount = account;
         	return account;
     	} else {
     		throw new DatabaseException("account does not exist");

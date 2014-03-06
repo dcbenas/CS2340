@@ -37,10 +37,13 @@ public class MainActivity extends Activity {
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	 public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
 	 private AlertDialog isEmpty;
+	 private LoginOpenHelper loginHelper;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		loginHelper = new LoginOpenHelper(this);
+		loginHelper.logOut();
 		setContentView(R.layout.activity_main);
 		isEmpty = setUpAlertDialog("Error",getString(R.string.log_in_error_field_empty));
 	}

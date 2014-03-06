@@ -260,4 +260,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     	}
     }
     
+    public void logOut() {
+    	currentUser = null;
+    }
 }

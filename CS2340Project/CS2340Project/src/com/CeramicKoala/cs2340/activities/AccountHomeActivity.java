@@ -1,21 +1,16 @@
 package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.User;
-import com.example.myfirstapp.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 
 import android.os.Bundle;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class AccountHomeActivity extends AccountManagementActivity {
@@ -24,15 +19,22 @@ public class AccountHomeActivity extends AccountManagementActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		myHelper = new AccountOpenHelper(this);
+		intent = getIntent();
+		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
+		try {
+			myHelper.getElementById(intent.getIntExtra(CHOSEN_ACCOUNT, 1));
+
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		setContentView(R.layout.activity_account_home);
 		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
-		String loginMessage = getString(R.string.log_in_success) + " "+ AccountOpenHelper.currentAccount.getName();
+		String loginMessage = AccountOpenHelper.currentAccount.getName();
 		loginMessageTextView.setText(loginMessage);
 		TextView balanceMessageTextView = (TextView) findViewById(R.id.current_balance);
 		String balanceMessage = getString(R.string.balance_message) + " "+ AccountOpenHelper.currentAccount.getBalance();
 		balanceMessageTextView.setText(balanceMessage);
-		
-		
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
