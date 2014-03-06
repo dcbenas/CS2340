@@ -8,15 +8,9 @@ import com.CeramicKoala.cs2340.model.User;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 
 import android.os.Bundle;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class AccountHomeActivity extends AccountManagementActivity {
@@ -29,7 +23,7 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		try {
 			myHelper.getElementById(intent.getIntExtra(CHOSEN_ACCOUNT, 1));
-			myHelper.updateCurrent();
+
 		} catch (DatabaseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
