@@ -137,7 +137,7 @@ public abstract class AccountManagementActivity extends Activity {
 	protected boolean checkCred(String user, String pass) {
 		
 		if(!user.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
-			loginWrong.show();
+			loginWrong .show();
 			return false;
 		}
 

@@ -4,8 +4,8 @@ import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.User;
-import com.example.myfirstapp.Account;
-import com.example.myfirstapp.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.Account;
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -46,6 +46,9 @@ private AccountOpenHelper myHelper;
 			AccountOpenHelper.currentAccount.setBalance(newBal);
 			Account tempAcc = AccountOpenHelper.currentAccount;
 			myHelper.updateElement(tempAcc);
+			Intent intent = getIntent(AccountHomeActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+			startActivity(intent);
 			finish();
 		} catch (Exception e) {
 			e.printStackTrace();
