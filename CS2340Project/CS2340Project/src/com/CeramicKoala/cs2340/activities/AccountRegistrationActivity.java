@@ -68,6 +68,7 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 			try {
 				accountHelper.addElement(new Account(0, loginHelper.getCurrentUser().getId(),name, new Double(startingBalance), new Double(interestRate)));
 				startActivity(getIntent(LogInActivity.class));
+				accountExists.show();
 			} catch (NumberFormatException e) {
 				invalidNumber.show();
 				e.printStackTrace();

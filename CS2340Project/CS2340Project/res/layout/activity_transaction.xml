@@ -8,43 +8,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AccountRegistrationActivity" >
 
-    <EditText
-        android:id="@+id/transaction_amount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
-        android:ems="10"
-        android:inputType="numberDecimal" />
-
     <Button
         android:id="@+id/cancel_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/submit_transaction"
-        android:layout_below="@+id/submit_transaction"
-        android:layout_marginRight="44dp"
-        android:layout_marginTop="19dp"
-        android:onClick="returnToLogin"
-        android:text="Cancel" />
-
-    <Button
-        android:id="@+id/submit_transaction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:onClick="makeTransaction"
-        android:text="Confirm Transaction" />
+        android:onClick="returnToLogin"
+        android:text="Cancel" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="44dp"
-        android:text="Enter Amount (+ for deposit, - for withdrawal[for now])" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Enter Amount of Money" />
+
+    <Button
+        android:id="@+id/submit_withdrawal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cancel_transaction"
+        android:layout_toRightOf="@+id/cancel_transaction"
+        android:onClick="makeWithdrawal"
+        android:text="Withdraw" />
+
+    <Button
+        android:id="@+id/submit_deposit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cancel_transaction"
+        android:layout_toLeftOf="@+id/cancel_transaction"
+        android:onClick="makeDeposit"
+        android:text="Deposit" />
+
+    <EditText
+        android:id="@+id/transaction_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:inputType="numberDecimal" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>
