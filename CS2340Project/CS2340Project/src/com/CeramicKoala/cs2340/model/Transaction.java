@@ -2,7 +2,6 @@ package com.CeramicKoala.cs2340.model;
 
 import java.util.Date;
 import java.sql.Timestamp;
-import java.text.DateFormat;
 
 /**
  * Transaction represents a single account transaction. Transactions are

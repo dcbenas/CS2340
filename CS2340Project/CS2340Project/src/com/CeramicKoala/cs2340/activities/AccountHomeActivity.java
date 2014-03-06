@@ -2,9 +2,6 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.DatabaseException;
-import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
-import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.User;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 
 import android.os.Bundle;
@@ -25,7 +22,6 @@ public class AccountHomeActivity extends AccountManagementActivity {
 			myHelper.getElementById(intent.getIntExtra(CHOSEN_ACCOUNT, 1));
 
 		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		setContentView(R.layout.activity_account_home);

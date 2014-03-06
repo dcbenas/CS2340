@@ -1,10 +1,6 @@
 package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
-import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
-import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.User;
-import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 
 import android.app.AlertDialog;
@@ -77,6 +73,7 @@ private AlertDialog underZero;
 					AccountOpenHelper.currentAccount.setBalance(newBal);
 					myHelper.updateBalance();
 					Intent intent = getIntent(AccountHomeActivity.class);
+					//TODO Inseok - use flags to force LoginActivity from restoring
 					intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
 					startActivity(intent);
 					finish();

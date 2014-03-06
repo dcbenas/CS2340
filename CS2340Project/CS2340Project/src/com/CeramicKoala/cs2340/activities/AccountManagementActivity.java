@@ -1,9 +1,7 @@
 package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
-import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -56,6 +54,7 @@ public abstract class AccountManagementActivity extends Activity {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setupActionBar() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			//TODO Inseok - disable up button (make sure back button works correctly)
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}

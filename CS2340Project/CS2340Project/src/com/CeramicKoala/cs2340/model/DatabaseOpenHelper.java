@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public abstract class DatabaseOpenHelper<T extends DatabaseElement> extends SQLiteOpenHelper {

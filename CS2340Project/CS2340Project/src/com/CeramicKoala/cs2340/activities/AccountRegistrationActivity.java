@@ -1,26 +1,18 @@
 package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
-import com.CeramicKoala.cs2340.R.layout;
-import com.CeramicKoala.cs2340.R.menu;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseException;
-import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
 public class AccountRegistrationActivity extends AccountManagementActivity {
-	
-	//TODO Inseok - selecting account from spinner transitions to account activity
 	
 	private AccountOpenHelper accountHelper;
 	private AlertDialog invalidNumber;
@@ -53,7 +45,7 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 	
 
 	public void createAccount(View view) {
-		//TODO trying to create invalid account doesn't throw/handle exception
+		//TODO what happens when invalid account is created? (negative balance, etc.)
 		EditText field_name = (EditText) findViewById(R.id.field_accountName);
 		String name = field_name.getText().toString();
 		
@@ -66,7 +58,12 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 			isEmpty.show();
 		else {
 			try {
-				accountHelper.addElement(new Account(0, loginHelper.getCurrentUser().getId(),name, new Double(startingBalance), new Double(interestRate)));
+				accountHelper.addElement(new Account(
+						0, 
+						loginHelper.getCurrentUser().getId(),
+						name, 
+						new Double(startingBalance), 
+						new Double(interestRate)));
 				startActivity(getIntent(LogInActivity.class));
 				accountExists.show();
 			} catch (NumberFormatException e) {

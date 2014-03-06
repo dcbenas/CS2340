@@ -10,9 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
-import android.util.Log;
 
 /**
  * LoginOpenHelper provides an interface for performing CRUD operations on the
@@ -29,6 +27,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     static final String KEY_USERNAME = "username";
     static final String KEY_PASSWORD = "password";
     static final String KEY_FULL_NAME = "fullName";
+    //TODO Inseok - move currentUser to AccountManagementActivity
     static User currentUser;
     
     //sql queries for DatabaseOpenHelper

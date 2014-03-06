@@ -1,12 +1,7 @@
 package com.CeramicKoala.cs2340.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * The Account represents a bank account. TODO: child classes for each type 
- * of account (checking, savings, etc) will be created. Account will be set 
- * to abstract when child classes are written.
+ * The Account represents a bank account.
  * @author Benjamin Newcomer
  */
 public class Account extends DatabaseElement {

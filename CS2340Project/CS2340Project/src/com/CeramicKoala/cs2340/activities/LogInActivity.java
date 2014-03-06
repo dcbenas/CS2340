@@ -1,13 +1,11 @@
 package com.CeramicKoala.cs2340.activities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseException;
-import com.CeramicKoala.cs2340.model.User;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -17,7 +15,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,10 +30,9 @@ import android.widget.TextView;
  *
  */
 public class LogInActivity extends AccountManagementActivity implements OnItemSelectedListener {
-	//TODO prevent login activity from starting if username already exists
-	//TODO set content view to existing user xml if user has accounts and move setContentView down to bottom
-	//TODO Inseok - selecting account from spinner transitions to account activity
-	//TODO Matthew - create Account activity
+	//TODO Inseok - alter spinner behavior so that selecting account from spinner starts account activity automatically
+	//TODO Matthew - add "Generate Report" button that starts GenerateReportActivity
+	//TODO David/Casey - Make our app look pro. Custom buttons and icons n sich
 	
 	private AlertDialog wrongPassword, noAccount;
 	private int chosenAccount;
@@ -100,7 +96,6 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 			s.setAdapter(adapter);
 			s.setOnItemSelectedListener(this);
 		} catch (DatabaseException e) {
-			//TODO decide what to do on error retrieving user account
 			e.printStackTrace();
 		}
 		System.out.println(accounts.size());

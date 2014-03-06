@@ -30,8 +30,9 @@ import android.widget.TextView;
  */
 public class MainActivity extends Activity {
 	
-	//TODO implement a method for sending Users through intents rather than individual fields
-	//TODO Inseok - fix action bar (back button needs to work)
+	//TODO Matthew - create GenerateReportActivity
+	//TODO Matthew - create DisplayReportActivity
+	//TODO Ben - create model.GenerateReport class
 	
 	 //constants for use in creating loggedIn intent
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
@@ -43,7 +44,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		loginHelper = new LoginOpenHelper(this);
-		loginHelper.logOut();
 		setContentView(R.layout.activity_main);
 		isEmpty = setUpAlertDialog("Error",getString(R.string.log_in_error_field_empty));
 	}
@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		loginHelper.logOut();
 		
 		//clear the password field upon return to MainActivity
 		EditText passwordEditText = (EditText) findViewById(R.id.field_password);
@@ -80,7 +81,6 @@ public class MainActivity extends Activity {
 		} else {
 			isEmpty.show();
 		}
-	     
 	 }
 	 
 	 private boolean notEmpty() {

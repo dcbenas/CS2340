@@ -26,10 +26,6 @@ public class RegisterActivity extends AccountManagementActivity {
 	EditText register_password;
 	EditText register_full_name;
 	
-	
-	//TODO add confirm password field and check password
-	//TODO prevent login activity from starting if username already exists
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		

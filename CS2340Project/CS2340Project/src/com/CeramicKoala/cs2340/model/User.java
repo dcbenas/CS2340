@@ -1,9 +1,7 @@
 package com.CeramicKoala.cs2340.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * this class represents a single user. 

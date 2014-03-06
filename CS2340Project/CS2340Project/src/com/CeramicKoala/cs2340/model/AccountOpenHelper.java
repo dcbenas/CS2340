@@ -10,8 +10,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 /**
  * AccountOpenHelper provides an interface for performing CRUD operations on the
@@ -72,7 +70,6 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
 		try {
 			updateElement(currentAccount);
 		} catch (DatabaseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
