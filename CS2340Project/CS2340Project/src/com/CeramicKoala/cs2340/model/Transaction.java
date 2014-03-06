@@ -1,6 +1,7 @@
 package com.CeramicKoala.cs2340.model;
 
 import java.util.Date;
+import java.util.EnumSet;
 import java.sql.Timestamp;
 
 /**
@@ -10,24 +11,29 @@ import java.sql.Timestamp;
  * should not be altered after creation.
  * @author Benjamin Newcomer
  */
-public class Transaction extends DatabaseElement {
+public class Transaction extends DatabaseElement implements Comparable {
 	
 	private enum TransactionType {
-		INCOME ("Income"), GIFT ("Gift"), INTEREST("Interest"), 
-		GROCERIES ("Groceries"), SPENDING_MONEY ("Spending money"), 
-		DEPOSIT ("Unspecified Deposit"), WITHDRAWAL ("Unspecified Withdrawal");
+		DEPOSIT(0, "Deposit"), WITHDRAWAL(1, "Withdrawal");
 		
-		private final String type;
+		private int id;
+		private String type;
 		
-		private TransactionType(String s) {
-			type = s;
+		TransactionType(int id, String type) {
+			this.id = id;
+			this.type = type;
 		}
+			
+		public int toInt() {
+				return id;
+			}
 		
 		public String toString() {
 			return type;
 		}
+	
 	};
-	private final String type;
+	private final TransactionType type;
 	private final double amount;
 	private final Timestamp timestamp;
 	private final int accountId;
@@ -40,9 +46,9 @@ public class Transaction extends DatabaseElement {
 	 * @param amount
 	 * @param date
 	 */
-	public Transaction(int accountId, String type, double amount, Date date) {
+	public Transaction(int accountId, int type, double amount, Date date) {
 		this.accountId = accountId;
-		this.type = "bob"; //TransactionType.valueOf(type).toString();
+		this.type = getType(type);
 		this.amount = amount;
 		this.date = date;
 		
@@ -61,9 +67,9 @@ public class Transaction extends DatabaseElement {
 	 * @param timestamp
 	 * @param id
 	 */
-	public Transaction(int accountId, String type, double amount, Date date, Date timestamp, int id) {
+	public Transaction(int accountId, int type, double amount, Date date, Date timestamp, int id) {
 		this.accountId = accountId;
-		this.type = TransactionType.valueOf(type).toString();
+		this.type = getType(type);
 		this.amount = amount;
 		this.date = date;
 		this.id = id;
@@ -84,7 +90,31 @@ public class Transaction extends DatabaseElement {
 	 * @return String type
 	 */
 	public String getType() {
-		return type;
+		return type.toString();
+	}
+	
+	/**
+	 * returns an int for the type
+	 * @return
+	 */
+	public int typeToInt() {
+		return type.toInt();
+	}
+	
+	/**
+	 * returns the transaction type based on int type
+	 * @param type
+	 * @return
+	 */
+	private TransactionType getType(int type) {
+
+		switch (type) {
+		case 0:
+			return TransactionType.DEPOSIT;
+		case 1:
+			return TransactionType.WITHDRAWAL;
+		}
+		return null;
 	}
 	
 	/**
@@ -121,5 +151,15 @@ public class Transaction extends DatabaseElement {
 		}
 		
 		return (this.id == ((Transaction) o).getId());
+	}
+	
+	@Override
+	public int compareTo(Object o) {
+		if (!(o instanceof Transaction)) {
+			throw new IllegalArgumentException("cannot compare objects of different classes");
+		}
+		
+		Transaction t = (Transaction) o;
+		return this.timestamp.compareTo(t.getTimestamp());
 	}
 }

@@ -30,7 +30,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     		"CREATE TABLE IF NOT EXISTS " + TRANSACTION_TABLE +
     		"(" + KEY_ID + " INTEGER PRIMARY KEY, "
     		+ AccountOpenHelper.KEY_ACCOUNT_ID + " INTEGER, "
-    		+ KEY_TYPE + " TEXT, "
+    		+ KEY_TYPE + " INTEGER, "
     		+ KEY_AMOUNT + " REAL, "
     		+ KEY_DATE + " TEXT, "
     		+ KEY_TIMESTAMP + " TEXT);";
@@ -51,7 +51,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
 		
 		ContentValues values = new ContentValues();
     	values.put(AccountOpenHelper.KEY_ACCOUNT_ID, transaction.getAccountId());
-    	values.put(KEY_TYPE, transaction.getType());
+    	values.put(KEY_TYPE, transaction.typeToInt());
     	values.put(KEY_AMOUNT, transaction.getAmount());
     	values.put(KEY_TIMESTAMP, timestamp);
     	values.put(KEY_DATE, date);
@@ -62,7 +62,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     	if ((success != -1) && updateAccount(transaction)) {
     		return transaction;
     	} else {
-    		Transaction noTransaction = new Transaction(0, null, 0, null);
+    		Transaction noTransaction = new Transaction(0, 0, 0, null);
     		return noTransaction;
     	}
 	}
@@ -152,7 +152,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
         	do {
         		Transaction transaction = new Transaction(
         				cursor.getInt(cursor.getColumnIndex(AccountOpenHelper.KEY_ACCOUNT_ID)),
-        				cursor.getString(cursor.getColumnIndex(KEY_TYPE)),
+        				cursor.getInt(cursor.getColumnIndex(KEY_TYPE)),
         				cursor.getDouble(cursor.getColumnIndex(KEY_AMOUNT)),
         				formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_DATE))),
         				formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_TIMESTAMP))),
