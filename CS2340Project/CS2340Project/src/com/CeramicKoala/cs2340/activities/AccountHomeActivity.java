@@ -7,15 +7,9 @@ import com.CeramicKoala.cs2340.model.User;
 import com.example.myfirstapp.AccountOpenHelper;
 
 import android.os.Bundle;
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 public class AccountHomeActivity extends AccountManagementActivity {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.CeramicKoala.cs2340.BuildConfig;
+import com.example.myfirstapp.AccountOpenHelper;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -86,6 +87,21 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
        	} else {
     		throw new DatabaseException("account update failure.");
        	}
+    }
+    
+    @Override
+    //Had problems with updateElement =(
+    public void updateBalance() {
+    	try {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	ContentValues values = new ContentValues();
+    	values.put(KEY_ACCOUNT_BALANCE, AccountOpenHelper.currentAccount.getBalance());
+    	String where = KEY_ACCOUNT_NAME + "=?";
+    	String[] whereArgs = {AccountOpenHelper.currentAccount.getName()};
+    	int success = db.update(ACCOUNT_TABLE, values, where, whereArgs);
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
     }
     
     @Override
