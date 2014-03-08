@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		loginHelper.logOut();
+
 		
 		//clear the password field upon return to MainActivity
 		EditText passwordEditText = (EditText) findViewById(R.id.field_password);
@@ -129,9 +129,9 @@ public class MainActivity extends Activity {
 		String password = field_password.getText().toString();
 		intent.putExtra(PASSWORD, password);
 		
-		//is from MainActivity
-		String FROM_MAIN = getString(R.string.from_main_constant);
-		intent.putExtra(FROM_MAIN, true);
+		//making sure there are no 2 instances of LogInActivity and Logging out of current account
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		loginHelper.logOut();
 		return intent;
 	}
 	

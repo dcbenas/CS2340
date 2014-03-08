@@ -14,6 +14,7 @@ public class AccountHomeActivity extends AccountManagementActivity {
 	private AccountOpenHelper myHelper;
 	
 	protected void onCreate(Bundle savedInstanceState) {
+		//TODO Anyone - Format the balance string so that it would be in $xxxx.xx format.
 		super.onCreate(savedInstanceState);
 		myHelper = new AccountOpenHelper(this);
 		intent = getIntent();
@@ -41,7 +42,6 @@ public class AccountHomeActivity extends AccountManagementActivity {
 	
 	protected Intent getIntent(Class<?> activityClass) {
 		Intent intent = new Intent(this, activityClass);
-		intent.putExtra(FROM_MAIN, false);
 		return intent;
 	}
 	

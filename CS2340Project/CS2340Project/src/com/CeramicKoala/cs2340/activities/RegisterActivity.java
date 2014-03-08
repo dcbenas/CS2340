@@ -38,7 +38,6 @@ public class RegisterActivity extends AccountManagementActivity {
 		Intent intent = getIntent();
 		final String USERNAME = getString(R.string.username_constant);
 		final String PASSWORD = getString(R.string.password_constant);
-		final String FROM_MAIN = getString(R.string.from_main_constant);
 		
 		//set register_username
 		register_username = (EditText) findViewById(R.id.register_username);
@@ -85,9 +84,7 @@ public class RegisterActivity extends AccountManagementActivity {
 	
 	@Override
 	public Intent getIntent(Class<?> activityClass) {
-		Intent intent = super.getIntent(activityClass);
-		intent.putExtra(FROM_MAIN, true);
-		return intent;
+		return super.getIntent(activityClass);
 	}
 
 }
