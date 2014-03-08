@@ -43,7 +43,7 @@ public class TransactionOpenHelperTest extends AndroidTestCase {
 		testAccount.setId(1);
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(2014, 2, 28);
-		testTransaction = new Transaction(1, "DEPOSIT", 100, calendar.getTime());
+		testTransaction = new Transaction(1, 0, 100, calendar.getTime());
 		
 		loginHelper.resetTable();
 		accountHelper.resetTable();
@@ -98,7 +98,7 @@ public class TransactionOpenHelperTest extends AndroidTestCase {
 		}
 		
 		Calendar c = Calendar.getInstance();
-		Transaction testTrans2 = new Transaction(1, "DEPOSIT", 10, c.getTime());
+		Transaction testTrans2 = new Transaction(1, 0, 10, c.getTime());
 		transactionHelper.addElement(testTransaction);
 		transactionHelper.addElement(testTrans2);
 		
