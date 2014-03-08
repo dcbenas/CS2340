@@ -24,7 +24,6 @@ public abstract class AccountManagementActivity extends Activity {
 	protected AlertDialog emptyField;
 	protected String username;
 	protected String password; 
-	protected String FROM_MAIN;
 	protected Intent intent;
 
 	@Override
@@ -32,12 +31,10 @@ public abstract class AccountManagementActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setupActionBar();
 		loginHelper = new LoginOpenHelper(this);
-		FROM_MAIN = getString(R.string.from_main_constant);
 		
 		//retrieve username and password info from intent sent by MainActivity
 		intent = getIntent();
-		String FROM_MAIN = getString(R.string.from_main_constant);
-		if (intent.getBooleanExtra(FROM_MAIN,true)) {
+		if (loginHelper.getCurrentUser() == null) {
 			String USERNAME = getString(R.string.username_constant);
 			String PASSWORD = getString(R.string.password_constant);
 			username = intent.getStringExtra(USERNAME);
@@ -54,7 +51,6 @@ public abstract class AccountManagementActivity extends Activity {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void setupActionBar() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			//TODO Inseok - disable up button (make sure back button works correctly)
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 	}
@@ -111,13 +107,16 @@ public abstract class AccountManagementActivity extends Activity {
 	/**
 	 * helper method that places username and password
 	 * for logging in into an intent
+	 * 
+	 * !! might be obsolete, since all its subclasses simply override it.
 	 * @return Intent with username and password
 	 */
+	//TODO discuss getIntent in AMA
 	protected Intent getIntent(Class<?> activityClass) {
 		
 		Intent intent = new Intent(this, activityClass);
 		
-		if (this.intent.getBooleanExtra(FROM_MAIN, true)) {
+		if (loginHelper.getCurrentUser() == null) {
 			final String USERNAME = getString(R.string.username_constant);
 			final String PASSWORD = getString(R.string.password_constant);
 			

@@ -32,7 +32,7 @@ import android.widget.TextView;
 public class LogInActivity extends AccountManagementActivity implements OnItemSelectedListener {
 	//TODO Inseok - alter spinner behavior so that selecting account from spinner starts account activity automatically
 	//TODO Matthew - add "Generate Report" button that starts GenerateReportActivity
-	//TODO David/Casey - Make our app look pro. Custom buttons and icons n sich
+	//TODO David/Casey - Make our app look pro. Custom buttons and icons n such
 	
 	private AlertDialog wrongPassword, noAccount;
 	private int chosenAccount;
@@ -42,13 +42,12 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		
 		//setup
 		super.onCreate(savedInstanceState);
-		final String FROM_MAIN = getString(R.string.from_main_constant);
 		setContentView(R.layout.activity_log_in);
 		alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account), true);
 		wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
 		noAccount = setUpAlertDialog("Error", getString(R.string.no_account),false);
 
-		if (intent.getBooleanExtra(FROM_MAIN, true) && loginHelper.getCurrentUser() == null) {
+		if (loginHelper.getCurrentUser() == null) {
 			try {
 				//get user from database
 				loginHelper.getElementByName(username);
@@ -126,7 +125,6 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 	@Override
 	protected Intent getIntent(Class<?> activityClass) {
 		Intent intent = new Intent(this, activityClass);
-		intent.putExtra(FROM_MAIN, false);
 		return intent;
 	}
 

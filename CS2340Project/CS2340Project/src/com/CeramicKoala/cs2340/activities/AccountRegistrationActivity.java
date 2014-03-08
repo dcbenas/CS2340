@@ -39,7 +39,6 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 	@Override
 	protected Intent getIntent(Class<?> activityClass) {
 		Intent intent = new Intent(this, activityClass);
-		intent.putExtra(FROM_MAIN, false);
 		return intent;
 	}
 	
@@ -64,8 +63,9 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 						name, 
 						new Double(startingBalance), 
 						new Double(interestRate)));
-				startActivity(getIntent(LogInActivity.class));
-				accountExists.show();
+				Intent intent = getIntent(LogInActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
 			} catch (NumberFormatException e) {
 				invalidNumber.show();
 				e.printStackTrace();

@@ -33,7 +33,6 @@ private AlertDialog underZero;
 	
 	protected Intent getIntent(Class<?> activityClass) {
 		Intent intent = new Intent(this, activityClass);
-		intent.putExtra(FROM_MAIN, false);
 		return intent;
 	}
 	
@@ -50,7 +49,7 @@ private AlertDialog underZero;
 				AccountOpenHelper.currentAccount.setBalance(newBal);
 				myHelper.updateBalance();
 				Intent intent = getIntent(AccountHomeActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				finish();
 			}
@@ -73,8 +72,8 @@ private AlertDialog underZero;
 					AccountOpenHelper.currentAccount.setBalance(newBal);
 					myHelper.updateBalance();
 					Intent intent = getIntent(AccountHomeActivity.class);
-					//TODO Inseok - use flags to force LoginActivity from restoring
-					intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+					//This clears its previous instance of the activity and any other activities on top of it.
+					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					startActivity(intent);
 					finish();
 				} else {
@@ -88,7 +87,7 @@ private AlertDialog underZero;
 	
 	public void returnToLogin(View view) {
 		Intent intent = getIntent(AccountHomeActivity.class);
-		intent.setFlags(Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP);
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 		finish();
 	}
