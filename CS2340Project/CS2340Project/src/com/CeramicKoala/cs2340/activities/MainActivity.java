@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
 	
 	//TODO Matthew - create GenerateReportActivity
 	//TODO Matthew - create DisplayReportActivity
-	//TODO Ben - create model.GenerateReport class
 	
 	 //constants for use in creating loggedIn intent
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
