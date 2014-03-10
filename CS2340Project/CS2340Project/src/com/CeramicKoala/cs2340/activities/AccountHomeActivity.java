@@ -1,5 +1,7 @@
 package com.CeramicKoala.cs2340.activities;
 
+import java.text.NumberFormat;
+
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
@@ -12,13 +14,19 @@ import android.widget.TextView;
 
 public class AccountHomeActivity extends AccountManagementActivity {
 	private AccountOpenHelper myHelper;
+	private NumberFormat currencyFormatter;
 	
 	protected void onCreate(Bundle savedInstanceState) {
-		//TODO Anyone - Format the balance string so that it would be in $xxxx.xx format.
 		super.onCreate(savedInstanceState);
 		myHelper = new AccountOpenHelper(this);
 		intent = getIntent();
+		
+		currencyFormatter = NumberFormat.getCurrencyInstance();
+		double balance = AccountOpenHelper.currentAccount.getBalance();
+		String balanceString = currencyFormatter.format(balance);
+		
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
+		
 		try {
 			myHelper.getElementById(intent.getIntExtra(CHOSEN_ACCOUNT, 1));
 
@@ -30,7 +38,7 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		String loginMessage = AccountOpenHelper.currentAccount.getName();
 		loginMessageTextView.setText(loginMessage);
 		TextView balanceMessageTextView = (TextView) findViewById(R.id.current_balance);
-		String balanceMessage = getString(R.string.balance_message) + " "+ AccountOpenHelper.currentAccount.getBalance();
+		String balanceMessage = getString(R.string.balance_message) + " "+ balanceString;
 		balanceMessageTextView.setText(balanceMessage);
 	}
 	
