@@ -22,8 +22,8 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		intent = getIntent();
 		
 		currencyFormatter = NumberFormat.getCurrencyInstance();
-		double balance = AccountOpenHelper.currentAccount.getBalance();
-		String balanceString = currencyFormatter.format(balance);
+		//double balance = AccountOpenHelper.currentAccount.getBalance();
+		String balanceString = currencyFormatter.format(100.11);
 		
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		
