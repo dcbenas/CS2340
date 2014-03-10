@@ -3,7 +3,7 @@ for CeramicKoala
 
 Variable and Method Declaration and Instantiation:
 	-Place all class variable declarations at the top of the block (class, method, or logic block)
-	-Group code blocks by logical function
+	-Group code blocks by logical function (Use new lines and empty lines!)
 		ex. in a method, separate blocks by 
 			declarations, initializations, operations, output formatting and return
 
@@ -13,10 +13,10 @@ Debugging:
 		if (BuildConfig.DEBUG) {
 			place code here
 		}
-     -display only pertinent debug information. If your code is standalone and simple, there's no need to debug it.
+     -display only pertinent debug information. If your code is stand alone and simple, there's no need to debug it.
 
 Formatting:
-	-Break up long lines of code with the following rules:
+	-Break up long lines:
 		-break methods by placing each argument on a new line (Eclipse should auto-indent)
 			ex. accountHelper.addElement(new Account(
 										0, 
@@ -24,13 +24,16 @@ Formatting:
 										new Double(startingBalance), 
 										new Double(interestRate))); 
 		-make sure to correctly use spaces
-		-always add JavaDocs for classes or methods you have written or substantially altered
+		-always add JavaDocs for classes or methods you have written or substantially altered (this project is where JavaDocs are actually important)
 
 Eclipse suggestions:
 	-Follow most Eclipse suggestions (that do not have a large impact on the code)
 		ex. use "Double.valueOf(int)" instead of "new Double(int)"
 
 Logic:
-      -Use as little data as necessary. Only use large data objects (Users, Accounts) for data display and editing. For things like logging in or populating a list of accounts, only store the pertinent information (username and password for logging in and account name, account Id for account list). The full object can always be retrieved later. 
-     -make sure all objects and classes stay within the bounds of their responsibilities. When you write new code, make sure you are writing it in the best possible place.
+     -Store as little data as necessary. Only use large data objects (Users, Accounts) for data display and editing. 
+      For things like logging in or populating a list of accounts, only store the pertinent information (username and password for logging in and account name, 
+      account Id for account list). The full object can always be retrieved later. 
+     -make sure all objects and classes stay within the bounds of their responsibilities. When you write new code, make sure you are writing it in the best 
+      possible place.
  	
