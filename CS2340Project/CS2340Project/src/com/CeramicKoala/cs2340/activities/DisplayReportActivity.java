@@ -37,6 +37,7 @@ public class DisplayReportActivity extends AccountManagementActivity {
 		
 		reportMaker = new ReportGenerator(this, loginHelper.getCurrentUser());
 		try {
+			
 			List<Transaction> spendingReport = reportMaker.generateReport(null, null, null);
 			TextView report = (TextView) findViewById(R.id.spending_report);
 			String reportMessage = null;

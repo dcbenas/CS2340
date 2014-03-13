@@ -1,5 +1,6 @@
 package com.CeramicKoala.cs2340.model;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -155,7 +156,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
         				cursor.getInt(cursor.getColumnIndex(KEY_TYPE)),
         				cursor.getDouble(cursor.getColumnIndex(KEY_AMOUNT)),
         				formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_DATE))),
-        				formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_TIMESTAMP))),
+        				(Timestamp) formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_TIMESTAMP))),
         				cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         				
         		transactionList.add(transaction);
