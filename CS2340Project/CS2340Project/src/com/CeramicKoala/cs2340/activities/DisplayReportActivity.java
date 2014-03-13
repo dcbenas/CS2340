@@ -65,8 +65,8 @@ public class DisplayReportActivity extends AccountManagementActivity {
 		return intent;
 	}
 	
-	public void goAccountHome() {
-		finish();
+	public void goAccountHome(View view) {
+		startActivity(getIntent(AccountHomeActivity.class));
 	}
 
 }
