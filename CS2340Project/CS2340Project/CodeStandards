@@ -25,6 +25,7 @@ Formatting:
 										new Double(interestRate))); 
 		-make sure to correctly use spaces
 		-always add JavaDocs for classes or methods you have written or substantially altered (this project is where JavaDocs are actually important)
+	-Organize methods in order of how they will be used (if applicable)
 
 Eclipse suggestions:
 	-Follow most Eclipse suggestions (that do not have a large impact on the code)
