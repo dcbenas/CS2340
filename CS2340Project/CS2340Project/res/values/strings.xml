@@ -56,5 +56,7 @@
     <string name="generate_report">Display Transaction Report</string>
     <string name="withdrawal_report">Withdrawal Report for </string>
     <string name="date_start_to_end"></string>
+    <string name="date">Date</string>
+    <string name="amount">Amount</string>
 
 </resources>

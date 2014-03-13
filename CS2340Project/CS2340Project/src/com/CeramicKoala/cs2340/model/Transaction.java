@@ -1,5 +1,6 @@
 package com.CeramicKoala.cs2340.model;
 
+import java.text.DateFormatSymbols;
 import java.util.Date;
 import java.sql.Timestamp;
 
@@ -162,10 +163,26 @@ public class Transaction extends DatabaseElement implements Comparable {
 		return this.timestamp.compareTo(t.getTimestamp());
 	}
 	
+	@SuppressWarnings("deprecation")
+	public String getDateString() {
+		StringBuilder out = new StringBuilder();
+		String stringMonth = new DateFormatSymbols().getMonths()[date.getMonth()];
+		out.append("\n" + stringMonth + " ");
+		out.append(date.getDate() + ", ");
+		out.append((date.getYear() + 1900));
+		return out.toString();
+	}
+	
+	public String getAmountString() {
+		StringBuilder out = new StringBuilder();
+		out.append("\n" + amount);
+		
+		return out.toString();
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();
-		out.append(date + ", ");
 		out.append(amount + "\n");
 		
 		return out.toString();

@@ -28,7 +28,6 @@ public class DisplayReportActivity extends AccountManagementActivity {
 		setContentView(R.layout.activity_display_report);
 		TextView reportHeader = (TextView) findViewById(R.id.withdrawal_report_header);
 		String loginMessage = getString(R.string.withdrawal_report) + " "+ loginHelper.getCurrentUser().getFullName();
-		System.out.println(loginMessage);
 		reportHeader.setText(loginMessage);
 		
 		//For start / end dates to go with report generator functionality
@@ -49,13 +48,16 @@ public class DisplayReportActivity extends AccountManagementActivity {
 					ReportGenerator.ReportType.SPENDING_REPORT, 
 					beginning, 
 					endDate);
-			TextView report = (TextView) findViewById(R.id.spending_report);
-			String reportMessage = null;
+			TextView reportDate = (TextView) findViewById(R.id.spending_report);
+			TextView reportAmount = (TextView) findViewById(R.id.spending_report_amount);
+			String reportDateMessage = getString(R.string.date);
+			String reportAmountMessage = getString(R.string.amount);
 			for (Transaction t: spendingReport) {
-				reportMessage = (reportMessage + t.toString());
-				reportMessage = (reportMessage + "/n");
+				reportDateMessage = (reportDateMessage + t.getDateString());
+				reportAmountMessage = (reportAmountMessage + t.getAmountString());
 			}
-			report.setText(reportMessage);
+			reportDate.setText(reportDateMessage);
+			reportAmount.setText(reportAmountMessage);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
