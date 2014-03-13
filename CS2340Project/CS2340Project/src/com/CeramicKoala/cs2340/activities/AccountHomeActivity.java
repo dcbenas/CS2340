@@ -20,12 +20,14 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		super.onCreate(savedInstanceState);
 		myHelper = new AccountOpenHelper(this);
 		intent = getIntent();
-		
+			
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		
 		try {
-			myHelper.getElementById(intent.getIntExtra(CHOSEN_ACCOUNT, 1));
-
+			if (myHelper.currentAccount == null)
+				myHelper.getElementById(intent.getIntExtra(CHOSEN_ACCOUNT, 1));
+			else
+				myHelper.getCurrent();
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}

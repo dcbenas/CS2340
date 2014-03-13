@@ -108,6 +108,7 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		Intent intent = getIntent(AccountHomeActivity.class);
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		List<Account> accounts = null;
+		accountHelper.logout();
 		if (loginHelper.getCurrentUser().getAccountSize() != 0) {
 			try {
 				accounts = accountHelper.getAccountsForUser(loginHelper.getCurrentUser());
