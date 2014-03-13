@@ -156,7 +156,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
         				cursor.getInt(cursor.getColumnIndex(KEY_TYPE)),
         				cursor.getDouble(cursor.getColumnIndex(KEY_AMOUNT)),
         				formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_DATE))),
-        				(Timestamp) formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_TIMESTAMP))),
+        				formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_TIMESTAMP))),
         				cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         				
         		transactionList.add(transaction);

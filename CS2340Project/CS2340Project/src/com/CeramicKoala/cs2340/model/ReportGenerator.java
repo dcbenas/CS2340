@@ -17,7 +17,7 @@ import android.content.Context;
  */
 public class ReportGenerator {
 	
-	enum ReportType {SPENDING_REPORT};
+	public enum ReportType {SPENDING_REPORT};
 	TransactionOpenHelper transactionHelper;
 	AccountOpenHelper accountHelper;
 	User user;
@@ -44,13 +44,13 @@ public class ReportGenerator {
 	public List<Transaction> generateReport(ReportType type, Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = null;
 		
-		switch (type) {
-		case SPENDING_REPORT:
+		//switch (type) {
+		//case SPENDING_REPORT:
 			report = generateSpendingReport(beginning, end);
-			break;
-		default:
-			break;
-		}
+		//	break;
+		//default:
+		//	break;
+		//}
 		
 		return report;
 	}

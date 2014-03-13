@@ -12,7 +12,7 @@ import java.sql.Timestamp;
  */
 public class Transaction extends DatabaseElement implements Comparable {
 	
-	private enum TransactionType {
+	public enum TransactionType {
 		DEPOSIT(0, "Deposit"), WITHDRAWAL(1, "Withdrawal");
 		
 		private int id;
@@ -34,7 +34,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 	};
 	private final TransactionType type;
 	private final double amount;
-	private final Timestamp timestamp;
+	private final Date timestamp;
 	private final int accountId;
 	private final Date date;
 		
@@ -53,7 +53,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 		
 		//set timestamp with current system time
 		long currentTime = System.currentTimeMillis();
-		timestamp = new Timestamp(currentTime);
+		timestamp = new Date(currentTime);
 		
 	}
 	
@@ -72,7 +72,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 		this.amount = amount;
 		this.date = date;
 		this.id = id;
-		this.timestamp = (Timestamp) timestamp;
+		this.timestamp = timestamp;
 		
 	}
 	
@@ -160,5 +160,14 @@ public class Transaction extends DatabaseElement implements Comparable {
 		
 		Transaction t = (Transaction) o;
 		return this.timestamp.compareTo(t.getTimestamp());
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder out = new StringBuilder();
+		out.append(date + ", ");
+		out.append(amount + "\n");
+		
+		return out.toString();
 	}
 }

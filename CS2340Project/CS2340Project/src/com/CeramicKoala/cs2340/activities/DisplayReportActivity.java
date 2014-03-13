@@ -1,7 +1,10 @@
 package com.CeramicKoala.cs2340.activities;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +16,7 @@ import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.ReportGenerator;
+import com.CeramicKoala.cs2340.model.ReportGenerator.ReportType;
 import com.CeramicKoala.cs2340.model.Transaction;
 
 public class DisplayReportActivity extends AccountManagementActivity {
@@ -37,8 +41,14 @@ public class DisplayReportActivity extends AccountManagementActivity {
 		
 		reportMaker = new ReportGenerator(this, loginHelper.getCurrentUser());
 		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+			Date beginning = formatter.parse(start);
+			Date endDate = formatter.parse(end);
 			
-			List<Transaction> spendingReport = reportMaker.generateReport(null, null, null);
+			List<Transaction> spendingReport = reportMaker.generateReport(
+					ReportGenerator.ReportType.SPENDING_REPORT, 
+					beginning, 
+					endDate);
 			TextView report = (TextView) findViewById(R.id.spending_report);
 			String reportMessage = null;
 			for (Transaction t: spendingReport) {
