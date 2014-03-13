@@ -34,9 +34,18 @@ public class DisplayReportActivity extends AccountManagementActivity {
 		String dateMessage = "From " + start + " to " + getString(R.string.date_start_to_end) + end;
 		dateInfo.setText(dateMessage);
 		
+		
 		reportMaker = new ReportGenerator(this, loginHelper.getCurrentUser());
 		try {
-			List<Transaction> spendingReport = reportMaker.generateReport(null);
+			List<Transaction> spendingReport = reportMaker.generateReport(null, null, null);
+			TextView report = (TextView) findViewById(R.id.spending_report);
+			String reportMessage = null;
+			for (Transaction t: spendingReport) {
+				reportMessage = (reportMessage + t.toString());
+				reportMessage = (reportMessage + "/n");
+			}
+			report.setText(reportMessage);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

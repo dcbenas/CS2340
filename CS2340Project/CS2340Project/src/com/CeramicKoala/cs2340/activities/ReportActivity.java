@@ -69,8 +69,8 @@ public class ReportActivity extends AccountManagementActivity {
 			endBeforeStart.show();
 		} else if (startDate.startCalendar.after(currentDay)) {
 			startInFuture.show();
-		} else if (endDate.endCalendar.after(currentDay)) {
-			endInFuture.show();
+		//} else if (endDate.endCalendar.after(currentDay)) {
+			//endInFuture.show();
 		} else {
 			Intent intent = new Intent(ReportActivity.this, DisplayReportActivity.class);
 			intent.putExtra("startDate", startDate.start);
@@ -95,7 +95,7 @@ public class ReportActivity extends AccountManagementActivity {
 		}
 		
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-			String stringMonth = new DateFormatSymbols().getMonths()[month-1];
+			String stringMonth = new DateFormatSymbols().getMonths()[month];
 			String dateString = (stringMonth + " " + day + ", " + year);
 			start = dateString;
 			startCalendar = Calendar.getInstance();
@@ -121,7 +121,7 @@ public class ReportActivity extends AccountManagementActivity {
 		}
 		
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-			String stringMonth = new DateFormatSymbols().getMonths()[month-1];
+			String stringMonth = new DateFormatSymbols().getMonths()[month];
 			String dateString = (stringMonth + " " + day + ", " + year);
 			end = dateString;
 			endCalendar = Calendar.getInstance();

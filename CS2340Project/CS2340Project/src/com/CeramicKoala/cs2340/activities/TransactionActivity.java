@@ -1,7 +1,11 @@
 package com.CeramicKoala.cs2340.activities;
 
+import java.util.Date;
+
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.Transaction;
+import com.CeramicKoala.cs2340.model.TransactionOpenHelper;
 
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -11,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 
 public class TransactionActivity extends AccountHomeActivity {
+private TransactionOpenHelper transaction;
 private AccountOpenHelper myHelper;
 private AlertDialog isEmpty;
 private AlertDialog underZero;
@@ -18,6 +23,7 @@ private AlertDialog underZero;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		myHelper = new AccountOpenHelper(this);
+		transaction = new TransactionOpenHelper(this);
 		setContentView(R.layout.activity_transaction);
 		isEmpty = setUpAlertDialog("Error","You need numbers for a transaction!", false);
 		underZero = setUpAlertDialog("Error","You cannot withdraw more than your current balance!", false);
@@ -48,6 +54,10 @@ private AlertDialog underZero;
 				double newBal = currBal + balanceChange;
 				AccountOpenHelper.currentAccount.setBalance(newBal);
 				myHelper.updateBalance();
+				int id = AccountOpenHelper.currentAccount.getAccountId();
+				Date date = new Date();
+				Transaction deposit = new Transaction(id, 0, balanceChange, date);
+				Transaction z = transaction.addElement(deposit);
 				Intent intent = getIntent(AccountHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
@@ -69,6 +79,10 @@ private AlertDialog underZero;
 				double currBal = AccountOpenHelper.currentAccount.getBalance();
 				double newBal = currBal - balanceChange;//hooAH;
 				if (newBal >= 0) {
+					int id = AccountOpenHelper.currentAccount.getAccountId();
+					Date date = new Date();
+					Transaction withdrawal = new Transaction(id, 1, balanceChange, date);
+					Transaction z = transaction.addElement(withdrawal);
 					AccountOpenHelper.currentAccount.setBalance(newBal);
 					myHelper.updateBalance();
 					Intent intent = getIntent(AccountHomeActivity.class);

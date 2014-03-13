@@ -24,6 +24,14 @@
         android:layout_below ="@+id/withdrawal_report_header"
         android:gravity="center"
         android:text="@string/date_start_to_end" />
+    
+    <TextView
+        android:id="@+id/spending_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below ="@+id/report_date_info"
+        android:gravity="center"
+        android:text="" />
 
     <Button
         android:id="@+id/acc_menu"
