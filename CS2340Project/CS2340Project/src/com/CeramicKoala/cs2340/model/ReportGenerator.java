@@ -46,7 +46,7 @@ public class ReportGenerator {
 		
 		//switch (type) {
 		//case SPENDING_REPORT:
-			report = generateSpendingReport();
+			report = generateSpendingReport(beginning, end);
 			//break;
 		//default:
 			//break;
@@ -56,7 +56,7 @@ public class ReportGenerator {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Transaction> generateSpendingReport() throws ParseException, DatabaseException {
+	private List<Transaction> generateSpendingReport(Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = new ArrayList<Transaction>();
 		
 		//get all transactions that are withdrawals
@@ -71,7 +71,11 @@ public class ReportGenerator {
 		//remove transactions outside date window
 		Iterator<Transaction> i = report.iterator();
 		while (i.hasNext()) {
-			//TODO implement logic
+			Transaction t = i.next();
+			if ((beginning.compareTo(t.getDate()) > 0)
+					|| (end.compareTo(t.getDate()) < 0)) {
+				i.remove();
+			}
 		}
 		
 		return report;
