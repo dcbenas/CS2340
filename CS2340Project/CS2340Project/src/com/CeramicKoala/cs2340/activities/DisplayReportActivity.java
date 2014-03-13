@@ -66,7 +66,7 @@ public class DisplayReportActivity extends AccountManagementActivity {
 	}
 	
 	public void goAccountHome() {
-		System.exit(0);
+		finish();
 	}
 
 }
