@@ -27,6 +27,9 @@ import android.app.DialogFragment;
 
 
 public class ReportActivity extends AccountManagementActivity {
+	
+	//TODO Matthew - make the date range inclusive instead of exclusive
+	
 	private DatePickerFragmentStart startDate = new DatePickerFragmentStart();
 	private DatePickerFragmentEnd endDate = new DatePickerFragmentEnd();
 	private Calendar currentDay = Calendar.getInstance();

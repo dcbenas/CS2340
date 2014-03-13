@@ -31,7 +31,7 @@ import android.widget.TextView;
  */
 public class LogInActivity extends AccountManagementActivity implements OnItemSelectedListener {
 	//TODO Inseok - alter spinner behavior so that selecting account from spinner starts account activity automatically
-	//TODO Matthew - add "Generate Report" button that starts GenerateReportActivity
+	//TODO Matthew - format report so that it looks pretty
 	//TODO David/Casey - Make our app look pro. Custom buttons and icons n such
 	
 	private AlertDialog wrongPassword, noAccount;

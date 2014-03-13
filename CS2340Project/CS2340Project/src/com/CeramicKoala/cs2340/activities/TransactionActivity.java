@@ -21,10 +21,13 @@ import android.widget.EditText;
  * @author Matthew Berman
  */
 public class TransactionActivity extends AccountHomeActivity {
-private TransactionOpenHelper transaction;
-private AccountOpenHelper myHelper;
-private AlertDialog isEmpty;
-private AlertDialog underZero;
+	
+	//TODO Matthew - change all transaction methods to accept a date (specific to the day)
+	
+	private TransactionOpenHelper transaction;
+	private AccountOpenHelper myHelper;
+	private AlertDialog isEmpty;
+	private AlertDialog underZero;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

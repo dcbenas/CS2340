@@ -20,6 +20,7 @@ import com.CeramicKoala.cs2340.model.ReportGenerator.ReportType;
 import com.CeramicKoala.cs2340.model.Transaction;
 
 public class DisplayReportActivity extends AccountManagementActivity {
+	
 	private ReportGenerator reportMaker;
 	
 	protected void onCreate(Bundle savedInstanceState) {
