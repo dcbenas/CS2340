@@ -6,35 +6,47 @@ import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
+import com.CeramicKoala.cs2340.model.ReportGenerator;
 import com.CeramicKoala.cs2340.model.User;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.NumberFormat;
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.content.Intent;
-import android.widget.EditText;
 import android.widget.DatePicker;
-import android.widget.TextView;
-import android.support.v4.app.FragmentActivity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DatePickerDialog;
-import android.support.v4.app.DialogFragment;
+import android.app.DialogFragment;
 
 
 
-public class ReportActivity extends FragmentActivity {
-	DatePickerFragment startDate = new DatePickerFragment();
-	DatePickerFragment endDate = new DatePickerFragment();
+public class ReportActivity extends AccountManagementActivity {
+	private DatePickerFragmentStart startDate = new DatePickerFragmentStart();
+	private DatePickerFragmentEnd endDate = new DatePickerFragmentEnd();
+	private Calendar currentDay = Calendar.getInstance();
+	private AlertDialog noStart;
+	private AlertDialog noEnd;
+	private AlertDialog startInFuture;
+	private AlertDialog endInFuture;
+	private AlertDialog endBeforeStart;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		//intent = getIntent();
 		
 		setContentView(R.layout.activity_report);
+		noStart = setUpAlertDialog("Error","Please select a start date for your report!", false);
+		noEnd = setUpAlertDialog("Error","Please select an end date for your report!", false);
+		endBeforeStart = setUpAlertDialog("Error","Your start date must come before your end date!", false);
+		endInFuture = setUpAlertDialog("Error","Cannot generate a report that spans into the future.", false);
+		startInFuture = setUpAlertDialog("Error","Definitely cannot generate a report that starts in the future.", false);
+		
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -48,7 +60,28 @@ public class ReportActivity extends FragmentActivity {
 		return intent;
 	}
 	
-	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+	public void displayReport(View view) {
+		if (startDate.start == null) {
+			noStart.show();
+		} else if (endDate.end == null) {
+			noEnd.show();
+		} else if (startDate.startCalendar.after(endDate.endCalendar)){
+			endBeforeStart.show();
+		} else if (startDate.startCalendar.after(currentDay)) {
+			startInFuture.show();
+		} else if (endDate.endCalendar.after(currentDay)) {
+			endInFuture.show();
+		} else {
+			Intent intent = new Intent(ReportActivity.this, DisplayReportActivity.class);
+			intent.putExtra("startDate", startDate.start);
+			intent.putExtra("endDate", endDate.end);
+			startActivity(intent);
+		}
+	}
+	
+	public static class DatePickerFragmentStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+		private String start;
+		private Calendar startCalendar;
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			// Use the current date as the default date in the picker
@@ -62,17 +95,47 @@ public class ReportActivity extends FragmentActivity {
 		}
 		
 		public void onDateSet(DatePicker view, int year, int month, int day) {
-			Date d = new Date(year, month, day);
+			String stringMonth = new DateFormatSymbols().getMonths()[month-1];
+			String dateString = (stringMonth + " " + day + ", " + year);
+			start = dateString;
+			startCalendar = Calendar.getInstance();
+			startCalendar.set(year, month, day);
 			}
+		
+	}
+	
+	public static class DatePickerFragmentEnd extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+		private String end;
+		private Calendar endCalendar;
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			// Use the current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+		
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			String stringMonth = new DateFormatSymbols().getMonths()[month-1];
+			String dateString = (stringMonth + " " + day + ", " + year);
+			end = dateString;
+			endCalendar = Calendar.getInstance();
+			endCalendar.set(year, month, day);
+		}
 	}
 	
 	public void showStartDatePickerDialog(View v) {
-	    DialogFragment newFragment = new DatePickerFragment();
-	    newFragment.show(getSupportFragmentManager(), "startdatePicker");
+	    DialogFragment newFragment = startDate;
+	    newFragment.show(getFragmentManager(), "startdatePicker");
 	}
 	
 	public void showEndDatePickerDialog(View v) {
-	    DialogFragment newFragment = new DatePickerFragment();
-	    newFragment.show(getSupportFragmentManager(), "enddatePicker");
+	    DialogFragment newFragment = endDate;
+	    newFragment.show(getFragmentManager(), "enddatePicker");
 	}
 }

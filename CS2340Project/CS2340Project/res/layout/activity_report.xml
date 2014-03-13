@@ -36,7 +36,7 @@
         android:layout_below="@+id/set_end"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="39dp"
-        android:onClick="startTransaction"
+        android:onClick="displayReport"
         android:text="@string/generate_report" />
 
     <Button

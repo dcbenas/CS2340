@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".DisplayReportActivity" >
+    
+    <TextView
+        android:id="@+id/withdrawal_report_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="@string/withdrawal_report" />
+    
+    <TextView
+        android:id="@+id/report_date_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below ="@+id/withdrawal_report_header"
+        android:gravity="center"
+        android:text="@string/date_start_to_end" />
+
+    <Button
+        android:id="@+id/acc_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/report_date_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="148dp"
+        android:onClick="goAccountHome"
+        android:text="Return to Account Menu" />
+
+</RelativeLayout>

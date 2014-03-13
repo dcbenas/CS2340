@@ -41,13 +41,13 @@ public class ReportGenerator {
 	public List<Transaction> generateReport(ReportType type) throws ParseException, DatabaseException {
 		List<Transaction> report = null;
 		
-		switch (type) {
-		case SPENDING_REPORT:
+		//switch (type) {
+		//case SPENDING_REPORT:
 			report = generateSpendingReport();
-			break;
-		default:
-			break;
-		}
+			//break;
+		//default:
+			//break;
+		//}
 		
 		return report;
 	}
