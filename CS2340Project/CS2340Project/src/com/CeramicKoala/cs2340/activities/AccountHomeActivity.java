@@ -21,10 +21,6 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		myHelper = new AccountOpenHelper(this);
 		intent = getIntent();
 		
-		currencyFormatter = NumberFormat.getCurrencyInstance();
-		//double balance = AccountOpenHelper.currentAccount.getBalance();
-		String balanceString = currencyFormatter.format(100.11);
-		
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		
 		try {
@@ -33,6 +29,9 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}
+		currencyFormatter = NumberFormat.getCurrencyInstance();
+		double balance = AccountOpenHelper.currentAccount.getBalance();
+		String balanceString = currencyFormatter.format(balance);
 		setContentView(R.layout.activity_account_home);
 		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
 		String loginMessage = AccountOpenHelper.currentAccount.getName();
@@ -55,6 +54,10 @@ public class AccountHomeActivity extends AccountManagementActivity {
 	
 	public void startTransaction(View view) {
 		startActivity(getIntent(TransactionActivity.class));
+	}
+	
+	public void generateReport(View view) {
+		startActivity(getIntent(ReportActivity.class));
 	}
 }
 

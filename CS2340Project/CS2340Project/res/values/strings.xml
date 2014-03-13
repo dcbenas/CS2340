@@ -44,5 +44,13 @@
     <string name="chosen_account_constant">com.CeramicKoala.cs2340.CHOSEN_ACCOUNT</string>
     <string name="balance_message">Current Balance is: </string>
     <string name="no_account">No accounts have been created yet!</string>
+    <!-- accounthome -->
+    <string name="make_a_transaction">Perform Transaction</string>
+    <string name="report_generate">Generate a Report</string>
+    <string name="balance">Current Balance: </string>
+    <!-- report -->
+    <string name="start_date">Select Beginning Date</string>
+    <string name="end_date">Select End Date</string>
+    <string name="generate_report">Display Transaction Report</string>
 
 </resources>

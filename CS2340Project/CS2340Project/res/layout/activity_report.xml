@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AccountHomeActivity" >
+    tools:context=".ReportActivity" >
     
     <TextView
         android:id="@+id/login_message"
@@ -19,32 +19,34 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28sp" />
 
-    <TextView
-        android:id="@+id/current_balance"
+    <Button
+        android:id="@+id/choose_start_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/login_message"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/balance" />
+        android:layout_marginTop="58dp"
+        android:onClick="showStartDatePickerDialog"
+        android:text="@string/start_date" />
 
     <Button
-        android:id="@+id/make_transaction"
+        android:id="@+id/generate_a_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/generate_report"
+        android:layout_below="@+id/set_end"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
         android:onClick="startTransaction"
-        android:text= "@string/make_a_transaction" />
+        android:text="@string/generate_report" />
 
     <Button
-        android:id="@+id/generate_report"
+        android:id="@+id/set_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/current_balance"
+        android:layout_below="@+id/choose_start_date"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:onClick="generateReport"
-        android:text="@string/report_generate" />
+        android:layout_marginTop="37dp"
+        android:onClick="showEndDatePickerDialog"
+        android:text="@string/end_date" />
 
 </RelativeLayout>

@@ -76,6 +76,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.AccountHomeActivity" />
         </activity>
+        
+        <activity
+            android:name="com.CeramicKoala.cs2340.activities.ReportActivity"
+            android:label="@string/title_activity_account_home" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.AccountHomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.AccountHomeActivity" />
+        </activity>
+        
     </application>
 
 </manifest>
