@@ -1,7 +1,6 @@
 package com.CeramicKoala.cs2340.model;
 
 import java.util.Date;
-import java.util.EnumSet;
 import java.sql.Timestamp;
 
 /**

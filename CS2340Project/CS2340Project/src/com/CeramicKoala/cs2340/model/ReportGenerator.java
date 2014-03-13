@@ -3,6 +3,9 @@ package com.CeramicKoala.cs2340.model;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import android.content.Context;
@@ -38,7 +41,7 @@ public class ReportGenerator {
 	 * @throws DatabaseException 
 	 * @throws ParseException 
 	 */
-	public List<Transaction> generateReport(ReportType type) throws ParseException, DatabaseException {
+	public List<Transaction> generateReport(ReportType type, Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = null;
 		
 		//switch (type) {
@@ -52,6 +55,7 @@ public class ReportGenerator {
 		return report;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private List<Transaction> generateSpendingReport() throws ParseException, DatabaseException {
 		List<Transaction> report = new ArrayList<Transaction>();
 		
@@ -63,6 +67,13 @@ public class ReportGenerator {
 		}
 		
 		Collections.sort(report);
+		
+		//remove transactions outside date window
+		Iterator<Transaction> i = report.iterator();
+		while (i.hasNext()) {
+			//TODO implement logic
+		}
+		
 		return report;
 	}
 	
