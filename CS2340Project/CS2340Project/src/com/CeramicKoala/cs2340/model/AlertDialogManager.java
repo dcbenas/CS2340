@@ -43,7 +43,9 @@ public class AlertDialogManager {
 		EMPTY_TRANSACTION("Transaction Error", 
 				"Your transaction must have an amount greater than zero", false),
 		OVERDRAWN_BALANCE("Account Error", 
-				"You cannot withdraw more than your account balance", false);
+				"You cannot withdraw more than your account balance", false),
+		ERROR("Unknown Error",
+				"Unknown error occured", false);
 		
 		String title;
 		String message;

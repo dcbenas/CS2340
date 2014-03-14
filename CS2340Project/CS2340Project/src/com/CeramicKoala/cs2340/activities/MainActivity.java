@@ -50,6 +50,9 @@ public class MainActivity extends Activity {
 		alertManager = new AlertDialogManager(this);
 		sessionManager = new SessionManager(this);
 		//DEPRECATED isEmpty = setUpAlertDialog("Error",getString(R.string.log_in_error_field_empty));
+		
+		// log out to clear all user info
+		sessionManager.logOut();
 	}
 
 	@Override
@@ -64,6 +67,9 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		
 		super.onResume();
+		
+		//log out whenever this app is resumed
+		sessionManager.logOut();
 
 		
 		//clear the password field upon return to MainActivity

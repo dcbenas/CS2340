@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 
 /**
@@ -20,6 +21,7 @@ public class ReportGenerator {
 	public enum ReportType {SPENDING_REPORT};
 	TransactionOpenHelper transactionHelper;
 	AccountOpenHelper accountHelper;
+	SessionManager sessionManager;
 	User user;
 	ReportType type;
 	
@@ -28,10 +30,13 @@ public class ReportGenerator {
 	 * @param context
 	 * @param user
 	 */
-	public ReportGenerator(Context context, User user) {
-		this.user = user;
-		transactionHelper = new TransactionOpenHelper(context);
-		accountHelper = new AccountOpenHelper(context);
+	public ReportGenerator(Activity activity) {
+		transactionHelper = new TransactionOpenHelper(activity);
+		accountHelper = new AccountOpenHelper(activity);
+		sessionManager = new SessionManager(activity);
+
+		this.user = sessionManager.getUser();
+		
 	}
 	
 	/**

@@ -265,9 +265,6 @@ public class SessionManager {
 
 		if(!pass.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
 			
-			alertManager.generateAlertDialog(
-					AlertDialogManager.AlertType.INCORRECT_PASSWORD)
-					.show();
 			return false;
 		}
 

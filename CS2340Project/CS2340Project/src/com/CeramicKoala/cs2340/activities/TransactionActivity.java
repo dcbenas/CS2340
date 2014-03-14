@@ -6,9 +6,11 @@ import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
+import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.Transaction;
 import com.CeramicKoala.cs2340.model.TransactionOpenHelper;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,12 +24,14 @@ import android.widget.EditText;
  * 
  * @author Matthew Berman
  */
-public class TransactionActivity extends AccountManagementActivity {
+public class TransactionActivity extends Activity {
 	
 	//TODO Matthew - change all transaction methods to accept a date (specific to the day)
 	
 	private TransactionOpenHelper transaction;
-	private AccountOpenHelper myHelper;
+	private AccountOpenHelper accountHelper;
+	private AlertDialogManager alertManager;
+	private SessionManager sessionManager;
 // DEPRECATED
 //	private AlertDialog isEmpty;
 //	private AlertDialog underZero;
@@ -35,9 +39,15 @@ public class TransactionActivity extends AccountManagementActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		myHelper = new AccountOpenHelper(this);
-		transaction = new TransactionOpenHelper(this);
 		setContentView(R.layout.activity_transaction);
+		
+		//instantiate helper objects
+		accountHelper = new AccountOpenHelper(this);
+		transaction = new TransactionOpenHelper(this);
+		alertManager = new AlertDialogManager(this);
+		sessionManager = new SessionManager(this);
+		
+		
 // DEPRECATED
 //		isEmpty = setUpAlertDialog("Error","You need numbers for a transaction!", false);
 //		underZero = setUpAlertDialog("Error","You cannot withdraw more than your current balance!", false);
@@ -51,12 +61,13 @@ public class TransactionActivity extends AccountManagementActivity {
 		getMenuInflater().inflate(R.menu.account_registration, menu);
 		return true;
 	}
-	
-	@Override
-	protected Intent getIntent(Class<?> activityClass) {
-		Intent intent = new Intent(this, activityClass);
-		return intent;
-	}
+
+// DEPRECATED
+//	@Override
+//	protected Intent getIntent(Class<?> activityClass) {
+//		Intent intent = new Intent(this, activityClass);
+//		return intent;
+//	}
 	
 	/**
 	 * Makes a deposit if all fields are filled out correctly.
@@ -88,7 +99,7 @@ public class TransactionActivity extends AccountManagementActivity {
 				Date date = new Date();
 				Transaction deposit = new Transaction(id, 0, balanceChange, date);
 				transaction.addElement(deposit);
-				Intent intent = getIntent(AccountHomeActivity.class);
+				Intent intent = new Intent(this, AccountHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				finish();
@@ -134,7 +145,7 @@ public class TransactionActivity extends AccountManagementActivity {
 					updatedAccount.setBalance(newBal);
 					accountHelper.updateElement(updatedAccount);
 					
-					Intent intent = getIntent(AccountHomeActivity.class);
+					Intent intent = new Intent(this, AccountHomeActivity.class);
 					//This clears its previous instance of the activity and any other activities on top of it.
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 					
@@ -161,7 +172,7 @@ public class TransactionActivity extends AccountManagementActivity {
 	 */
 	public void returnToLogin(View view) {
 		
-		Intent intent = getIntent(AccountHomeActivity.class);
+		Intent intent = new Intent(this, AccountHomeActivity.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		startActivity(intent);
 		//TODO don't think we need this

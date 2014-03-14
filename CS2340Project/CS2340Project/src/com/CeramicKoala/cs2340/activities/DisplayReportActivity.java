@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,19 +18,25 @@ import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.ReportGenerator;
 import com.CeramicKoala.cs2340.model.ReportGenerator.ReportType;
+import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.Transaction;
 
-public class DisplayReportActivity extends AccountManagementActivity {
+public class DisplayReportActivity extends Activity {
 	
 	private ReportGenerator reportMaker;
+	private SessionManager sessionManager;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_display_report);
-		intent = getIntent();
+		
+		// instantiate helper objects
+		sessionManager = new SessionManager(this);
+		reportMaker = new ReportGenerator(this);
+		
+		//DEPRECATED intent = getIntent();
 		//TODO remove reference to static current user using SessionManager
-		reportMaker = new ReportGenerator(this, sessionManager.getUser());
 		
 		TextView reportHeader = (TextView) findViewById(R.id.withdrawal_report_header);
 		String loginMessage = getString(R.string.withdrawal_report) + " "

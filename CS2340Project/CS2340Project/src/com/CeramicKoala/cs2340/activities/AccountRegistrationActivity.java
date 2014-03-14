@@ -5,18 +5,25 @@ import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
+import com.CeramicKoala.cs2340.model.LoginOpenHelper;
+import com.CeramicKoala.cs2340.model.SessionManager;
+import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
-public class AccountRegistrationActivity extends AccountManagementActivity {
+public class AccountRegistrationActivity extends Activity {
 	
 	private AccountOpenHelper accountHelper;
-	private AlertDialog invalidNumber;
+	private AlertDialogManager alertManager;
+	private LoginOpenHelper loginHelper;
+	private SessionManager sessionManager;
+	//deprecated private AlertDialog invalidNumber;
 	//deprecated private AlertDialog accountExists;
 	//deprecated private AlertDialog isEmpty;
 
@@ -25,7 +32,12 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_registration);
+		
+		// instantiate all helper objects
 		accountHelper = new AccountOpenHelper(this);
+		loginHelper = new LoginOpenHelper(this);
+		alertManager = new AlertDialogManager(this);
+		sessionManager = new SessionManager(this);
 
 // DEPRECATED
 //		invalidNumber = setUpAlertDialog("Error", "That is an invalid number", false);
@@ -40,13 +52,14 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		getMenuInflater().inflate(R.menu.account_registration, menu);
 		return true;
 	}
-	
-	@Override
-	protected Intent getIntent(Class<?> activityClass) {
-		
-		Intent intent = new Intent(this, activityClass);
-		return intent;
-	}
+
+// DEPRECATED
+//	@Override
+//	protected Intent getIntent(Class<?> activityClass) {
+//		
+//		Intent intent = new Intent(this, activityClass);
+//		return intent;
+//	}
 	
 
 	public void createAccount(View view) {
@@ -71,15 +84,21 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 			
 			try {
 				
-				accountHelper.addElement(new Account(
-						0, 
-						loginHelper.getCurrentUser().getId(),
-						name, 
-						Double.valueOf(startingBalance),
-						Double.valueOf(interestRate)));
+				//create new account and add to database
+				Account newAccount = accountHelper.addElement(new Account(
+								0, 
+								loginHelper.getCurrentUser().getId(),
+								name, 
+								Double.valueOf(startingBalance),
+								Double.valueOf(interestRate)));
+				
+				//update user with new account id
+				User updatedUser = sessionManager.getUser();
+				updatedUser.addAccount(newAccount.getAccountId());
+				loginHelper.updateElement(updatedUser);
 				
 				//TODO what does setting these flags do?
-				Intent intent = getIntent(LogInActivity.class);
+				Intent intent = new Intent(this, LogInActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				
 				startActivity(intent);
@@ -87,7 +106,11 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 			} catch (NumberFormatException e) {
 				
 				//TODO code should be redone so NumberFormatException is not a worry
-				invalidNumber.show();
+				AlertDialog alert = alertManager.generateAlertDialog(
+						AlertDialogManager.AlertType.ERROR);
+				alert.setMessage("Invalid number format");
+				alert.show();
+				
 				e.printStackTrace();
 			} catch (DatabaseException e) {
 				

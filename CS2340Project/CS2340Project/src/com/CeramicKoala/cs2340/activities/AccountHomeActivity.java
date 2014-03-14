@@ -7,27 +7,34 @@ import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.SessionManager;
 
 import android.os.Bundle;
+import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-public class AccountHomeActivity extends AccountManagementActivity {
+public class AccountHomeActivity extends Activity {
 	
 	private AccountOpenHelper myHelper;
 	private NumberFormat currencyFormatter;
 	protected AlertDialogManager alertManager;
+	private SessionManager sessionManager;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_home);
+		
+		// instantiate all helper objects
 		myHelper = new AccountOpenHelper(this);
-		intent = getIntent();
+		sessionManager = new SessionManager(this);
+		//DEPRECATED intent = getIntent();
 		alertManager = new AlertDialogManager(this);
 		
+		// update view if user is logged in
 		if (sessionManager.hasCurrentAccount()) {
 			
 			Account currentAccount = sessionManager.getAccount();

@@ -7,7 +7,9 @@ import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
+import com.CeramicKoala.cs2340.model.SessionManager;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +32,7 @@ import android.widget.TextView;
  * @version 1.0
  *
  */
-public class LogInActivity extends AccountManagementActivity implements OnItemSelectedListener {
+public class LogInActivity extends Activity implements OnItemSelectedListener {
 	
 	//TODO Inseok - alter spinner behavior so that selecting account from spinner starts account 
 	// activity automatically
@@ -40,6 +42,8 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 	//DEPRECATED private AlertDialog wrongPassword, noAccount;
 	private int chosenAccount;
 	private AccountOpenHelper accountHelper;
+	private SessionManager sessionManager;
+	private AlertDialogManager alertManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,10 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		//setup
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_log_in);
+		
+		//instantiate helper objects
+		sessionManager = new SessionManager(this);
+		alertManager = new AlertDialogManager(this);
 		
 		//DEPRECATED alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account), true);
 		//DEPRECATED wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
@@ -157,7 +165,7 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 	
 	public void createAccount(View view) {
 		
-		startActivity(getIntent(AccountRegistrationActivity.class));
+		startActivity(new Intent(this, AccountRegistrationActivity.class));
 	}
 	
 	// TODO instead of selecting accounts then pressing a button, the app should
@@ -165,7 +173,7 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 	// a default message that does not go anywhere)
 	public void viewAccount(View view) {
 		
-		Intent intent = getIntent(AccountHomeActivity.class);
+		Intent intent = new Intent(this, AccountHomeActivity.class);
 		//TODO change name or make final. only use all caps for FINAL constants
 		//DEPRECATED String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		List<Account> accounts = null;
@@ -205,13 +213,14 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 			alert.show();
 		}
 	}
-	
-	@Override
-	protected Intent getIntent(Class<?> activityClass) {
-		
-		Intent intent = new Intent(this, activityClass);
-		return intent;
-	}
+
+// DEPRECATED
+//	@Override
+//	protected Intent getIntent(Class<?> activityClass) {
+//		
+//		Intent intent = new Intent(this, activityClass);
+//		return intent;
+//	}
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,

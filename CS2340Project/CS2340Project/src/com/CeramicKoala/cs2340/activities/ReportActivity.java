@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.View;
 import android.content.Intent;
 import android.widget.DatePicker;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DatePickerDialog;
@@ -27,13 +28,14 @@ import android.app.DialogFragment;
 
 
 
-public class ReportActivity extends AccountManagementActivity {
+public class ReportActivity extends Activity {
 	
 	//TODO Matthew - make the date range inclusive instead of exclusive
 	
 	private DatePickerFragmentStart startDate = new DatePickerFragmentStart();
 	private DatePickerFragmentEnd endDate = new DatePickerFragmentEnd();
 	private Calendar currentDay = Calendar.getInstance();
+	private AlertDialogManager alertManager;
 // DEPRECATED
 //	private AlertDialog noStart;
 //	private AlertDialog noEnd;
@@ -44,8 +46,11 @@ public class ReportActivity extends AccountManagementActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		//intent = getIntent();
+		//DEPRECATED intent = getIntent();
 		setContentView(R.layout.activity_report);
+		
+		//instantiate helper objects
+		alertManager = new AlertDialogManager(this);
 		
 // DEPRECATED
 //		noStart = setUpAlertDialog("Error","Please select a start date for your report!", false);

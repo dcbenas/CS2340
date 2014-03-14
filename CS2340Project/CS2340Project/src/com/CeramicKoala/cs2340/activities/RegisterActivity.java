@@ -4,8 +4,10 @@ import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
+import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.User;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +20,7 @@ import android.widget.EditText;
  * but LoginOpenHelper.addUser does not retrieve it
  * @author Benjamin Newcomer
  */
-public class RegisterActivity extends AccountManagementActivity {
+public class RegisterActivity extends Activity {
 	
 	private String username;
 	private String password;
@@ -26,6 +28,7 @@ public class RegisterActivity extends AccountManagementActivity {
 	EditText register_username;
 	EditText register_password;
 	EditText register_full_name;
+	private SessionManager sessionManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,9 @@ public class RegisterActivity extends AccountManagementActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		//DEPRECATED alertDialog = setUpAlertDialog("Error", getString(R.string.register_error_username_already_exists), false);
+		
+		//instantiate helper objects
+		sessionManager = new SessionManager(this);
 		
 		//fill register_username and register_password fields with info from main activity
 		Intent intent = getIntent();
@@ -70,7 +76,7 @@ public class RegisterActivity extends AccountManagementActivity {
 		sessionManager.logIn(user);
 		
 		if (sessionManager.isLoggedIn()) {
-			startActivity(getIntent(LogInActivity.class));
+			startActivity(new Intent(this, LogInActivity.class));
 		}
 
 // DEPRECATED
@@ -91,11 +97,12 @@ public class RegisterActivity extends AccountManagementActivity {
 //		}
 				
 	}
-	
-	@Override
-	public Intent getIntent(Class<?> activityClass) {
-		
-		return super.getIntent(activityClass);
-	}
+
+// DEPRECATED
+//	@Override
+//	public Intent getIntent(Class<?> activityClass) {
+//		
+//		return super.getIntent(activityClass);
+//	}
 
 }
