@@ -24,9 +24,13 @@ public class DisplayReportActivity extends AccountManagementActivity {
 	private ReportGenerator reportMaker;
 	
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
-		intent = getIntent();
 		setContentView(R.layout.activity_display_report);
+		intent = getIntent();
+		//TODO remove reference to static current user using SessionManager
+		reportMaker = new ReportGenerator(this, loginHelper.getCurrentUser());
+		
 		TextView reportHeader = (TextView) findViewById(R.id.withdrawal_report_header);
 		String loginMessage = getString(R.string.withdrawal_report) + " "+ loginHelper.getCurrentUser().getFullName();
 		reportHeader.setText(loginMessage);
@@ -34,13 +38,13 @@ public class DisplayReportActivity extends AccountManagementActivity {
 		//For start / end dates to go with report generator functionality
 		String start = getIntent().getExtras().getString("startDate");
 		String end = getIntent().getExtras().getString("endDate");
+		
 		TextView dateInfo = (TextView) findViewById(R.id.report_date_info);
 		String dateMessage = "From " + start + " to " + getString(R.string.date_start_to_end) + end;
 		dateInfo.setText(dateMessage);
 		
-		
-		reportMaker = new ReportGenerator(this, loginHelper.getCurrentUser());
 		try {
+			
 			SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
 			Date beginning = formatter.parse(start);
 			Date endDate = formatter.parse(end);
@@ -49,23 +53,25 @@ public class DisplayReportActivity extends AccountManagementActivity {
 					ReportGenerator.ReportType.SPENDING_REPORT, 
 					beginning, 
 					endDate);
+			
 			TextView reportDate = (TextView) findViewById(R.id.spending_report);
 			TextView reportAmount = (TextView) findViewById(R.id.spending_report_amount);
+			
 			String reportDateMessage = getString(R.string.date);
 			String reportAmountMessage = getString(R.string.amount);
+			
 			for (Transaction t: spendingReport) {
 				reportDateMessage = (reportDateMessage + t.getDateString());
 				reportAmountMessage = (reportAmountMessage + t.getAmountString());
 			}
+			
 			reportDate.setText(reportDateMessage);
 			reportAmount.setText(reportAmountMessage);
 			
 		} catch (Exception e) {
+			//what exceptions can we expect from this try block?
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {

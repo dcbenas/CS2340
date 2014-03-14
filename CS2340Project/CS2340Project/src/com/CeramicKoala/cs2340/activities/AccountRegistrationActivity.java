@@ -17,8 +17,8 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 	
 	private AccountOpenHelper accountHelper;
 	private AlertDialog invalidNumber;
-	private AlertDialog accountExists;
-	private AlertDialog isEmpty;
+	//deprecated private AlertDialog accountExists;
+	//deprecated private AlertDialog isEmpty;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +28,8 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		accountHelper = new AccountOpenHelper(this);
 
 		invalidNumber = setUpAlertDialog("Error", "That is an invalid number", false);
-		accountExists = setUpAlertDialog("Error", "That account already exists", false);
-		isEmpty = setUpAlertDialog("Error",getString(R.string.account_registration_field_empty), false);
+		//deprecated accountExists = setUpAlertDialog("Error", "That account already exists", false);
+		//deprecated isEmpty = setUpAlertDialog("Error",getString(R.string.account_registration_field_empty), false);
 	}
 
 	@Override
@@ -67,21 +67,32 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 					AlertDialogManager.AlertType.FIELD_IS_EMPTY)
 					.show();
 		else {
+			
 			try {
+				
 				accountHelper.addElement(new Account(
 						0, 
 						loginHelper.getCurrentUser().getId(),
 						name, 
-						new Double(startingBalance), 
-						new Double(interestRate)));
+						Double.valueOf(startingBalance),
+						Double.valueOf(interestRate)));
+				
+				//TODO what does setting these flags do?
 				Intent intent = getIntent(LogInActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				
 				startActivity(intent);
+			
 			} catch (NumberFormatException e) {
+				
+				//TODO code should be redone so NumberFormatException is not a worry
 				invalidNumber.show();
 				e.printStackTrace();
 			} catch (DatabaseException e) {
-				accountExists.show();
+				
+				alertManager.generateAlertDialog(
+						AlertDialogManager.AlertType.ACCOUNT_ALREADY_EXISTS)
+						.show();
 				e.printStackTrace();
 			}
 		}
