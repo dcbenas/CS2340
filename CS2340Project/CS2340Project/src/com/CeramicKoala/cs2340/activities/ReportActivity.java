@@ -8,6 +8,7 @@ import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.ReportGenerator;
+import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.User;
 
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Calendar;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.widget.DatePicker;
@@ -36,6 +38,7 @@ public class ReportActivity extends Activity {
 	private DatePickerFragmentEnd endDate = new DatePickerFragmentEnd();
 	private Calendar currentDay = Calendar.getInstance();
 	private AlertDialogManager alertManager;
+	private SessionManager sessionManager;
 // DEPRECATED
 //	private AlertDialog noStart;
 //	private AlertDialog noEnd;
@@ -43,6 +46,7 @@ public class ReportActivity extends Activity {
 //	private AlertDialog endInFuture;
 //	private AlertDialog endBeforeStart;
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -51,6 +55,7 @@ public class ReportActivity extends Activity {
 		
 		//instantiate helper objects
 		alertManager = new AlertDialogManager(this);
+		sessionManager = new SessionManager(this);
 		
 // DEPRECATED
 //		noStart = setUpAlertDialog("Error","Please select a start date for your report!", false);
@@ -61,10 +66,28 @@ public class ReportActivity extends Activity {
 //		
 	}
 	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.account_registration, menu);
+		getMenuInflater().inflate(R.menu.logged_in, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		
+		// Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	       
+	    	case R.id.log_out:
+	        	sessionManager.logOut();
+	            startActivity(new Intent(this, MainActivity.class));
+	            return true;
+	        
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
 	}
 	
 	protected Intent getIntent(Class<?> activityClass) {
