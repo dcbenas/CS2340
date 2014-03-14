@@ -67,7 +67,8 @@ public class TransactionActivity extends AccountManagementActivity {
 	public void makeDeposit(View view) {
 		
 		try {
-			
+			//TODO update code to use AccountHelper#updateElement() correctly
+			//TODO update code to use Account#incrementBalance instead of Account#setBalance()
 			EditText transactionAmount = (EditText) findViewById(R.id.transaction_amount);
 			String balChange = transactionAmount.getText().toString();
 			
