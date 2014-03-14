@@ -3,6 +3,7 @@ package com.CeramicKoala.cs2340.activities;
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
@@ -33,23 +34,26 @@ public class ReportActivity extends AccountManagementActivity {
 	private DatePickerFragmentStart startDate = new DatePickerFragmentStart();
 	private DatePickerFragmentEnd endDate = new DatePickerFragmentEnd();
 	private Calendar currentDay = Calendar.getInstance();
-	private AlertDialog noStart;
-	private AlertDialog noEnd;
-	private AlertDialog startInFuture;
-	private AlertDialog endInFuture;
-	private AlertDialog endBeforeStart;
+// DEPRECATED
+//	private AlertDialog noStart;
+//	private AlertDialog noEnd;
+//	private AlertDialog startInFuture;
+//	private AlertDialog endInFuture;
+//	private AlertDialog endBeforeStart;
 	
 	protected void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		//intent = getIntent();
-		
 		setContentView(R.layout.activity_report);
-		noStart = setUpAlertDialog("Error","Please select a start date for your report!", false);
-		noEnd = setUpAlertDialog("Error","Please select an end date for your report!", false);
-		endBeforeStart = setUpAlertDialog("Error","Your start date must come before your end date!", false);
-		endInFuture = setUpAlertDialog("Error","Cannot generate a report that spans into the future.", false);
-		startInFuture = setUpAlertDialog("Error","Definitely cannot generate a report that starts in the future.", false);
 		
+// DEPRECATED
+//		noStart = setUpAlertDialog("Error","Please select a start date for your report!", false);
+//		noEnd = setUpAlertDialog("Error","Please select an end date for your report!", false);
+//		endBeforeStart = setUpAlertDialog("Error","Your start date must come before your end date!", false);
+//		endInFuture = setUpAlertDialog("Error","Cannot generate a report that spans into the future.", false);
+//		startInFuture = setUpAlertDialog("Error","Definitely cannot generate a report that starts in the future.", false);
+//		
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,28 +69,46 @@ public class ReportActivity extends AccountManagementActivity {
 	
 	public void displayReport(View view) {
 		if (startDate.start == null) {
-			noStart.show();
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.NO_START_DATE)
+					.show();
 		} else if (endDate.end == null) {
-			noEnd.show();
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.NO_END_DATE)
+					.show();
 		} else if (startDate.startCalendar.after(endDate.endCalendar)){
-			endBeforeStart.show();
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.IMPROPER_DATE_RANGE)
+					.show();
 		} else if (startDate.startCalendar.after(currentDay)) {
-			startInFuture.show();
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.IMPROPER_DATE_RANGE)
+					.show();
 		//} else if (endDate.endCalendar.after(currentDay)) {
 			//endInFuture.show();
 		} else {
+			
 			Intent intent = new Intent(ReportActivity.this, DisplayReportActivity.class);
 			intent.putExtra("startDate", startDate.start);
 			intent.putExtra("endDate", endDate.end);
+			
 			startActivity(intent);
 		}
 	}
 	
+	//TODO what the hell is this class? I'm confused
 	public static class DatePickerFragmentStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+		
 		private String start;
 		private Calendar startCalendar;
+		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			
 			// Use the current date as the default date in the picker
 			final Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR);
@@ -98,6 +120,7 @@ public class ReportActivity extends AccountManagementActivity {
 		}
 		
 		public void onDateSet(DatePicker view, int year, int month, int day) {
+			
 			String stringMonth = new DateFormatSymbols().getMonths()[month];
 			String dateString = (stringMonth + " " + day + ", " + year);
 			start = dateString;
@@ -108,11 +131,13 @@ public class ReportActivity extends AccountManagementActivity {
 	}
 	
 	public static class DatePickerFragmentEnd extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+		
 		private String end;
 		private Calendar endCalendar;
 		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			
 			// Use the current date as the default date in the picker
 			final Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR);
@@ -124,6 +149,7 @@ public class ReportActivity extends AccountManagementActivity {
 		}
 		
 		public void onDateSet(DatePicker view, int year, int month, int day) {
+			
 			String stringMonth = new DateFormatSymbols().getMonths()[month];
 			String dateString = (stringMonth + " " + day + ", " + year);
 			end = dateString;
@@ -133,12 +159,14 @@ public class ReportActivity extends AccountManagementActivity {
 	}
 	
 	public void showStartDatePickerDialog(View v) {
-	    DialogFragment newFragment = startDate;
+	   
+		DialogFragment newFragment = startDate;
 	    newFragment.show(getFragmentManager(), "startdatePicker");
 	}
 	
 	public void showEndDatePickerDialog(View v) {
-	    DialogFragment newFragment = endDate;
+	   
+		DialogFragment newFragment = endDate;
 	    newFragment.show(getFragmentManager(), "enddatePicker");
 	}
 }

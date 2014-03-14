@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 public class AlertDialogManager {
 	
 	public enum AlertType{
+		USERNAME_ALREADY_EXISTS("User Account Error",
+				"That username already exists", false),
 		ACCOUNT_ALREADY_EXISTS("Account Error", 
 				"That account already exists", false),
 		ACCOUNT_DOES_NOT_EXIST("Account Error", 

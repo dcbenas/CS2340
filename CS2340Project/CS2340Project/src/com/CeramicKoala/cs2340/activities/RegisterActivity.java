@@ -2,6 +2,7 @@ package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.User;
 
@@ -13,7 +14,7 @@ import android.widget.EditText;
 /**
  * this activity handles new account registration. Takes in username and password
  * from MainActivity. Uses LoginOpenHelper.addUser to add a new user. 
- * NOTE user Id cannot be displayed. User has a unique Id in the database, 
+ * NOTE: user Id cannot be displayed immediately. User has a unique Id in the database, 
  * but LoginOpenHelper.addUser does not retrieve it
  * @author Benjamin Newcomer
  */
@@ -32,7 +33,7 @@ public class RegisterActivity extends AccountManagementActivity {
 		//setup
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-		alertDialog = setUpAlertDialog("Error", getString(R.string.register_error_username_already_exists), false);
+		//DEPRECATED alertDialog = setUpAlertDialog("Error", getString(R.string.register_error_username_already_exists), false);
 		
 		//fill register_username and register_password fields with info from main activity
 		Intent intent = getIntent();
@@ -73,10 +74,10 @@ public class RegisterActivity extends AccountManagementActivity {
 					startActivity(getIntent(LogInActivity.class));
 				}
 			} catch (DatabaseException e) {
-				if (BuildConfig.DEBUG) {
-					alertDialog.setMessage(e.getMessage());
-				}
-				alertDialog.show();
+				
+				alertManager.generateAlertDialog(
+						AlertDialogManager.AlertType.USERNAME_ALREADY_EXISTS)
+						.show();
 			}
 		}
 				
@@ -84,6 +85,7 @@ public class RegisterActivity extends AccountManagementActivity {
 	
 	@Override
 	public Intent getIntent(Class<?> activityClass) {
+		
 		return super.getIntent(activityClass);
 	}
 

@@ -19,7 +19,7 @@ import android.os.Build;
 public abstract class AccountManagementActivity extends Activity {
 	
 	protected static LoginOpenHelper loginHelper;
-	protected AlertDialog alertDialog;
+	//DEPRECATED protected AlertDialog alertDialog;
 	protected AlertDialog loginWrong;
 	protected AlertDialog passWrong;
 	protected AlertDialog emptyField;

@@ -26,6 +26,9 @@ Formatting:
 		-make sure to correctly use spaces
 		-always add JavaDocs for classes or methods you have written or substantially altered (this project is where JavaDocs are actually important)
 	-Organize methods in order of how they will be used (if applicable)
+	-Add a blank line in these cases:
+		-after all opening or closing braces
+		-after completely one complete logical idea, before beginning the next one
 
 Eclipse suggestions:
 	-Follow most Eclipse suggestions (that do not have a large impact on the code)
@@ -37,4 +40,5 @@ Logic:
       account Id for account list). The full object can always be retrieved later. 
      -make sure all objects and classes stay within the bounds of their responsibilities. When you write new code, make sure you are writing it in the best 
       possible place.
+     -use as few return statements as possible. try to combine similar return statements by combining the logic that leads to them
  	
