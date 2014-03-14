@@ -5,6 +5,7 @@ import java.util.List;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
+import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 
 import android.app.AlertDialog;
@@ -30,68 +31,100 @@ import android.widget.TextView;
  *
  */
 public class LogInActivity extends AccountManagementActivity implements OnItemSelectedListener {
-	//TODO Inseok - alter spinner behavior so that selecting account from spinner starts account activity automatically
+	
+	//TODO Inseok - alter spinner behavior so that selecting account from spinner starts account 
+	// activity automatically
 	//TODO Matthew - format report so that it looks pretty
 	//TODO David/Casey - Make our app look pro. Custom buttons and icons n such
 	
-	private AlertDialog wrongPassword, noAccount;
+	//DEPRECATED private AlertDialog wrongPassword, noAccount;
 	private int chosenAccount;
 	private AccountOpenHelper accountHelper;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		//setup
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_log_in);
-		alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account), true);
-		wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
-		noAccount = setUpAlertDialog("Error", getString(R.string.no_account),false);
+		
+		//DEPRECATED alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account), true);
+		//DEPRECATED wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
+		//DEPRECATED noAccount = setUpAlertDialog("Error", getString(R.string.no_account),false);
 
+		//TODO this is a GIANT if statment. should be refactored to be more readable
+		//TODO replace reference to static current user usng SessionManager
 		if (loginHelper.getCurrentUser() == null) {
+			
 			try {
+				
 				//get user from database
 				loginHelper.getElementByName(username);
 				//set textView text with successful login message or display alert dialog
 				TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
-				if (checkCred(loginHelper.getCurrentUser().getUsername(), loginHelper.getCurrentUser().getPassword())) {
+				
+				if (checkCred(loginHelper.getCurrentUser().getUsername(), 
+						loginHelper.getCurrentUser().getPassword())) {
+					
 					if (password.equals(loginHelper.getCurrentUser().getPassword())) {
+						
 						String loginMessage = getString(R.string.log_in_success) + " "+ loginHelper.getCurrentUser().getFullName();
 						loginMessageTextView.setText(loginMessage);
 					} else {
-						wrongPassword.show();
+						
+						alertManager.generateAlertDialog(
+								AlertDialogManager.AlertType.INCORRECT_PASSWORD)
+								.show();
 					}
 				}
+				
 				if(loginHelper.getCurrentUser().getAccountSize() != 0)
+					
 					updateAccountSpinner();
 			} catch (DatabaseException e) {
+				
 				Log.d("LogInActivity.get_user", e.getMessage());
-				alertDialog.show();
+				alertManager.generateAlertDialog(
+						AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
+						.show();
 			}
 			
-		}
-		else {
+		} else {
+			
 			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
-			String loginMessage = getString(R.string.log_in_success) + " "+ loginHelper.getCurrentUser().getFullName();
+			String loginMessage = 
+					getString(R.string.log_in_success) + " "
+					+ loginHelper.getCurrentUser().getFullName();
 			loginMessageTextView.setText(loginMessage);
 			loginHelper.updateElement(loginHelper.getCurrentUser());
-			if(loginHelper.getCurrentUser().getAccountSize() != 0)
+			
+			if (loginHelper.getCurrentUser().getAccountSize() != 0) {
 				updateAccountSpinner();
+			}
 		}
+		
+		//TODO reaplce call to println with log.d() call
 		System.out.println(loginHelper.getCurrentUser().getUsername());
 	}
 	
 	public void updateAccountSpinner() {
+		
 		accountHelper = new AccountOpenHelper(this);
 		List<Account> accounts = null;
+		
 		try {
+			
 			accounts = accountHelper.getAccountsForUser(loginHelper.getCurrentUser());
 			Object[] accountNames = new Object[accounts.size()];
 			int counter = 0;
+			
 			for (Account account : accounts) {
 				accountNames[counter++] = account.getName();
 			}
+			
 			Spinner s = (Spinner) findViewById(R.id.account_spinner);
-			ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(this,android.R.layout.simple_spinner_item, accountNames);
+			ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(
+					this,android.R.layout.simple_spinner_item, accountNames);
 			s.setAdapter(adapter);
 			s.setOnItemSelectedListener(this);
 		} catch (DatabaseException e) {
@@ -101,6 +134,7 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 	}
 	
 	public void createAccount(View view) {
+		
 		startActivity(getIntent(AccountRegistrationActivity.class));
 	}
 	
@@ -108,26 +142,38 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 	// open the account upon clicking it within the spinner. (start the spinner on
 	// a default message that does not go anywhere)
 	public void viewAccount(View view) {
+		
 		Intent intent = getIntent(AccountHomeActivity.class);
+		//TODO change name or make final. only use all caps for FINAL constants
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		List<Account> accounts = null;
+		
+		//TODO replace with SessionManager#logOut()
 		accountHelper.logout();
 		if (loginHelper.getCurrentUser().getAccountSize() != 0) {
+			
 			try {
+				
 				accounts = accountHelper.getAccountsForUser(loginHelper.getCurrentUser());
 			} catch (DatabaseException e) {
+				
 				e.printStackTrace();
 			}
+			
 			int id = accounts.get(chosenAccount).getAccountId();
 			intent.putExtra(CHOSEN_ACCOUNT, id);
 			startActivity(intent);
 		} else {
-			noAccount.show();
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
+					.show();
 		}
 	}
 	
 	@Override
 	protected Intent getIntent(Class<?> activityClass) {
+		
 		Intent intent = new Intent(this, activityClass);
 		return intent;
 	}
@@ -135,12 +181,14 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
+		
 		chosenAccount = position;
 	}
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
 		// Doesn't do anything
+		//TODO why do we have this method?
 	}
 
 }

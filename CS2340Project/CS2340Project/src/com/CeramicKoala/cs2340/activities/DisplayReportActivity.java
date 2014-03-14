@@ -75,17 +75,20 @@ public class DisplayReportActivity extends AccountManagementActivity {
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.account_registration, menu);
 		return true;
 	}
 	
 	protected Intent getIntent(Class<?> activityClass) {
+		
 		Intent intent = new Intent(this, activityClass);
 		return intent;
 	}
 	
 	public void goAccountHome(View view) {
+		
 		startActivity(getIntent(AccountHomeActivity.class));
 	}
 
