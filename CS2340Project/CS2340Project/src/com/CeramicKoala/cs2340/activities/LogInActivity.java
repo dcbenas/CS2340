@@ -52,6 +52,7 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		//DEPRECATED wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
 		//DEPRECATED noAccount = setUpAlertDialog("Error", getString(R.string.no_account),false);
 
+		//TODO please explain this block so that it can be updated to use SessionManager
 		//TODO this is a GIANT if statment. should be refactored to be more readable
 		//TODO replace reference to static current user usng SessionManager
 		if (loginHelper.getCurrentUser() == null) {
@@ -114,7 +115,7 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		
 		try {
 			
-			accounts = accountHelper.getAccountsForUser(loginHelper.getCurrentUser());
+			accounts = accountHelper.getAccountsForUser(sessionManager.getUser());
 			Object[] accountNames = new Object[accounts.size()];
 			int counter = 0;
 			
@@ -130,6 +131,7 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		} catch (DatabaseException e) {
 			e.printStackTrace();
 		}
+		//TODO use log.d() instead of println
 		System.out.println(accounts.size());
 	}
 	
@@ -148,13 +150,12 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		List<Account> accounts = null;
 		
-		//TODO replace with SessionManager#logOut()
-		accountHelper.logout();
-		if (loginHelper.getCurrentUser().getAccountSize() != 0) {
+		sessionManager.removeAccount();
+		if (sessionManager.getUser().getAccountSize() != 0) {
 			
 			try {
 				
-				accounts = accountHelper.getAccountsForUser(loginHelper.getCurrentUser());
+				accounts = accountHelper.getAccountsForUser(sessionManager.getUser());
 			} catch (DatabaseException e) {
 				
 				e.printStackTrace();

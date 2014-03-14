@@ -92,7 +92,7 @@ public class ReportActivity extends AccountManagementActivity {
 			//endInFuture.show();
 		} else {
 			
-			Intent intent = new Intent(ReportActivity.this, DisplayReportActivity.class);
+			Intent intent = new Intent(this, DisplayReportActivity.class);
 			intent.putExtra("startDate", startDate.start);
 			intent.putExtra("endDate", endDate.end);
 			

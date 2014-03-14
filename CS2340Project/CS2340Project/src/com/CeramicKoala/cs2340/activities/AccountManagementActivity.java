@@ -1,6 +1,7 @@
 package com.CeramicKoala.cs2340.activities;
 
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.SessionManager;
@@ -19,7 +20,8 @@ import android.os.Build;
 
 public abstract class AccountManagementActivity extends Activity {
 	
-	protected static LoginOpenHelper loginHelper;
+	protected LoginOpenHelper loginHelper;
+	protected AccountOpenHelper accountHelper;
 // DEPRECATED 
 //	protected AlertDialog alertDialog;
 //	protected AlertDialog loginWrong;
@@ -38,25 +40,27 @@ public abstract class AccountManagementActivity extends Activity {
 		setupActionBar();
 		
 		loginHelper = new LoginOpenHelper(this);
+		accountHelper = new AccountOpenHelper(this);
 		alertManager = new AlertDialogManager(this);
 		sessionManager = new SessionManager(this);
 		
 		//retrieve username and password info from intent sent by MainActivity
 		intent = getIntent();
-		
-		if (loginHelper.getCurrentUser() == null) {
-			
-			String USERNAME = getString(R.string.username_constant);
-			String PASSWORD = getString(R.string.password_constant);
-			
-			username = intent.getStringExtra(USERNAME);
-			password = intent.getStringExtra(PASSWORD);
+
+// DEPRECATED 
+//		if (loginHelper.getCurrentUser() == null) {
+//			
+//			String USERNAME = getString(R.string.username_constant);
+//			String PASSWORD = getString(R.string.password_constant);
+//			
+//			username = intent.getStringExtra(USERNAME);
+//			password = intent.getStringExtra(PASSWORD);
 
 // DEPRECATED
 //			loginWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_user_at_least_six), false);
 //			passWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_pass_at_least_six), false);
 //			emptyField = setUpAlertDialog("Error", getString(R.string.empty_field_error), false);
-		}
+//		}
 	}
 
 	/**
@@ -96,33 +100,34 @@ public abstract class AccountManagementActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	/**
-	 * sets up alert dialog for 'error account info mismatch' dialog
-	 */
-	protected AlertDialog setUpAlertDialog(String title, String message, boolean quit) {
-		
-		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-		alertDialog.setTitle(title);
-		alertDialog.setMessage(message);
-		
-		if (quit) {
-			alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					finish();
-				}
-			});
-		} else {
-			alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-				}
-			});
-		}
-		
-		return alertDialog;
-	}
+
+// DEPRECATED
+//	/**
+//	 * sets up alert dialog for 'error account info mismatch' dialog
+//	 */
+//	protected AlertDialog setUpAlertDialog(String title, String message, boolean quit) {
+//		
+//		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+//		alertDialog.setTitle(title);
+//		alertDialog.setMessage(message);
+//		
+//		if (quit) {
+//			alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					finish();
+//				}
+//			});
+//		} else {
+//			alertDialog.setButton(DialogInterface.BUTTON_NEUTRAL, "OK", new DialogInterface.OnClickListener() {
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//				}
+//			});
+//		}
+//		
+//		return alertDialog;
+//	}
 	
 	/**
 	 * helper method that places username and password
@@ -136,6 +141,7 @@ public abstract class AccountManagementActivity extends Activity {
 		
 		Intent intent = new Intent(this, activityClass);
 		
+		//TODO change reference to current user to use SessionManager
 		if (loginHelper.getCurrentUser() == null) {
 			
 			final String USERNAME = getString(R.string.username_constant);

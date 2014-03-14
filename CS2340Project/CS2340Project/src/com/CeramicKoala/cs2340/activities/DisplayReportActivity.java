@@ -29,10 +29,11 @@ public class DisplayReportActivity extends AccountManagementActivity {
 		setContentView(R.layout.activity_display_report);
 		intent = getIntent();
 		//TODO remove reference to static current user using SessionManager
-		reportMaker = new ReportGenerator(this, loginHelper.getCurrentUser());
+		reportMaker = new ReportGenerator(this, sessionManager.getUser());
 		
 		TextView reportHeader = (TextView) findViewById(R.id.withdrawal_report_header);
-		String loginMessage = getString(R.string.withdrawal_report) + " "+ loginHelper.getCurrentUser().getFullName();
+		String loginMessage = getString(R.string.withdrawal_report) + " "
+				+ sessionManager.getUser().getFullName();
 		reportHeader.setText(loginMessage);
 		
 		//For start / end dates to go with report generator functionality

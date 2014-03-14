@@ -26,7 +26,7 @@ public class AlertDialogManager {
 		ACCOUNT_ALREADY_EXISTS("Account Error", 
 				"That account already exists", false),
 		ACCOUNT_DOES_NOT_EXIST("Account Error", 
-				"Account does not exist",false),
+				"Account does not exist", true),
 		INCORRECT_PASSWORD("Login Error", 
 				"Your password is incorrect", true),
 		INCORRECT_LOGIN("Login Error",

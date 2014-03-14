@@ -3,6 +3,7 @@ package com.CeramicKoala.cs2340.activities;
 import java.util.Date;
 
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.Transaction;
@@ -21,7 +22,7 @@ import android.widget.EditText;
  * 
  * @author Matthew Berman
  */
-public class TransactionActivity extends AccountHomeActivity {
+public class TransactionActivity extends AccountManagementActivity {
 	
 	//TODO Matthew - change all transaction methods to accept a date (specific to the day)
 	
@@ -76,9 +77,13 @@ public class TransactionActivity extends AccountHomeActivity {
 						AlertDialogManager.AlertType.EMPTY_TRANSACTION)
 						.show();
 			} else {
+				
 				double balanceChange = Double.valueOf(balChange);
-				myHelper.updateBalance();
-				int id = AccountOpenHelper.currentAccount.getAccountId();
+				Account updatedAccount = sessionManager.getAccount();
+				updatedAccount.setBalance(balanceChange);
+				accountHelper.updateElement(updatedAccount);
+
+				int id = sessionManager.getAccountId();
 				Date date = new Date();
 				Transaction deposit = new Transaction(id, 0, balanceChange, date);
 				transaction.addElement(deposit);
@@ -114,18 +119,20 @@ public class TransactionActivity extends AccountHomeActivity {
 			} else {
 				
 				double balanceChange = Double.valueOf(balChange);
-				double currBal = AccountOpenHelper.currentAccount.getBalance();
+				double currBal = sessionManager.getAccount().getBalance();
 				double newBal = currBal - balanceChange;//hooAH;
 				
 				if (newBal >= 0) {
 					
-					int id = AccountOpenHelper.currentAccount.getAccountId();
+					int id = sessionManager.getAccountId();
 					Date date = new Date();
 					Transaction withdrawal = new Transaction(id, 1, balanceChange, date);
 					transaction.addElement(withdrawal);
-					//TODO replace reference to static account with SessionManager
-					AccountOpenHelper.currentAccount.setBalance(newBal);
-					myHelper.updateBalance();
+					
+					Account updatedAccount = sessionManager.getAccount();
+					updatedAccount.setBalance(newBal);
+					accountHelper.updateElement(updatedAccount);
+					
 					Intent intent = getIntent(AccountHomeActivity.class);
 					//This clears its previous instance of the activity and any other activities on top of it.
 					intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

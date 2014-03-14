@@ -27,9 +27,10 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 		setContentView(R.layout.activity_account_registration);
 		accountHelper = new AccountOpenHelper(this);
 
-		invalidNumber = setUpAlertDialog("Error", "That is an invalid number", false);
-		//deprecated accountExists = setUpAlertDialog("Error", "That account already exists", false);
-		//deprecated isEmpty = setUpAlertDialog("Error",getString(R.string.account_registration_field_empty), false);
+// DEPRECATED
+//		invalidNumber = setUpAlertDialog("Error", "That is an invalid number", false);
+//		accountExists = setUpAlertDialog("Error", "That account already exists", false);
+//		isEmpty = setUpAlertDialog("Error",getString(R.string.account_registration_field_empty), false);
 	}
 
 	@Override
