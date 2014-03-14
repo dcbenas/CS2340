@@ -1,6 +1,8 @@
 package com.CeramicKoala.cs2340.model;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -20,6 +22,7 @@ public class SessionManager {
 	private Editor editor;
 	private LoginOpenHelper loginHelper;
 	private AccountOpenHelper accountHelper;
+	private AlertDialogManager alertManager;
 	
 	//info for connectin to shared prefrences
 	private static final int PRIVATE_MODE = 0;
@@ -40,12 +43,13 @@ public class SessionManager {
 	 * @param context
 	 */
 	@SuppressLint("CommitPrefEdits")
-	public SessionManager(Context context) {
+	public SessionManager(Activity activity) {
 		
-		prefs = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+		prefs = activity.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
 		editor = prefs.edit();
-		loginHelper = new LoginOpenHelper(context);
-		accountHelper = new AccountOpenHelper(context);
+		loginHelper = new LoginOpenHelper(activity);
+		accountHelper = new AccountOpenHelper(activity);
+		alertManager = new AlertDialogManager(activity);
 	
 	}
 	
@@ -57,12 +61,30 @@ public class SessionManager {
 	 */
 	public void logIn(User user) {
 		
-		editor.putString(KEY_USERNAME, user.getUsername());
-		editor.putInt(KEY_USER_ID, user.getId());
-		editor.putBoolean(KEY_LOGGED_IN, true);
-		
-		editor.commit();
-	
+		// check that username and password match checkCred regex
+		if (checkCred(user.getUsername(), user.getPassword())) {
+			
+			try {
+				// check that user exists in database
+				// will throw DatabaseException if user doesn't exist
+				User loggedInUser = loginHelper.getElementByName(user.getUsername());
+				
+				//user exists, successful login
+				editor.putString(KEY_USERNAME, loggedInUser.getUsername());
+				editor.putInt(KEY_USER_ID, loggedInUser.getId());
+				editor.putBoolean(KEY_LOGGED_IN, true);
+				
+				editor.commit();
+			} catch (DatabaseException e) {
+				
+				//user does not exist
+				AlertDialog alert = alertManager.generateAlertDialog(
+						AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST);
+				
+				//change message to display message from Database Exception
+				alert.setMessage(e.getMessage());
+			}	
+		}
 	}
 	
 	/**
@@ -138,10 +160,27 @@ public class SessionManager {
 	 */
 	public User getUser() {
 		
-		int userId = prefs.getInt(KEY_USER_ID, -1);
-		User user = loginHelper.getElementById(userId);
+		String username = prefs.getString(KEY_USERNAME, null);
+		User user = null;
+		
+		try {
+			
+			user = loginHelper.getElementByName(username);
+		
+		} catch (DatabaseException e) {
+			
+			//user does not exist
+			AlertDialog alert = alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST);
+			
+			// modify alert to display message for DatabaseException
+			alert.setMessage(e.getMessage());
+			
+			alert.show();
+		}
 		
 		return user;
+		
 	}
 	
 	/**
@@ -206,6 +245,33 @@ public class SessionManager {
 		
 		return account;
 		
+	}
+	
+	/**
+	 * provides initial checks for username and password
+	 * @param user
+	 * @param pass
+	 * @return true if everything is good
+	 */
+	private boolean checkCred(String user, String pass) {
+		
+		if(!user.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.INCORRECT_LOGIN)
+					.show();
+			return false;
+		}
+
+		if(!pass.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.INCORRECT_PASSWORD)
+					.show();
+			return false;
+		}
+
+		return true;
 	}
 	
 }

@@ -160,24 +160,5 @@ public abstract class AccountManagementActivity extends Activity {
 		return intent;
 	}
 	
-	protected boolean checkCred(String user, String pass) {
-		
-		if(!user.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
-			
-			alertManager.generateAlertDialog(
-					AlertDialogManager.AlertType.INCORRECT_LOGIN)
-					.show();
-			return false;
-		}
-
-		if(!pass.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
-			
-			alertManager.generateAlertDialog(
-					AlertDialogManager.AlertType.INCORRECT_PASSWORD)
-					.show();
-			return false;
-		}
-
-		return true;
-	}
+	
 }

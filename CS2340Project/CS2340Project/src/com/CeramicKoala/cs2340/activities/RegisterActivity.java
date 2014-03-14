@@ -65,21 +65,30 @@ public class RegisterActivity extends AccountManagementActivity {
 		password = register_password.getText().toString();
 		fullName = register_full_name.getText().toString();
 		
-		if (checkCred(username, password)) {
-			//check if username and password is valid THEN add user to database
-			try {
-				User user = loginHelper.addElement(new User(fullName, username,
-						password));
-				if (password.equals(user.getPassword())) {
-					startActivity(getIntent(LogInActivity.class));
-				}
-			} catch (DatabaseException e) {
-				
-				alertManager.generateAlertDialog(
-						AlertDialogManager.AlertType.USERNAME_ALREADY_EXISTS)
-						.show();
-			}
+		User user = new User(fullName, username, password);
+		
+		sessionManager.logIn(user);
+		
+		if (sessionManager.isLoggedIn()) {
+			startActivity(getIntent(LogInActivity.class));
 		}
+
+// DEPRECATED
+//		if (checkCred(username, password)) {
+//			//check if username and password is valid THEN add user to database
+//			try {
+//				User user = loginHelper.addElement(new User(fullName, username,
+//						password));
+//				if (password.equals(user.getPassword())) {
+//					startActivity(getIntent(LogInActivity.class));
+//				}
+//			} catch (DatabaseException e) {
+//				
+//				alertManager.generateAlertDialog(
+//						AlertDialogManager.AlertType.USERNAME_ALREADY_EXISTS)
+//						.show();
+//			}
+//		}
 				
 	}
 	

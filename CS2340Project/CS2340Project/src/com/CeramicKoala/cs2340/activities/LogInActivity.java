@@ -55,58 +55,78 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		//TODO please explain this block so that it can be updated to use SessionManager
 		//TODO this is a GIANT if statment. should be refactored to be more readable
 		//TODO replace reference to static current user usng SessionManager
-		if (loginHelper.getCurrentUser() == null) {
+		
+		if (sessionManager.isLoggedIn()) {
 			
-			try {
-				
-				//get user from database
-				loginHelper.getElementByName(username);
-				//set textView text with successful login message or display alert dialog
-				TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
-				
-				if (checkCred(loginHelper.getCurrentUser().getUsername(), 
-						loginHelper.getCurrentUser().getPassword())) {
-					
-					if (password.equals(loginHelper.getCurrentUser().getPassword())) {
-						
-						String loginMessage = getString(R.string.log_in_success) + " "+ loginHelper.getCurrentUser().getFullName();
-						loginMessageTextView.setText(loginMessage);
-					} else {
-						
-						alertManager.generateAlertDialog(
-								AlertDialogManager.AlertType.INCORRECT_PASSWORD)
-								.show();
-					}
-				}
-				
-				if(loginHelper.getCurrentUser().getAccountSize() != 0)
-					
-					updateAccountSpinner();
-			} catch (DatabaseException e) {
-				
-				Log.d("LogInActivity.get_user", e.getMessage());
-				alertManager.generateAlertDialog(
-						AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
-						.show();
-			}
-			
-		} else {
-			
+			//set textView text with successful login message or display alert dialog
 			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
-			String loginMessage = 
-					getString(R.string.log_in_success) + " "
-					+ loginHelper.getCurrentUser().getFullName();
-			loginMessageTextView.setText(loginMessage);
-			loginHelper.updateElement(loginHelper.getCurrentUser());
 			
-			if (loginHelper.getCurrentUser().getAccountSize() != 0) {
+			// update account spinner
+			if(sessionManager.getUser().getAccountSize() != 0) {
 				updateAccountSpinner();
 			}
+			
+			// set welcome message
+			String loginMessage = getString(R.string.log_in_success) + " "
+					+ sessionManager.getUser().getFullName();
+			loginMessageTextView.setText(loginMessage);
+				
 		}
-		
-		//TODO reaplce call to println with log.d() call
-		System.out.println(loginHelper.getCurrentUser().getUsername());
 	}
+
+// DEPRECATED
+//		if (loginHelper.getCurrentUser() == null) {
+//			
+//			try {
+//				
+//				//get user from database
+//				loginHelper.getElementByName(username);
+//				//set textView text with successful login message or display alert dialog
+//				TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
+//				
+//				if (checkCred(loginHelper.getCurrentUser().getUsername(), 
+//						loginHelper.getCurrentUser().getPassword())) {
+//					
+//					if (password.equals(loginHelper.getCurrentUser().getPassword())) {
+//						
+//						String loginMessage = getString(R.string.log_in_success) + " "+ loginHelper.getCurrentUser().getFullName();
+//						loginMessageTextView.setText(loginMessage);
+//					} else {
+//						
+//						alertManager.generateAlertDialog(
+//								AlertDialogManager.AlertType.INCORRECT_PASSWORD)
+//								.show();
+//					}
+//				}
+//				
+//				if(loginHelper.getCurrentUser().getAccountSize() != 0)
+//					
+//					updateAccountSpinner();
+//			} catch (DatabaseException e) {
+//				
+//				Log.d("LogInActivity.get_user", e.getMessage());
+//				alertManager.generateAlertDialog(
+//						AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
+//						.show();
+//			}
+//			
+//		} else {
+//			
+//			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
+//			String loginMessage = 
+//					getString(R.string.log_in_success) + " "
+//					+ loginHelper.getCurrentUser().getFullName();
+//			loginMessageTextView.setText(loginMessage);
+//			loginHelper.updateElement(loginHelper.getCurrentUser());
+//			
+//			if (loginHelper.getCurrentUser().getAccountSize() != 0) {
+//				updateAccountSpinner();
+//			}
+//		}
+//		
+//		//TODO reaplce call to println with log.d() call
+//		System.out.println(loginHelper.getCurrentUser().getUsername());
+//	}
 	
 	public void updateAccountSpinner() {
 		
@@ -147,10 +167,9 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		
 		Intent intent = getIntent(AccountHomeActivity.class);
 		//TODO change name or make final. only use all caps for FINAL constants
-		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
+		//DEPRECATED String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		List<Account> accounts = null;
 		
-		sessionManager.removeAccount();
 		if (sessionManager.getUser().getAccountSize() != 0) {
 			
 			try {
@@ -161,14 +180,29 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 				e.printStackTrace();
 			}
 			
-			int id = accounts.get(chosenAccount).getAccountId();
-			intent.putExtra(CHOSEN_ACCOUNT, id);
+			
+			// set current account in sessionManager
+			int accountId = accounts.get(chosenAccount).getAccountId();
+			
+			try {
+				
+				sessionManager.setAccount(accountHelper.getElementById(accountId));
+			} catch (DatabaseException e) {
+				
+				//account does not exist
+				alertManager.generateAlertDialog(
+						AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
+						.show();
+			}
+			
 			startActivity(intent);
 		} else {
 			
-			alertManager.generateAlertDialog(
-					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
-					.show();
+			AlertDialog alert = alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST);
+			alert.setMessage("No Accounts");
+			
+			alert.show();
 		}
 	}
 	

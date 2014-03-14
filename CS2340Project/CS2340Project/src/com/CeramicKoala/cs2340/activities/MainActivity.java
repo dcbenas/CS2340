@@ -7,6 +7,7 @@ import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
+import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class MainActivity extends Activity {
 	 //DEPRECATED private AlertDialog isEmpty;
 	 private LoginOpenHelper loginHelper;
 	 private AlertDialogManager alertManager;
+	 private SessionManager sessionManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		loginHelper = new LoginOpenHelper(this);
 		alertManager = new AlertDialogManager(this);
+		sessionManager = new SessionManager(this);
 		//DEPRECATED isEmpty = setUpAlertDialog("Error",getString(R.string.log_in_error_field_empty));
 	}
 
@@ -76,14 +79,34 @@ public class MainActivity extends Activity {
 	}
 
 	 /**
+	  * varifies user and starts login activity if login is successful
 	  * starts LogInActivity. Responds to click on Log In button
 	  * @param view
 	  */
 	 public void logIn (View view) {
 	    
 		 if (notEmpty()) {
-		
-			startActivity(getIntent(LogInActivity.class));
+			//get username
+			EditText field_username = (EditText) findViewById(R.id.field_username);
+			String username = field_username.getText().toString();
+			 
+			//get password
+			EditText field_password = (EditText) findViewById(R.id.field_password);
+			String password = field_password.getText().toString();
+			 
+			User user = new User(null, username, password);
+			
+			sessionManager.logIn(user);
+			
+			if (sessionManager.isLoggedIn()) {
+				
+				startActivity(getIntent(LogInActivity.class));
+			} else {
+				
+				alertManager.generateAlertDialog(
+						AlertDialogManager.AlertType.INCORRECT_LOGIN)
+						.show();
+			}
 		} else {
 			
 			alertManager.generateAlertDialog(
