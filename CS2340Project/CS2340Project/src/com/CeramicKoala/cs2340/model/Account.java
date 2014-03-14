@@ -121,10 +121,10 @@ public class Account extends DatabaseElement {
 	public String toString() {
 		StringBuilder out = new StringBuilder();
 		out.append("name: " + accountName + ", ");
-		out.append("userId: " + userId + ", ");
-		out.append("accountId: " + id + ", ");
-		out.append("balance: " + balance + ", ");
-		out.append("interestRate: " + interestRate + ", ");
+//		out.append("userId: " + userId + ", ");
+//		out.append("accountId: " + id + ", ");
+//		out.append("balance: " + balance + ", ");
+//		out.append("interestRate: " + interestRate + ", ");
 		return out.toString();
 	}
 	

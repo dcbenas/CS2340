@@ -26,6 +26,7 @@ public class DisplayReportActivity extends Activity {
 	private ReportGenerator reportMaker;
 	private SessionManager sessionManager;
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -34,70 +35,82 @@ public class DisplayReportActivity extends Activity {
 		// instantiate helper objects
 		sessionManager = new SessionManager(this);
 		reportMaker = new ReportGenerator(this);
-		
 		//DEPRECATED intent = getIntent();
-		//TODO remove reference to static current user using SessionManager
 		
+		// set textview with appropriate report header
+		// defaults to withdrawal report header right now
 		TextView reportHeader = (TextView) findViewById(R.id.withdrawal_report_header);
 		String loginMessage = getString(R.string.withdrawal_report) + " "
 				+ sessionManager.getUser().getFullName();
 		reportHeader.setText(loginMessage);
 		
 		//For start / end dates to go with report generator functionality
+		// get start and end date strings from intent 
 		String start = getIntent().getExtras().getString("startDate");
 		String end = getIntent().getExtras().getString("endDate");
 		
+		// set textview with info about date range
 		TextView dateInfo = (TextView) findViewById(R.id.report_date_info);
 		String dateMessage = "From " + start + " to " + getString(R.string.date_start_to_end) + end;
 		dateInfo.setText(dateMessage);
 		
 		try {
 			
+			// format start and end date strings into Date objects
 			SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
 			Date beginning = formatter.parse(start);
 			Date endDate = formatter.parse(end);
 			
+			// get list of transactions specific to report
+			// defaults to SPENDING REPORT right now
 			List<Transaction> spendingReport = reportMaker.generateReport(
 					ReportGenerator.ReportType.SPENDING_REPORT, 
 					beginning, 
 					endDate);
 			
+			// get textviews to update with report info
 			TextView reportDate = (TextView) findViewById(R.id.spending_report);
 			TextView reportAmount = (TextView) findViewById(R.id.spending_report_amount);
 			
+			// generate strings with report column headers
 			String reportDateMessage = getString(R.string.date);
 			String reportAmountMessage = getString(R.string.amount);
 			
+			// loop through list of transactions and populate strings with transaction info
 			for (Transaction t: spendingReport) {
 				reportDateMessage = (reportDateMessage + t.getDateString());
 				reportAmountMessage = (reportAmountMessage + t.getAmountString());
 			}
 			
+			// set textviews with transaction report strings that were just populated
 			reportDate.setText(reportDateMessage);
 			reportAmount.setText(reportAmountMessage);
 			
 		} catch (Exception e) {
-			//what exceptions can we expect from this try block?
+			
+			//TODO what exceptions can we expect from this try block?
 			e.printStackTrace();
 		}
 	}
 	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.account_registration, menu);
 		return true;
 	}
-	
-	protected Intent getIntent(Class<?> activityClass) {
-		
-		Intent intent = new Intent(this, activityClass);
-		return intent;
-	}
+
+// DEPRECATED
+//	protected Intent getIntent(Class<?> activityClass) {
+//		
+//		Intent intent = new Intent(this, activityClass);
+//		return intent;
+//	}
 	
 	public void goAccountHome(View view) {
 		
-		startActivity(getIntent(AccountHomeActivity.class));
+		startActivity(new Intent(this, AccountHomeActivity.class));
 	}
 
 }

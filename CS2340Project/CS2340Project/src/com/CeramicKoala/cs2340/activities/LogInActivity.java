@@ -40,7 +40,7 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 	//TODO David/Casey - Make our app look pro. Custom buttons and icons n such
 	
 	//DEPRECATED private AlertDialog wrongPassword, noAccount;
-	private int chosenAccount;
+	private List<Account> accounts;
 	private AccountOpenHelper accountHelper;
 	private SessionManager sessionManager;
 	private AlertDialogManager alertManager;
@@ -56,6 +56,7 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 		sessionManager = new SessionManager(this);
 		alertManager = new AlertDialogManager(this);
 		
+		
 		//DEPRECATED alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account), true);
 		//DEPRECATED wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
 		//DEPRECATED noAccount = setUpAlertDialog("Error", getString(R.string.no_account),false);
@@ -66,7 +67,7 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 		
 		if (sessionManager.isLoggedIn()) {
 			
-			//set textView text with successful login message or display alert dialog
+			//set textView text with successful login message
 			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
 			
 			// update account spinner
@@ -139,22 +140,29 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 	public void updateAccountSpinner() {
 		
 		accountHelper = new AccountOpenHelper(this);
-		List<Account> accounts = null;
+		accounts = null;
 		
 		try {
 			
+			// get list of current user's accounts and instantiate needed objects/counters 
 			accounts = accountHelper.getAccountsForUser(sessionManager.getUser());
 			Object[] accountNames = new Object[accounts.size()];
 			int counter = 0;
 			
+			// loop through accounts and add account name to accountNames array
 			for (Account account : accounts) {
 				accountNames[counter++] = account.getName();
 			}
 			
+			// update spinner with names from accountNames array
 			Spinner s = (Spinner) findViewById(R.id.account_spinner);
 			ArrayAdapter<Object> adapter = new ArrayAdapter<Object>(
-					this,android.R.layout.simple_spinner_item, accountNames);
+					this,
+					android.R.layout.simple_spinner_item, 
+					accountNames);
 			s.setAdapter(adapter);
+			
+			//set this to run callback when item is selected from spinner
 			s.setOnItemSelectedListener(this);
 		} catch (DatabaseException e) {
 			e.printStackTrace();
@@ -176,42 +184,20 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 		Intent intent = new Intent(this, AccountHomeActivity.class);
 		//TODO change name or make final. only use all caps for FINAL constants
 		//DEPRECATED String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
-		List<Account> accounts = null;
 		
-		if (sessionManager.getUser().getAccountSize() != 0) {
-			
-			try {
-				
-				accounts = accountHelper.getAccountsForUser(sessionManager.getUser());
-			} catch (DatabaseException e) {
-				
-				e.printStackTrace();
-			}
-			
-			
-			// set current account in sessionManager
-			int accountId = accounts.get(chosenAccount).getAccountId();
-			
-			try {
-				
-				sessionManager.setAccount(accountHelper.getElementById(accountId));
-			} catch (DatabaseException e) {
-				
-				//account does not exist
-				alertManager.generateAlertDialog(
-						AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
-						.show();
-			}
+		if (sessionManager.hasCurrentAccount()) {
 			
 			startActivity(intent);
 		} else {
 			
+			// user has not selected an account from spinner
 			AlertDialog alert = alertManager.generateAlertDialog(
-					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST);
-			alert.setMessage("No Accounts");
-			
+					AlertDialogManager.AlertType.ERROR_QUIT_FALSE);
+			alert.setTitle("Account Error");
+			alert.setMessage("Please select an account");
 			alert.show();
-		}
+			
+		} 
 	}
 
 // DEPRECATED
@@ -226,7 +212,11 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 	public void onItemSelected(AdapterView<?> parent, View view, int position,
 			long id) {
 		
-		chosenAccount = position;
+		//get chosen account and set to current account in session manager
+		int chosenAccountPos = position;
+		Account chosenAccount = accounts.get(chosenAccountPos);
+		sessionManager.setAccount(chosenAccount);
+		
 	}
 
 	@Override

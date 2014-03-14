@@ -21,18 +21,22 @@ public class AlertDialogManager {
 	 */
 	public enum AlertType{
 		
+		// user errors
 		USERNAME_ALREADY_EXISTS("User Account Error",
 				"That username already exists", false),
-		ACCOUNT_ALREADY_EXISTS("Account Error", 
-				"That account already exists", false),
-		ACCOUNT_DOES_NOT_EXIST("Account Error", 
-				"Account does not exist", true),
 		INCORRECT_PASSWORD("Login Error", 
 				"Your password is incorrect", false),
 		INCORRECT_LOGIN("Login Error",
 				"Your username/password combination is incorrect", false),
+		// account errors
+		ACCOUNT_ALREADY_EXISTS("Account Error", 
+				"That account already exists", false),
+		ACCOUNT_DOES_NOT_EXIST("Account Error", 
+				"Account does not exist", true),
+		// field errors
 		FIELD_IS_EMPTY("Empty Field", 
-				"You left one of the required fields empty", false),
+				"You left one of the required fields empty", false),	
+		// date errors
 		NO_START_DATE("Date Error", 
 				"You did not select a start date", false),
 		NO_END_DATE("Date Error", 
@@ -40,12 +44,16 @@ public class AlertDialogManager {
 		IMPROPER_DATE_RANGE("Date Error", 
 				"Your start date must come before your end date "
 				+ "and neither date can be in the future", false),
+		//transaction errors
 		EMPTY_TRANSACTION("Transaction Error", 
 				"Your transaction must have an amount greater than zero", false),
 		OVERDRAWN_BALANCE("Account Error", 
 				"You cannot withdraw more than your account balance", false),
-		ERROR("Unknown Error",
-				"Unknown error occured", false);
+		//general errors
+		ERROR_QUIT_FALSE("Unknown Error",
+				"Unknown error occured", false),
+		ERROR_QUIT_TRUE("Unknown Error",
+				"Unknown Error occured", true);
 		
 		String title;
 		String message;

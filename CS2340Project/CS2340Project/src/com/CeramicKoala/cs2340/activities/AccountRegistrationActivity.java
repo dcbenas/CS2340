@@ -66,22 +66,28 @@ public class AccountRegistrationActivity extends Activity {
 		
 		//TODO instead of catching a NumberFormatException, ensure that input is a number
 		//by using an appropriate input object (number pad)
+		
+		// get account name from textview
 		EditText field_name = (EditText) findViewById(R.id.field_accountName);
 		String name = field_name.getText().toString();
 		
+		// get account starting balance from textview
 		EditText field_startingBalance = (EditText) findViewById(R.id.field_startingBalance);
 		String startingBalance = field_startingBalance.getText().toString();
 		
+		// get account interest rate from textview
 		EditText field_interestRate = (EditText) findViewById(R.id.field_interestRate);
 		String interestRate = field_interestRate.getText().toString();
 		
-		if (name.isEmpty() || startingBalance.isEmpty() || interestRate.isEmpty())
+		// check for empty fields
+		if (name.isEmpty() || startingBalance.isEmpty() || interestRate.isEmpty()) {
 			
 			alertManager.generateAlertDialog(
 					AlertDialogManager.AlertType.FIELD_IS_EMPTY)
 					.show();
-		else {
+		} else {
 			
+			// fields are not empty
 			try {
 				
 				//create new account and add to database
@@ -92,28 +98,29 @@ public class AccountRegistrationActivity extends Activity {
 								Double.valueOf(startingBalance),
 								Double.valueOf(interestRate)));
 				
-				//update user with new account id
+				//update current user with new account id and update in database
 				User updatedUser = sessionManager.getUser();
 				updatedUser.addAccount(newAccount.getAccountId());
 				loginHelper.updateElement(updatedUser);
 				
 				//TODO what does setting these flags do?
+				// start LogInActivity
 				Intent intent = new Intent(this, LogInActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				
 				startActivity(intent);
 			
 			} catch (NumberFormatException e) {
 				
 				//TODO code should be redone so NumberFormatException is not a worry
 				AlertDialog alert = alertManager.generateAlertDialog(
-						AlertDialogManager.AlertType.ERROR);
+						AlertDialogManager.AlertType.ERROR_QUIT_FALSE);
 				alert.setMessage("Invalid number format");
 				alert.show();
 				
 				e.printStackTrace();
 			} catch (DatabaseException e) {
 				
+				// account name already exists. cannot be duplicated
 				alertManager.generateAlertDialog(
 						AlertDialogManager.AlertType.ACCOUNT_ALREADY_EXISTS)
 						.show();

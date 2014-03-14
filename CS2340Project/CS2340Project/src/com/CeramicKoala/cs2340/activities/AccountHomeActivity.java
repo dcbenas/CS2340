@@ -18,41 +18,41 @@ import android.widget.TextView;
 
 public class AccountHomeActivity extends Activity {
 	
-	private AccountOpenHelper myHelper;
 	private NumberFormat currencyFormatter;
-	protected AlertDialogManager alertManager;
+	private AlertDialogManager alertManager;
 	private SessionManager sessionManager;
 	
+	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_home);
 		
 		// instantiate all helper objects
-		myHelper = new AccountOpenHelper(this);
 		sessionManager = new SessionManager(this);
 		//DEPRECATED intent = getIntent();
 		alertManager = new AlertDialogManager(this);
+		currencyFormatter = NumberFormat.getCurrencyInstance();
 		
 		// update view if user is logged in
 		if (sessionManager.hasCurrentAccount()) {
 			
+			// get formatted account balance
 			Account currentAccount = sessionManager.getAccount();
+			String balanceString = currencyFormatter.format(currentAccount.getBalance());
 			
-			currencyFormatter = NumberFormat.getCurrencyInstance();
-			double balance = currentAccount.getBalance();
-			String balanceString = currencyFormatter.format(balance);
-			
-			
+			// update login message textview
 			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
 			String loginMessage = currentAccount.getName();
 			loginMessageTextView.setText(loginMessage);
 			
+			// update balance textview
 			TextView balanceMessageTextView = (TextView) findViewById(R.id.current_balance);
 			String balanceMessage = getString(R.string.balance_message) + " "+ balanceString;
 			balanceMessageTextView.setText(balanceMessage);
 		} else {
 			
+			// there is no current account set
 			alertManager.generateAlertDialog(
 					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
 					.show();
@@ -60,27 +60,29 @@ public class AccountHomeActivity extends Activity {
 			
 	}
 	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.account_registration, menu);
 		return true;
 	}
-	
-	protected Intent getIntent(Class<?> activityClass) {
-		
-		Intent intent = new Intent(this, activityClass);
-		return intent;
-	}
+
+// DEPRECATED
+//	protected Intent getIntent(Class<?> activityClass) {
+//		
+//		Intent intent = new Intent(this, activityClass);
+//		return intent;
+//	}
 	
 	public void startTransaction(View view) {
 		
-		startActivity(getIntent(TransactionActivity.class));
+		startActivity(new Intent(this, TransactionActivity.class));
 	}
 	
 	public void generateReport(View view) {
 		
-		startActivity(getIntent(ReportActivity.class));
+		startActivity(new Intent(this, ReportActivity.class));
 	}
 }
 

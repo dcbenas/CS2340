@@ -154,7 +154,7 @@ public class SessionManager {
 	}
 	
 	/**
-	 * gets current user with id userId
+	 * gets current user with username username
 	 * defaults to null
 	 * @return current user
 	 */
