@@ -104,6 +104,9 @@ public class LogInActivity extends AccountManagementActivity implements OnItemSe
 		startActivity(getIntent(AccountRegistrationActivity.class));
 	}
 	
+	// TODO instead of selecting accounts then pressing a button, the app should
+	// open the account upon clicking it within the spinner. (start the spinner on
+	// a default message that does not go anywhere)
 	public void viewAccount(View view) {
 		Intent intent = getIntent(AccountHomeActivity.class);
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);

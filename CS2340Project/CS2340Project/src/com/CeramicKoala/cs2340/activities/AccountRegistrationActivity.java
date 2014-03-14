@@ -44,7 +44,8 @@ public class AccountRegistrationActivity extends AccountManagementActivity {
 	
 
 	public void createAccount(View view) {
-		//TODO what happens when invalid account is created? (negative balance, etc.)
+		//TODO instead of catching a NumberFormatException, ensure that input is a number
+		//by using an appropriate input object (number pad)
 		EditText field_name = (EditText) findViewById(R.id.field_accountName);
 		String name = field_name.getText().toString();
 		

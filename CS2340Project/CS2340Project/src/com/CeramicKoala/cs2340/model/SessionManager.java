@@ -1,5 +1,6 @@
 package com.CeramicKoala.cs2340.model;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -38,11 +39,14 @@ public class SessionManager {
 	 * constructor
 	 * @param context
 	 */
+	@SuppressLint("CommitPrefEdits")
 	public SessionManager(Context context) {
+		
 		prefs = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
 		editor = prefs.edit();
 		loginHelper = new LoginOpenHelper(context);
 		accountHelper = new AccountOpenHelper(context);
+	
 	}
 	
 	/**
@@ -58,6 +62,7 @@ public class SessionManager {
 		editor.putBoolean(KEY_LOGGED_IN, true);
 		
 		editor.commit();
+	
 	}
 	
 	/**
@@ -66,7 +71,6 @@ public class SessionManager {
 	public void logOut() {
 		
 		editor.clear();
-		
 		editor.commit();
 	}
 	
@@ -88,7 +92,7 @@ public class SessionManager {
 	/**
 	 * erases only current account info
 	 */
-	public void unsetAccount() {
+	public void removeAccount() {
 		
 		editor.remove(KEY_ACCOUNT_NAME);
 		editor.remove(KEY_ACCOUNT_ID);
@@ -103,6 +107,7 @@ public class SessionManager {
 	 * @return isLoggedIn
 	 */
 	public boolean isLoggedIn() {
+		
 		return prefs.getBoolean(KEY_LOGGED_IN, false);
 	}
 	
@@ -112,6 +117,7 @@ public class SessionManager {
 	 * @return username
 	 */
 	public String getUsername() {
+		
 		return prefs.getString(KEY_USERNAME, null);
 	}
 	
@@ -121,6 +127,7 @@ public class SessionManager {
 	 * @return userId
 	 */
 	public int getUserId() {
+		
 		return prefs.getInt(KEY_USER_ID, -1);
 	}
 	
@@ -130,8 +137,10 @@ public class SessionManager {
 	 * @return current user
 	 */
 	public User getUser() {
+		
 		int userId = prefs.getInt(KEY_USER_ID, -1);
 		User user = loginHelper.getElementById(userId);
+		
 		return user;
 	}
 	
@@ -143,6 +152,7 @@ public class SessionManager {
 	 * @param user
 	 */
 	public void updateUser(User user) {
+		
 		if (prefs.getBoolean(KEY_LOGGED_IN, false)) {
 			logIn(user);
 		} else {
@@ -156,6 +166,7 @@ public class SessionManager {
 	 * @return hasCurrentAccount
 	 */
 	public boolean hasCurrentAccount() {
+		
 		return prefs.getBoolean(KEY_HAS_ACCOUNT, false);
 	}
 	
@@ -165,6 +176,7 @@ public class SessionManager {
 	 * @return accountName
 	 */
 	public String getAccountName() {
+		
 		return prefs.getString(KEY_ACCOUNT_NAME, null);
 	}
 	
@@ -174,6 +186,7 @@ public class SessionManager {
 	 * @return accountId
 	 */
 	public int getAccountId() {
+		
 		return prefs.getInt(KEY_ACCOUNT_ID, -1);
 	}
 	
@@ -182,6 +195,7 @@ public class SessionManager {
 	 * @return account
 	 */
 	public Account getAccount() {
+		
 		int accountId = prefs.getInt(KEY_ACCOUNT_ID, -1);
 		Account account = null;
 		try {
