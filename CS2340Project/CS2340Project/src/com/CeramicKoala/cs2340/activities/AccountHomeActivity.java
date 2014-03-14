@@ -3,6 +3,7 @@ package com.CeramicKoala.cs2340.activities;
 import java.text.NumberFormat;
 
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 
@@ -16,14 +17,15 @@ public class AccountHomeActivity extends AccountManagementActivity {
 	
 	private AccountOpenHelper myHelper;
 	private NumberFormat currencyFormatter;
+	protected AlertDialogManager alertManager;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_home);
-
 		myHelper = new AccountOpenHelper(this);
 		intent = getIntent();
+		alertManager = new AlertDialogManager(this);
 			
 		//TODO only use caps on final constants
 		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
