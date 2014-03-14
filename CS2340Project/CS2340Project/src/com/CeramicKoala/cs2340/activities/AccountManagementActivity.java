@@ -3,6 +3,7 @@ package com.CeramicKoala.cs2340.activities;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
+import com.CeramicKoala.cs2340.model.SessionManager;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -19,14 +20,16 @@ import android.os.Build;
 public abstract class AccountManagementActivity extends Activity {
 	
 	protected static LoginOpenHelper loginHelper;
-	//DEPRECATED protected AlertDialog alertDialog;
-	protected AlertDialog loginWrong;
-	protected AlertDialog passWrong;
-	protected AlertDialog emptyField;
+// DEPRECATED 
+//	protected AlertDialog alertDialog;
+//	protected AlertDialog loginWrong;
+//	protected AlertDialog passWrong;
+//	protected AlertDialog emptyField;
 	protected String username;
 	protected String password; 
 	protected Intent intent;
 	protected AlertDialogManager alertManager;
+	protected SessionManager sessionManager;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public abstract class AccountManagementActivity extends Activity {
 		
 		loginHelper = new LoginOpenHelper(this);
 		alertManager = new AlertDialogManager(this);
+		sessionManager = new SessionManager(this);
 		
 		//retrieve username and password info from intent sent by MainActivity
 		intent = getIntent();
@@ -47,10 +51,11 @@ public abstract class AccountManagementActivity extends Activity {
 			
 			username = intent.getStringExtra(USERNAME);
 			password = intent.getStringExtra(PASSWORD);
-			
-			loginWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_user_at_least_six), false);
-			passWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_pass_at_least_six), false);
-			emptyField = setUpAlertDialog("Error", getString(R.string.empty_field_error), false);
+
+// DEPRECATED
+//			loginWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_user_at_least_six), false);
+//			passWrong = setUpAlertDialog("Error", getString(R.string.log_in_error_pass_at_least_six), false);
+//			emptyField = setUpAlertDialog("Error", getString(R.string.empty_field_error), false);
 		}
 	}
 
@@ -152,12 +157,18 @@ public abstract class AccountManagementActivity extends Activity {
 	protected boolean checkCred(String user, String pass) {
 		
 		if(!user.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
-			loginWrong .show();
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.INCORRECT_LOGIN)
+					.show();
 			return false;
 		}
 
 		if(!pass.matches("[a-z|A-Z|0-9]{6}[a-z|A-Z|0-9]*")) {
-			passWrong.show();
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.INCORRECT_PASSWORD)
+					.show();
 			return false;
 		}
 

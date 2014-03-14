@@ -3,6 +3,7 @@ package com.CeramicKoala.cs2340.activities;
 import java.text.NumberFormat;
 
 import com.CeramicKoala.cs2340.R;
+import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
@@ -26,34 +27,30 @@ public class AccountHomeActivity extends AccountManagementActivity {
 		myHelper = new AccountOpenHelper(this);
 		intent = getIntent();
 		alertManager = new AlertDialogManager(this);
+		
+		if (sessionManager.hasCurrentAccount()) {
 			
-		//TODO only use caps on final constants
-		String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
-		
-		//TODO replace reference to static account with SessionManager
-		try {
+			Account currentAccount = sessionManager.getAccount();
 			
-			if (myHelper.currentAccount == null)
-				myHelper.getElementById(intent.getIntExtra(CHOSEN_ACCOUNT, 1));
-			else
-				myHelper.getCurrent();
-		
-		} catch (DatabaseException e) {
-			e.printStackTrace();
-		}
-		
-		currencyFormatter = NumberFormat.getCurrencyInstance();
-		double balance = AccountOpenHelper.currentAccount.getBalance();
-		String balanceString = currencyFormatter.format(balance);
-		
-		
-		TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
-		String loginMessage = AccountOpenHelper.currentAccount.getName();
-		loginMessageTextView.setText(loginMessage);
-		
-		TextView balanceMessageTextView = (TextView) findViewById(R.id.current_balance);
-		String balanceMessage = getString(R.string.balance_message) + " "+ balanceString;
-		balanceMessageTextView.setText(balanceMessage);
+			currencyFormatter = NumberFormat.getCurrencyInstance();
+			double balance = currentAccount.getBalance();
+			String balanceString = currencyFormatter.format(balance);
+			
+			
+			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);
+			String loginMessage = currentAccount.getName();
+			loginMessageTextView.setText(loginMessage);
+			
+			TextView balanceMessageTextView = (TextView) findViewById(R.id.current_balance);
+			String balanceMessage = getString(R.string.balance_message) + " "+ balanceString;
+			balanceMessageTextView.setText(balanceMessage);
+		} else {
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
+					.show();
+		}	
+			
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {

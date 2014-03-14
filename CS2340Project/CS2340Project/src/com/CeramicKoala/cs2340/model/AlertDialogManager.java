@@ -4,9 +4,23 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
+/**
+ * AlertDialogManager keeps track and provides version control for all alert dialogs 
+ * (pop up error messages) for the entire application. Activites should use AlertDialogManager to 
+ * display alert dialogs when appropriate. Activites should not define alert dialogs.
+ * If necessary, they can generate an alert dialog using this class and customize
+ * the message.
+ * @author Benjamin Newcomer
+ */
 public class AlertDialogManager {
 	
+	/**
+	 * AlertType defines the type of alert and provides
+	 * preset titles, messages, and quit booleans
+	 * @author Benjamin Newcomer
+	 */
 	public enum AlertType{
+		
 		USERNAME_ALREADY_EXISTS("User Account Error",
 				"That username already exists", false),
 		ACCOUNT_ALREADY_EXISTS("Account Error", 
@@ -15,6 +29,8 @@ public class AlertDialogManager {
 				"Account does not exist",false),
 		INCORRECT_PASSWORD("Login Error", 
 				"Your password is incorrect", true),
+		INCORRECT_LOGIN("Login Error",
+				"Your username/password combination is incorrect", true),
 		FIELD_IS_EMPTY("Empty Field", 
 				"You left one of the required fields empty", false),
 		NO_START_DATE("Date Error", 
@@ -33,6 +49,12 @@ public class AlertDialogManager {
 		String message;
 		boolean quit;
 		
+		/**
+		 * constructor
+		 * @param title provided by enum
+		 * @param message provided by enum
+		 * @param quit provided by enum
+		 */
 		AlertType(String title, String message, boolean quit) {
 			this.title = title;
 			this.message = message;
@@ -41,10 +63,21 @@ public class AlertDialogManager {
 	}
 	Activity activity;
 	
+	/**
+	 * constructor
+	 * @param activity that creates this
+	 */
 	public AlertDialogManager(Activity activity) {
+		
 		this.activity = activity;
 	}
 
+	/**
+	 * generateAlertDialog creates a generic alert dialog depending on the
+	 * alert type passed in
+	 * @param type of alert
+	 * @return AlertDialog
+	 */
 	public AlertDialog generateAlertDialog(AlertType type) {
 		
 		AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
