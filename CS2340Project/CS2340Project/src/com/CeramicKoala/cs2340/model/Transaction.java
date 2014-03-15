@@ -2,7 +2,7 @@ package com.CeramicKoala.cs2340.model;
 
 import java.text.DateFormatSymbols;
 import java.util.Date;
-import java.sql.Timestamp;
+import java.text.NumberFormat;
 
 /**
  * Transaction represents a single account transaction. Transactions are
@@ -175,7 +175,9 @@ public class Transaction extends DatabaseElement implements Comparable {
 	
 	public String getAmountString() {
 		StringBuilder out = new StringBuilder();
-		out.append("\n" + amount);
+		NumberFormat format = NumberFormat.getCurrencyInstance();
+		String formattedAmount = format.format(amount);
+		out.append("\n" + formattedAmount);
 		
 		return out.toString();
 	}
