@@ -108,10 +108,11 @@ public class TransactionActivity extends Activity {
 			} else {
 				
 				double balanceChange = Double.valueOf(balChange);
-				Account updatedAccount = sessionManager.getAccount();
-				updatedAccount.setBalance(balanceChange);
-				accountHelper.updateElement(updatedAccount);
 
+				Account updatedAccount = sessionManager.getAccount();
+
+				updatedAccount.setBalance(updatedAccount.getBalance() + balanceChange);
+		
 				int id = sessionManager.getAccountId();
 				Date date = new Date();
 				Transaction deposit = new Transaction(id, 0, balanceChange, date);
