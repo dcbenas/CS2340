@@ -83,6 +83,7 @@ public class SessionManager {
 				
 				//change message to display message from Database Exception
 				alert.setMessage(e.getMessage());
+				alert.show();
 			}	
 		}
 	}

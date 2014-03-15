@@ -4,6 +4,7 @@ import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;
+import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.User;
 
@@ -29,6 +30,8 @@ public class RegisterActivity extends Activity {
 	EditText register_password;
 	EditText register_full_name;
 	private SessionManager sessionManager;
+	private LoginOpenHelper loginHelper;
+	private AlertDialogManager alertManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class RegisterActivity extends Activity {
 		
 		//instantiate helper objects
 		sessionManager = new SessionManager(this);
+		loginHelper = new LoginOpenHelper(this);
+		alertManager = new AlertDialogManager(this);
 		
 		//fill register_username and register_password fields with info from main activity
 		Intent intent = getIntent();
@@ -73,7 +78,17 @@ public class RegisterActivity extends Activity {
 		
 		User user = new User(fullName, username, password);
 		
-		sessionManager.logIn(user);
+		try {
+			
+			User newUser = loginHelper.addElement(user);
+			sessionManager.logIn(newUser);
+		} catch (DatabaseException e) {
+			
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.ERROR_QUIT_TRUE)
+					.show();
+		}
+		
 		
 		if (sessionManager.isLoggedIn()) {
 			startActivity(new Intent(this, LogInActivity.class));
