@@ -46,5 +46,14 @@
         android:layout_marginTop="51dp"
         android:onClick="generateReport"
         android:text="@string/report_generate" />
+    
+    <Button
+        android:id="@+id/transaction_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/make_transaction"
+        android:layout_centerHorizontal="true"
+        android:onClick="getTransactionHistory"
+        android:text= "@string/view_transaction_history" />
 
 </RelativeLayout>

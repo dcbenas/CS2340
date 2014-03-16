@@ -11,10 +11,13 @@ import java.text.NumberFormat;
  * should not be altered after creation.
  * @author Benjamin Newcomer
  */
+
+@SuppressWarnings("rawtypes")
 public class Transaction extends DatabaseElement implements Comparable {
 	
 	public enum TransactionType {
-		DEPOSIT(0, "Deposit"), WITHDRAWAL(1, "Withdrawal");
+		DEPOSIT(0, "Deposit"), SALARY(0, "Salary"), GIFT(0, "Gift"), PARENTS(0, "Parents"), SCHOLARSHIP(0, "Scholarship"), 
+		WITHDRAWAL(1, "Withdrawal"), FOOD(1, "Food"), RENT(1, "Rent"), ENTERTAINMENT(1, "Entertainment"), CLOTHING(1, "Clothing");
 		
 		private int id;
 		private String type;

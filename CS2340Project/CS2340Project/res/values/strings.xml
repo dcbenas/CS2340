@@ -25,7 +25,10 @@
     <string name="log_in_error_incorrect_password">Sorry, the password you entered was incorrect</string>
     <string name="log_in_error_no_account">Sorry, the information you entered does not match an account.</string>
     <string name="log_in_error_user_at_least_six">The username must be at least six letters long.</string>
+    <string name="create_acc">Create Account</string>
+    <string name="view_acc">View Account</string>
     <string name="title_activity_register">RegisterActivity</string>
+    <string name="account_list_report">Account Listing Report</string>
     <!-- register -->
     <string name="full_name_hint">FirstName LastName</string>
     <string name="register_success">Your new account has been created</string>
@@ -50,6 +53,7 @@
     <string name="make_a_transaction">Perform Transaction</string>
     <string name="report_generate">Generate a Report</string>
     <string name="balance">Current Balance: </string>
+    <string name="view_transaction_history">View Transaction History</string>
     <!-- report -->
     <string name="start_date">Select Beginning Date</string>
     <string name="end_date">Select End Date</string>

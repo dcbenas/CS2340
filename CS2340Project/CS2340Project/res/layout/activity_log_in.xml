@@ -35,16 +35,25 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="94dp"
         android:onClick="createAccount"
-        android:text="Create a new account" />
+        android:text="@string/create_acc" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/view_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/account_spinner"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="43dp"
         android:onClick="viewAccount"
-        android:text="View account" />
+        android:text="@string/view_acc" />
+    
+    <Button
+        android:id="@+id/account_listing_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_account"
+        android:layout_centerHorizontal="true"
+        android:onClick="getAccountListing"
+        android:text= "@string/account_list_report" />
 
 </RelativeLayout>

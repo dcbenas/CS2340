@@ -183,6 +183,10 @@ public class TransactionActivity extends Activity {
 		}
 	}
 	
+	public void getTransactionHistory(View view) {
+		
+	}
+	
 	/**
 	 * Returns the client to the account home activity page
 	 * 

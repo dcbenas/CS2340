@@ -8,6 +8,7 @@ import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
 import com.CeramicKoala.cs2340.model.LoginOpenHelper;
 import com.CeramicKoala.cs2340.model.SessionManager;
+import com.CeramicKoala.cs2340.model.TransactionOpenHelper;
 import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
@@ -190,13 +191,15 @@ public class MainActivity extends Activity {
 		
 		LoginOpenHelper loginHelper = new LoginOpenHelper(this);
 		AccountOpenHelper accountHelper = new AccountOpenHelper(this);
+		TransactionOpenHelper transactionHelper = new TransactionOpenHelper(this);
 		
 		boolean success1 = accountHelper.resetTable();
 		boolean success2 = loginHelper.resetTable();
+		boolean success3 = transactionHelper.resetTable();
 		
 		//replace the admin that was just deleted
 		createAdmin();
-		Log.d("reset db", String.valueOf(success1 && success2));
+		Log.d("reset db", String.valueOf(success1 && success2 && success3));
 		
 		onResume();
 	}

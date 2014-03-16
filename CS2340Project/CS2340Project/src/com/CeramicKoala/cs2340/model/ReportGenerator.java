@@ -18,7 +18,7 @@ import android.content.Context;
  */
 public class ReportGenerator {
 	
-	public enum ReportType {SPENDING_REPORT};
+	public enum ReportType {SPENDING_REPORT, DEPOSIT_REPORT};
 	TransactionOpenHelper transactionHelper;
 	AccountOpenHelper accountHelper;
 	SessionManager sessionManager;
@@ -49,13 +49,18 @@ public class ReportGenerator {
 	public List<Transaction> generateReport(ReportType type, Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = null;
 		
-		//switch (type) {
-		//case SPENDING_REPORT:
-			report = generateSpendingReport(beginning, end);
-		//	break;
-		//default:
-		//	break;
-		//}
+		switch (type) {
+			case SPENDING_REPORT:
+				report = generateSpendingReport(beginning, end);
+				break;
+			
+			case DEPOSIT_REPORT:
+				report = generateDepositReport(beginning, end);
+				break;
+		
+			default:
+				break;
+		}
 		
 		return report;
 	}
@@ -67,6 +72,32 @@ public class ReportGenerator {
 		//get all transactions that are withdrawals
 		for (Transaction t : getAllTransactions()) {
 			if (t.typeToInt() == 1) {
+				report.add(t);
+			}
+		}
+		
+		Collections.sort(report);
+		
+		//remove transactions outside date window
+		Iterator<Transaction> i = report.iterator();
+		while (i.hasNext()) {
+			Transaction t = i.next();
+			if ((beginning.compareTo(t.getDate()) > 0)
+					|| (end.compareTo(t.getDate()) < 0)) {
+				i.remove();
+			}
+		}
+		
+		return report;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private List<Transaction> generateDepositReport(Date beginning, Date end) throws ParseException, DatabaseException {
+		List<Transaction> report = new ArrayList<Transaction>();
+		
+		//get all transactions that are withdrawals
+		for (Transaction t : getAllTransactions()) {
+			if (t.typeToInt() == 0) {
 				report.add(t);
 			}
 		}
