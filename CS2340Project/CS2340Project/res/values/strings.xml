@@ -45,7 +45,8 @@
     <string name="account_registration_field_empty">Please enter all values into the fields.</string>
     <string name="title_activity_account_home">AccountHomeActivity</string>
     <string name="title_activity_report">Report Generation</string>
-    <string name="title_activity_display_report">Report Display</string>
+    <string name="title_activity_withdrawal_report">Withdrawal Report</string>
+    <string name="title_activity_transaction_history">Transaction History</string>
     <string name="chosen_account_constant">com.CeramicKoala.cs2340.CHOSEN_ACCOUNT</string>
     <string name="balance_message">Current Balance is: </string>
     <string name="no_account">No accounts have been created yet!</string>
@@ -54,13 +55,19 @@
     <string name="report_generate">Generate a Report</string>
     <string name="balance">Current Balance: </string>
     <string name="view_transaction_history">View Transaction History</string>
-    <!-- report -->
+    <!-- reports -->
     <string name="start_date">Select Beginning Date</string>
     <string name="end_date">Select End Date</string>
     <string name="generate_report">Display Transaction Report</string>
     <string name="withdrawal_report">Withdrawal Report for </string>
+    <string name="transaction_history">Transaction History for</string>
+    <string name="rollback">Rollback a Transaction</string>
+    <string name="undo_rollback">Undo Rollback</string>
     <string name="date_start_to_end"></string>
     <string name="date">Date</string>
+    <string name="type">Type</string>
+    <string name="category">Category</string>
     <string name="amount">Amount</string>
+    <string name="go_acc_menu">Return to Account Menu</string>
 
 </resources>

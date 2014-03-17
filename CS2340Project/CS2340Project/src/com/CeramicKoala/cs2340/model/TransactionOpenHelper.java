@@ -1,6 +1,5 @@
 package com.CeramicKoala.cs2340.model;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     	if ((success != -1) && updateAccount(transaction)) {
     		return transaction;
     	} else {
-    		Transaction noTransaction = new Transaction(0, 0, 0, null);
+    		Transaction noTransaction = new Transaction(0, null, 0, null);
     		return noTransaction;
     	}
 	}

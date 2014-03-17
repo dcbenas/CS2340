@@ -11,7 +11,6 @@ import com.CeramicKoala.cs2340.model.Transaction;
 import com.CeramicKoala.cs2340.model.TransactionOpenHelper;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -115,7 +114,7 @@ public class TransactionActivity extends Activity {
 		
 				int id = sessionManager.getAccountId();
 				Date date = new Date();
-				Transaction deposit = new Transaction(id, 0, balanceChange, date);
+				Transaction deposit = new Transaction(id, Transaction.TransactionType.DEPOSIT, balanceChange, date);
 				transaction.addElement(deposit);
 				Intent intent = new Intent(this, AccountHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -156,7 +155,7 @@ public class TransactionActivity extends Activity {
 					
 					int id = sessionManager.getAccountId();
 					Date date = new Date();
-					Transaction withdrawal = new Transaction(id, 1, balanceChange, date);
+					Transaction withdrawal = new Transaction(id, Transaction.TransactionType.WITHDRAWAL, balanceChange, date);
 					transaction.addElement(withdrawal);
 					
 					Account updatedAccount = sessionManager.getAccount();

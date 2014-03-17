@@ -87,8 +87,17 @@
         </activity>
         
         <activity
-            android:name="com.CeramicKoala.cs2340.activities.DisplayReportActivity"
-            android:label="@string/title_activity_display_report" 
+            android:name="com.CeramicKoala.cs2340.activities.WithdrawalReportActivity"
+            android:label="@string/title_activity_withdrawal_report" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.ReportActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.ReportActivity" />
+        </activity>
+        
+        <activity
+            android:name="com.CeramicKoala.cs2340.activities.TransactionHistoryActivity"
+            android:label="@string/title_activity_transaction_history" 
             android:parentActivityName="com.CeramicKoala.cs2340.activities.ReportActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

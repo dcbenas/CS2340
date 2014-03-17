@@ -22,6 +22,8 @@ public class AccountHomeActivity extends Activity {
 	private NumberFormat currencyFormatter;
 	private AlertDialogManager alertManager;
 	private SessionManager sessionManager;
+	//passed into report activity, then used to determine which type of report to create & display
+	private int followUp;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +100,22 @@ public class AccountHomeActivity extends Activity {
 	}
 	
 	public void generateReport(View view) {
-		
-		startActivity(new Intent(this, ReportActivity.class));
+		followUp = 0;
+		Intent intent = new Intent(this, ReportActivity.class);
+		intent.putExtra("followUpDecision", followUp);
+		startActivity(intent);
 	}
+	
+	public void getTransactionHistory(View view) {
+		
+		followUp = 1;
+		Intent intent = new Intent(this, ReportActivity.class);
+		intent.putExtra("followUpDecision", followUp);
+		startActivity(intent);
+	}
+	
+	
+	
 }
 
 

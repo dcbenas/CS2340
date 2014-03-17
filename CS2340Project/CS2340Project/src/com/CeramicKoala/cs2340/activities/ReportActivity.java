@@ -119,16 +119,28 @@ public class ReportActivity extends Activity {
 		//} else if (endDate.endCalendar.after(currentDay)) {
 			//endInFuture.show();
 		} else {
-			
-			Intent intent = new Intent(this, DisplayReportActivity.class);
-			intent.putExtra("startDate", startDate.start);
-			intent.putExtra("endDate", endDate.end);
-			
-			startActivity(intent);
+			int whereToGo = getIntent().getExtras().getInt("followUpDecision");
+			switch (whereToGo) {
+			case 0:
+				Intent intent = new Intent(this, WithdrawalReportActivity.class);
+				intent.putExtra("startDate", startDate.start);
+				intent.putExtra("endDate", endDate.end);
+				startActivity(intent);
+				break;
+				
+			case 1:
+				Intent transIntent = new Intent(this, TransactionHistoryActivity.class);
+				transIntent.putExtra("startDate", startDate.start);
+				transIntent.putExtra("endDate", endDate.end);
+				startActivity(transIntent);
+				break;
 		}
 	}
+		
+	}		
+
 	
-	//TODO what the hell is this class? I'm confused
+	//I'll javadoc it later, but basically they are the two date pickers
 	public static class DatePickerFragmentStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 		
 		private String start;

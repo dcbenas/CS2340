@@ -19,6 +19,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 		DEPOSIT(0, "Deposit"), SALARY(0, "Salary"), GIFT(0, "Gift"), PARENTS(0, "Parents"), SCHOLARSHIP(0, "Scholarship"), 
 		WITHDRAWAL(1, "Withdrawal"), FOOD(1, "Food"), RENT(1, "Rent"), ENTERTAINMENT(1, "Entertainment"), CLOTHING(1, "Clothing");
 		
+		//sourceID identifies which type of deposit / withdrawal the transaction is
 		private int id;
 		private String type;
 		
@@ -29,7 +30,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 			
 		public int toInt() {
 				return id;
-			}
+		}
 		
 		public String toString() {
 			return type;
@@ -49,9 +50,10 @@ public class Transaction extends DatabaseElement implements Comparable {
 	 * @param amount
 	 * @param date
 	 */
-	public Transaction(int accountId, int type, double amount, Date date) {
+	public Transaction(int accountId, TransactionType type, double amount, Date date) {
 		this.accountId = accountId;
-		this.type = getType(type);
+		this.type = (type);
+		
 		this.amount = amount;
 		this.date = date;
 		
@@ -95,6 +97,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 	public String getType() {
 		return type.toString();
 	}
+	
 	
 	/**
 	 * returns an int for the type
@@ -181,6 +184,25 @@ public class Transaction extends DatabaseElement implements Comparable {
 		NumberFormat format = NumberFormat.getCurrencyInstance();
 		String formattedAmount = format.format(amount);
 		out.append("\n" + formattedAmount);
+		
+		return out.toString();
+	}
+	
+	public String getTypeString() {
+		StringBuilder out = new StringBuilder();
+		System.out.println((getType()));
+		if (getType().equals("Deposit")) {
+			out.append("\n" + "Deposit");
+		} else {
+			out.append("\n" + "Withdrawal");
+		}
+		
+		return out.toString();
+	}
+	
+	public String getCategoryString() {
+		StringBuilder out = new StringBuilder();
+		out.append("\n" + "add functionality");
 		
 		return out.toString();
 	}
