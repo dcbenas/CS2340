@@ -56,6 +56,7 @@
     <string name="balance">Current Balance: </string>
     <string name="enter_amount">Enter Amount of Money</string>
     <string name="cancel">Cancel</string>
+    <string name="execute_a_transaction">Confirm Transaction</string>
     <string name="view_transaction_history">View Transaction History</string>
     <string name="deposit">Deposit</string>
     <string name="withdrawal">Withdrawal</string>

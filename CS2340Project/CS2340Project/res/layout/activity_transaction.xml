@@ -56,16 +56,6 @@
     </RadioGroup>
 
     <Button
-        android:id="@+id/cancel_transaction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
-        android:onClick="returnToLogin"
-        android:text="@string/cancel" />
-
-    <Button
         android:id="@+id/make_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,6 +63,23 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="14dp"
         android:onClick="performTransaction"
-        android:text="@string/make_a_transaction" />
+        android:text="@string/execute_a_transaction" />
+
+    <Button
+        android:id="@+id/cancel_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="returnToLogin"
+        android:text="@string/cancel" />
+
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/radioGroup1"
+        android:layout_alignRight="@+id/textView3"
+        android:layout_below="@+id/radioGroup1" />
 
 </RelativeLayout>

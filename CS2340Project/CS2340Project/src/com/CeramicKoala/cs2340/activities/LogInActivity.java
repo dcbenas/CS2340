@@ -37,7 +37,6 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 	
 	//TODO Inseok - alter spinner behavior so that selecting account from spinner starts account 
 	// activity automatically
-	//TODO Matthew - format report so that it looks pretty
 	//TODO David/Casey - Make our app look pro. Custom buttons and icons n such
 	
 	//DEPRECATED private AlertDialog wrongPassword, noAccount;
@@ -193,7 +192,7 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 			e.printStackTrace();
 		}
 		//TODO use log.d() instead of println
-		System.out.println(accounts.size());
+		//System.out.println(accounts.size());
 	}
 	
 	public void createAccount(View view) {
@@ -251,8 +250,7 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 
 	@Override
 	public void onNothingSelected(AdapterView<?> arg0) {
-		// Doesn't do anything
-		//TODO why do we have this method?
+		//It's required for implementation of OnItemSelectListener
 	}
 
 }

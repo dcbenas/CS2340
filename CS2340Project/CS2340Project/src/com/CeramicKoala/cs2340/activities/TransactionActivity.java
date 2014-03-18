@@ -6,8 +6,10 @@ import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
+import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.Transaction;
+import com.CeramicKoala.cs2340.model.Transaction.TransactionType;
 import com.CeramicKoala.cs2340.model.TransactionOpenHelper;
 
 import android.app.Activity;
@@ -16,8 +18,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Spinner;
 
 /**
  * Transaction Activity supports deposits and withdrawals. Updates the relevant
@@ -25,7 +31,7 @@ import android.widget.RadioButton;
  * 
  * @author Matthew Berman
  */
-public class TransactionActivity extends Activity {
+public class TransactionActivity extends Activity implements OnItemSelectedListener {
 	
 	//TODO Matthew - change all transaction methods to accept a date (specific to the day)
 	
@@ -33,11 +39,14 @@ public class TransactionActivity extends Activity {
 	private AccountOpenHelper accountHelper;
 	private AlertDialogManager alertManager;
 	private SessionManager sessionManager;
+	
 	//0 = UNCHECKED, 1 = DEPOSIT, 2 = WITHDRAWAL
+	private Object[] depositTypes;
+	private Object[] withdrawalTypes;
+	
+	//determines if a category is selected
 	private int transType;
-// DEPRECATED
-//	private AlertDialog isEmpty;
-//	private AlertDialog underZero;
+	private TransactionType transCategory;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +59,22 @@ public class TransactionActivity extends Activity {
 		alertManager = new AlertDialogManager(this);
 		sessionManager = new SessionManager(this);
 		transType = 0;
+		updateAccountSpinner();
+		//Size hardcoded, for now ?
+		depositTypes = new Object[5];
+		withdrawalTypes = new Object[5];
+		depositTypes[0] = Transaction.TransactionType.DEPOSIT;
+		depositTypes[1] = Transaction.TransactionType.SALARY;
+		depositTypes[2] = Transaction.TransactionType.GIFT;
+		depositTypes[3] = Transaction.TransactionType.PARENTS;
+		depositTypes[4] = Transaction.TransactionType.SCHOLARSHIP;
+		withdrawalTypes[0] = Transaction.TransactionType.WITHDRAWAL;
+		withdrawalTypes[1] = Transaction.TransactionType.RENT;
+		withdrawalTypes[2] = Transaction.TransactionType.CLOTHING;
+		withdrawalTypes[3] = Transaction.TransactionType.FOOD;
+		withdrawalTypes[4] = Transaction.TransactionType.ENTERTAINMENT;
 		
 		
-// DEPRECATED
-//		isEmpty = setUpAlertDialog("Error","You need numbers for a transaction!", false);
-//		underZero = setUpAlertDialog("Error","You cannot withdraw more than your current balance!", false);
-
 		
 	}
 	
@@ -82,12 +101,6 @@ public class TransactionActivity extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-// DEPRECATED
-//	@Override
-//	protected Intent getIntent(Class<?> activityClass) {
-//		Intent intent = new Intent(this, activityClass);
-//		return intent;
-//	}
 	
 	/**
 	 * Makes a deposit if all fields are filled out correctly.
@@ -103,7 +116,7 @@ public class TransactionActivity extends Activity {
 			EditText transactionAmount = (EditText) findViewById(R.id.transaction_amount);
 			String balChange = transactionAmount.getText().toString();
 			
-			if (balChange.isEmpty()) {
+			if (balChange.isEmpty()|| (Double.valueOf(balChange) <= 0)) {
 				
 				alertManager.generateAlertDialog(
 						AlertDialogManager.AlertType.EMPTY_TRANSACTION)
@@ -144,7 +157,7 @@ public class TransactionActivity extends Activity {
 			EditText transactionAmount = (EditText) findViewById(R.id.transaction_amount);
 			String balChange = transactionAmount.getText().toString();
 			
-			if (balChange.isEmpty()) {
+			if (balChange.isEmpty() || (Double.valueOf(balChange) <= 0)) {
 				
 				alertManager.generateAlertDialog(
 						AlertDialogManager.AlertType.EMPTY_TRANSACTION)
@@ -186,6 +199,87 @@ public class TransactionActivity extends Activity {
 		}
 	}
 	
+	public void updateAccountSpinner() {
+		Spinner spinner;
+		Object[] categoryNames;
+		switch (transType) {
+		    case 0:
+		    	spinner = (Spinner)findViewById(R.id.category_spinner);
+		    	//spinner.setVisibility(View.GONE);
+		    	break;
+		    	
+		    case 1:
+		    	spinner = (Spinner)findViewById(R.id.category_spinner);
+		    	categoryNames = new Object[depositTypes.length];
+		    	for (int i = 0; i < depositTypes.length; i++) {
+		    		TransactionType t = (TransactionType) depositTypes[i];
+		    		categoryNames[i] = t.toString();
+		    	}
+		    	ArrayAdapter<Object> adapterD = new ArrayAdapter<Object>(
+						this,
+						android.R.layout.simple_spinner_item, 
+						categoryNames);
+		    	spinner.setAdapter(adapterD);
+		    	//spinner.setVisibility(View.VISIBLE);
+				
+				//set this to run callback when item is selected from spinner
+				spinner.setOnItemSelectedListener(this);
+				break;
+			
+		    case 2:
+		    	spinner = (Spinner)findViewById(R.id.category_spinner);
+		    	categoryNames = new Object[withdrawalTypes.length];
+		    	for (int i = 0; i < withdrawalTypes.length; i++) {
+		    		TransactionType t = (TransactionType) withdrawalTypes[i];
+		    		categoryNames[i] = t.toString();
+		    	}
+		    	ArrayAdapter<Object> adapterW = new ArrayAdapter<Object>(
+						this,
+						android.R.layout.simple_spinner_item, 
+						categoryNames);
+		    	spinner.setAdapter(adapterW);
+		    	//spinner.setVisibility(View.VISIBLE);
+				
+				//set this to run callback when item is selected from spinner
+				spinner.setOnItemSelectedListener(this);
+				break;    	
+		    	
+		}
+	}
+	
+	public void onItemSelected(AdapterView<?> parent, View view, int position,
+			long id) {
+		switch (transType) {
+		case 1:
+			transCategory = (TransactionType) depositTypes[position];
+			break;
+			
+		case 2:
+			transCategory = (TransactionType) withdrawalTypes[position];
+			break;
+			
+		default:
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.ERROR_QUIT_FALSE)
+					.show();
+			break;
+		}
+			
+		//get chosen account and set to current account in session manager
+		
+	}
+	
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		
+	}
+	
+	/**
+	 * Sets the transaction type to correspond to which radio button
+	 * was clicked
+	 * 
+	 * @param view the current view
+	 */
 	public void onRadioButtonClicked(View view) {
 	    // Is the button now checked?
 	    boolean checked = ((RadioButton) view).isChecked();
@@ -195,17 +289,24 @@ public class TransactionActivity extends Activity {
 	        case R.id.radio_deposit:
 	            if (checked)
 	                transType = 1;
+	            	updateAccountSpinner();
 	            break;
 	            
 	        case R.id.radio_withdrawal:
 	            if (checked) {
 	            	transType = 2;
+	            	updateAccountSpinner();
 	            }
 	         
 	            break;
 	    }
 	}
 	
+	/**
+	 * Makes a deposit or withdrawal given the chosen radio button
+	 * 
+	 * @param view the current view
+	 */
 	public void performTransaction(View view) {
 		switch (transType) {
 		
@@ -243,4 +344,5 @@ public class TransactionActivity extends Activity {
 		//TODO don't think we need this
 		finish();
 	}
+
 }
