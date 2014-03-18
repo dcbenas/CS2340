@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 /**
  * Transaction Activity supports deposits and withdrawals. Updates the relevant
@@ -32,6 +33,8 @@ public class TransactionActivity extends Activity {
 	private AccountOpenHelper accountHelper;
 	private AlertDialogManager alertManager;
 	private SessionManager sessionManager;
+	//0 = UNCHECKED, 1 = DEPOSIT, 2 = WITHDRAWAL
+	private int transType;
 // DEPRECATED
 //	private AlertDialog isEmpty;
 //	private AlertDialog underZero;
@@ -46,6 +49,7 @@ public class TransactionActivity extends Activity {
 		transaction = new TransactionOpenHelper(this);
 		alertManager = new AlertDialogManager(this);
 		sessionManager = new SessionManager(this);
+		transType = 0;
 		
 		
 // DEPRECATED
@@ -91,7 +95,7 @@ public class TransactionActivity extends Activity {
 	 * 
 	 * @param view the current view
 	 */
-	public void makeDeposit(View view) {
+	private void makeDeposit(View view) {
 		
 		try {
 			//TODO update code to use AccountHelper#updateElement() correctly
@@ -133,7 +137,7 @@ public class TransactionActivity extends Activity {
 	 * 
 	 * @param view the current view
 	 */
-	public void makeWithdrawal(View view) {
+	private void makeWithdrawal(View view) {
 		
 		try {
 			
@@ -182,8 +186,48 @@ public class TransactionActivity extends Activity {
 		}
 	}
 	
-	public void getTransactionHistory(View view) {
+	public void onRadioButtonClicked(View view) {
+	    // Is the button now checked?
+	    boolean checked = ((RadioButton) view).isChecked();
+	    
+	    // Check which radio button was clicked
+	    switch(view.getId()) {
+	        case R.id.radio_deposit:
+	            if (checked)
+	                transType = 1;
+	            break;
+	            
+	        case R.id.radio_withdrawal:
+	            if (checked) {
+	            	transType = 2;
+	            }
+	         
+	            break;
+	    }
+	}
+	
+	public void performTransaction(View view) {
+		switch (transType) {
 		
+		case 0:
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.CHOOSE_TYPE)
+					.show();
+			break;
+			
+		case 1:
+			makeDeposit(view);
+			break;
+		
+		case 2:
+			makeWithdrawal(view);
+			break;
+		
+		default:
+			alertManager.generateAlertDialog(
+					AlertDialogManager.AlertType.ERROR_QUIT_FALSE)
+					.show();
+		}
 	}
 	
 	/**

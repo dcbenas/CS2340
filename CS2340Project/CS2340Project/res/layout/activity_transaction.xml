@@ -8,15 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AccountRegistrationActivity" >
 
-    <Button
-        android:id="@+id/cancel_transaction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="returnToLogin"
-        android:text="Cancel" />
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
@@ -24,25 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="Enter Amount of Money" />
-
-    <Button
-        android:id="@+id/submit_withdrawal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/cancel_transaction"
-        android:layout_toRightOf="@+id/cancel_transaction"
-        android:onClick="makeWithdrawal"
-        android:text="Withdraw" />
-
-    <Button
-        android:id="@+id/submit_deposit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/cancel_transaction"
-        android:layout_toLeftOf="@+id/cancel_transaction"
-        android:onClick="makeDeposit"
-        android:text="Deposit" />
+        android:text="@string/enter_amount" />
 
     <EditText
         android:id="@+id/transaction_amount"
@@ -55,5 +28,51 @@
 
         <requestFocus />
     </EditText>
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/transaction_amount"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/radio_deposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/deposit" />
+
+        <RadioButton
+            android:id="@+id/radio_withdrawal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/withdrawal" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/cancel_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
+        android:onClick="returnToLogin"
+        android:text="@string/cancel" />
+
+    <Button
+        android:id="@+id/make_transaction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cancel_transaction"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:onClick="performTransaction"
+        android:text="@string/make_a_transaction" />
 
 </RelativeLayout>

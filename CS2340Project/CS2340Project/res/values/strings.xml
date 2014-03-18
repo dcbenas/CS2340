@@ -54,7 +54,11 @@
     <string name="make_a_transaction">Perform Transaction</string>
     <string name="report_generate">Generate a Report</string>
     <string name="balance">Current Balance: </string>
+    <string name="enter_amount">Enter Amount of Money</string>
+    <string name="cancel">Cancel</string>
     <string name="view_transaction_history">View Transaction History</string>
+    <string name="deposit">Deposit</string>
+    <string name="withdrawal">Withdrawal</string>
     <!-- reports -->
     <string name="start_date">Select Beginning Date</string>
     <string name="end_date">Select End Date</string>

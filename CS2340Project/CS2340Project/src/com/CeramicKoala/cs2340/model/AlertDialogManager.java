@@ -47,6 +47,7 @@ public class AlertDialogManager {
 		//transaction errors
 		EMPTY_TRANSACTION("Transaction Error", 
 				"Your transaction must have an amount greater than zero", false),
+		CHOOSE_TYPE("Transaction Error", "Please select deposit or withdrawal", false),
 		OVERDRAWN_BALANCE("Account Error", 
 				"You cannot withdraw more than your account balance", false),
 		//general errors
