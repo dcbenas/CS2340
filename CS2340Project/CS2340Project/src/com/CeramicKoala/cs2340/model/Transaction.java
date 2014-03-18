@@ -209,8 +209,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 	
 	public String getTypeString() {
 		StringBuilder out = new StringBuilder();
-		System.out.println((getType()));
-		if (getType().equals("Deposit")) {
+		if (type.toInt() <= 4) {
 			out.append("\n" + "Deposit");
 		} else {
 			out.append("\n" + "Withdrawal");
@@ -221,7 +220,9 @@ public class Transaction extends DatabaseElement implements Comparable {
 	
 	public String getCategoryString() {
 		StringBuilder out = new StringBuilder();
-		out.append("\n" + "add functionality");
+		int x = type.toInt();
+		TransactionType z = getType(x);
+		out.append("\n" + z.toString());
 		
 		return out.toString();
 	}

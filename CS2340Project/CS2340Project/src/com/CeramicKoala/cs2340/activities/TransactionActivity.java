@@ -131,7 +131,7 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 		
 				int id = sessionManager.getAccountId();
 				Date date = new Date();
-				Transaction deposit = new Transaction(id, Transaction.TransactionType.DEPOSIT, balanceChange, date);
+				Transaction deposit = new Transaction(id, transCategory, balanceChange, date);
 				transaction.addElement(deposit);
 				Intent intent = new Intent(this, AccountHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -172,7 +172,7 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 					
 					int id = sessionManager.getAccountId();
 					Date date = new Date();
-					Transaction withdrawal = new Transaction(id, Transaction.TransactionType.WITHDRAWAL, balanceChange, date);
+					Transaction withdrawal = new Transaction(id, transCategory, balanceChange, date);
 					transaction.addElement(withdrawal);
 					
 					Account updatedAccount = sessionManager.getAccount();
@@ -205,7 +205,7 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 		switch (transType) {
 		    case 0:
 		    	spinner = (Spinner)findViewById(R.id.category_spinner);
-		    	//spinner.setVisibility(View.GONE);
+		    	spinner.setVisibility(View.GONE);
 		    	break;
 		    	
 		    case 1:
@@ -220,7 +220,7 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 						android.R.layout.simple_spinner_item, 
 						categoryNames);
 		    	spinner.setAdapter(adapterD);
-		    	//spinner.setVisibility(View.VISIBLE);
+		    	spinner.setVisibility(View.VISIBLE);
 				
 				//set this to run callback when item is selected from spinner
 				spinner.setOnItemSelectedListener(this);
@@ -238,7 +238,7 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 						android.R.layout.simple_spinner_item, 
 						categoryNames);
 		    	spinner.setAdapter(adapterW);
-		    	//spinner.setVisibility(View.VISIBLE);
+		    	spinner.setVisibility(View.VISIBLE);
 				
 				//set this to run callback when item is selected from spinner
 				spinner.setOnItemSelectedListener(this);
@@ -252,6 +252,7 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 		switch (transType) {
 		case 1:
 			transCategory = (TransactionType) depositTypes[position];
+			System.out.println(transCategory);
 			break;
 			
 		case 2:
