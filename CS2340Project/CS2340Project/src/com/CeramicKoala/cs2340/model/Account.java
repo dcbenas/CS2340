@@ -128,6 +128,18 @@ public class Account extends DatabaseElement {
 		return out.toString();
 	}
 	
+	/**
+	 * Matthew has created this noble method. Gets account name with a 
+	 * new line before each name [for account listing report]
+	 * 
+	 * @return output the formatted name
+	 */
+	public String formattedAccountName() {
+		StringBuilder output = new StringBuilder();
+		output.append(accountName + "\n");
+		return output.toString();
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {

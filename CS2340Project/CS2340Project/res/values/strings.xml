@@ -60,6 +60,7 @@
     <string name="end_date">Select End Date</string>
     <string name="generate_report">Display Transaction Report</string>
     <string name="withdrawal_report">Withdrawal Report for </string>
+    <string name="account_listing">Account Listing Report</string>
     <string name="transaction_history">Transaction History for</string>
     <string name="rollback">Rollback a Transaction</string>
     <string name="undo_rollback">Undo Rollback</string>
@@ -68,6 +69,9 @@
     <string name="type">Type</string>
     <string name="category">Category</string>
     <string name="amount">Amount</string>
+    <string name="as_of">As of</string>
+    <string name="acc_list_default">Account</string>
+    <string name="acc_list_default_bal">Current Balance</string>
     <string name="go_acc_menu">Return to Account Menu</string>
 
 </resources>

@@ -224,6 +224,11 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 			
 		} 
 	}
+	
+	public void getAccountListing(View view) {
+		Intent intent = new Intent(this, AccountListingActivity.class);
+		startActivity(intent);
+	}
 
 // DEPRECATED
 //	@Override

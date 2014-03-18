@@ -18,6 +18,8 @@ import com.CeramicKoala.cs2340.model.ReportGenerator;
 import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.Transaction;
 
+//TODO Casey make the giant space between date and type go away
+
 public class TransactionHistoryActivity extends Activity {
 	
 	private ReportGenerator reportMaker;

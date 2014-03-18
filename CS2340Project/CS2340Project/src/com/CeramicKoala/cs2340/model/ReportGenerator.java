@@ -17,7 +17,7 @@ import android.app.Activity;
  */
 public class ReportGenerator {
 	
-	public enum ReportType {SPENDING_REPORT, DEPOSIT_REPORT, TRANSACTION_HISTORY};
+	public enum ReportType {SPENDING_REPORT, DEPOSIT_REPORT, TRANSACTION_HISTORY, ACCOUNT_LISTING};
 	TransactionOpenHelper transactionHelper;
 	AccountOpenHelper accountHelper;
 	SessionManager sessionManager;
@@ -66,6 +66,10 @@ public class ReportGenerator {
 		}
 		
 		return report;
+	}
+	
+	public List<Account> generateAccountListingReport() throws DatabaseException, ParseException {
+		return (accountHelper.getAccountsForUser(user));
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -138,6 +142,7 @@ public class ReportGenerator {
 		System.out.println(report);
 		return report;
 	}
+	
 	
 	private List<Transaction> getAllTransactions() throws DatabaseException, ParseException {
 		List<Transaction> allTransactions = new ArrayList<Transaction>();
