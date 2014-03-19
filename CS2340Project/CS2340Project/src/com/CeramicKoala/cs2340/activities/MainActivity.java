@@ -174,7 +174,7 @@ public class MainActivity extends Activity {
 		//making sure there are no 2 instances of LogInActivity and Logging out of current account
 		//TODO replace reference to log out with SessionManager#logOut()
 		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		loginHelper.logOut();
+		sessionManager.logOut();
 		return intent;
 	}
 	

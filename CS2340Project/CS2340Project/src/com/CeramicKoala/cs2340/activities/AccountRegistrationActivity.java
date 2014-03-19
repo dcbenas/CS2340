@@ -110,7 +110,7 @@ public class AccountRegistrationActivity extends Activity {
 				//create new account and add to database
 				Account newAccount = accountHelper.addElement(new Account(
 								0, 
-								loginHelper.getCurrentUser().getId(),
+								sessionManager.getUserId(),
 								name, 
 								Double.valueOf(startingBalance),
 								Double.valueOf(interestRate)));

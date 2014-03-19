@@ -28,7 +28,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     static final String KEY_PASSWORD = "password";
     static final String KEY_FULL_NAME = "fullName";
     //TODO Inseok - move currentUser to AccountManagementActivity
-    static User currentUser;
+   //DEPRECATED static User currentUser;
     
     //sql queries for DatabaseOpenHelper
     static final String LOGIN_TABLE_CREATE =
@@ -109,10 +109,11 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     	int success = db.delete(LOGIN_TABLE, where, whereArgs);
     	return (success > 0);
     }
-    
-    public User getCurrentUser() {
-    	return currentUser;
-    }
+
+// DEPRECATED
+//    public User getCurrentUser() {
+//    	return currentUser;
+//    }
     
     @Override
     public User getElementByName(String username) throws DatabaseException {
@@ -132,7 +133,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
         	user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         	
     		user = getAccountsForUser(user);
-        	currentUser = user;
+        	//DEPRECATED currentUser = user;
         	return user;
     	} else {
     		throw new DatabaseException("user does not exist");
@@ -258,8 +259,9 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
         	return false;
     	}
     }
-    
-    public void logOut() {
-    	currentUser = null;
-    }
+
+// DEPRECATED
+//    public void logOut() {
+//    	currentUser = null;
+//    }
 }
