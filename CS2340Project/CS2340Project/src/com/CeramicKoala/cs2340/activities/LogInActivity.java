@@ -206,8 +206,7 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 	public void viewAccount(View view) {
 		
 		Intent intent = new Intent(this, AccountHomeActivity.class);
-		//TODO change name or make final. only use all caps for FINAL constants
-		//DEPRECATED String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
+		//DEPRECATED final String CHOSEN_ACCOUNT = getString(R.string.chosen_account_constant);
 		
 		if (sessionManager.hasCurrentAccount()) {
 			

@@ -124,10 +124,6 @@ public class MainActivity extends Activity {
 	 
 	 private boolean notEmpty() {
 		
-		//TODO delete these vars if they are really never used
-		final String USERNAME = getString(R.string.username_constant);
-		final String PASSWORD = getString(R.string.password_constant);
-		
 		//get username
 		EditText field_username = (EditText) findViewById(R.id.field_username);
 		String username = field_username.getText().toString();

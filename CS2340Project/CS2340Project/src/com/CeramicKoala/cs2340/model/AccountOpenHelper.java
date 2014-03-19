@@ -284,7 +284,7 @@ public class AccountOpenHelper extends DatabaseOpenHelper<Account> {
     }
 
 	public void getCurrent() throws DatabaseException {
-		// TODO Auto-generated method stub
+
 		currentAccount = getElementById(currentAccount.getAccountId());
 	}
 	
