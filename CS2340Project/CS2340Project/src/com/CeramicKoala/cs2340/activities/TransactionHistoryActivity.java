@@ -20,6 +20,12 @@ import com.CeramicKoala.cs2340.model.Transaction;
 
 //TODO Casey make the giant space between date and type go away
 
+/**
+ * Activity that displays transaction history for an account
+ * 
+ * @author Matthew Berman
+ *
+ */
 public class TransactionHistoryActivity extends Activity {
 	
 	private ReportGenerator reportMaker;
@@ -123,14 +129,12 @@ public class TransactionHistoryActivity extends Activity {
 	            return super.onOptionsItemSelected(item);
 	    }
 	}
-
-// DEPRECATED
-//	protected Intent getIntent(Class<?> activityClass) {
-//		
-//		Intent intent = new Intent(this, activityClass);
-//		return intent;
-//	}
 	
+	/**
+	 * Returns user to the account home screen 
+	 * 
+	 * @param view the current view
+	 */
 	public void goAccountHome(View view) {
 		
 		startActivity(new Intent(this, AccountHomeActivity.class));
