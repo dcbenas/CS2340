@@ -72,6 +72,34 @@ public class ReportGenerator {
 		return (accountHelper.getAccountsForUser(user));
 	}
 	
+	/**
+	 * Generates a double array with the total income, total expenses, and flow
+	 * TODO - add date functionality
+	 * 
+	 * @return double array with 3 relevant values
+	 * @throws DatabaseException
+	 * @throws ParseException
+	 */
+	public double[] generateCashFlowReport() throws DatabaseException, ParseException {
+		List<Transaction> transList = getAllTransactions();
+		double[] output = new double[3];
+		double income = 0.0;
+		double expenses = 0.0;
+		for (Transaction t: transList) {
+			if (t.typeToInt() <= 4) {
+				income = income + t.getAmount();
+			} else {
+				expenses = expenses + t.getAmount();
+			}
+			
+		}
+		double flow = income - expenses;
+		output[0] = income;
+		output[1] = expenses;
+		output[2] = flow;
+		return output;
+	}
+	
 	@SuppressWarnings("unchecked")
 	private List<Transaction> generateSpendingReport(Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = new ArrayList<Transaction>();
