@@ -8,15 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AccountRegistrationActivity" >
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:text="@string/enter_amount" />
-
     <EditText
         android:id="@+id/transaction_amount"
         android:layout_width="wrap_content"
@@ -28,32 +19,6 @@
 
         <requestFocus />
     </EditText>
-
-    <RadioGroup
-        android:id="@+id/radioGroup1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/transaction_amount"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical" >
-
-        <RadioButton
-            android:id="@+id/radio_deposit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="19dp"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/deposit" />
-
-        <RadioButton
-            android:id="@+id/radio_withdrawal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:onClick="onRadioButtonClicked"
-            android:text="@string/withdrawal" />
-    </RadioGroup>
 
     <Button
         android:id="@+id/make_transaction"
@@ -81,5 +46,48 @@
         android:layout_alignLeft="@+id/radioGroup1"
         android:layout_alignRight="@+id/textView3"
         android:layout_below="@+id/radioGroup1" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_below="@+id/transaction_amount"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/radio_deposit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="19dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/deposit" />
+
+        <RadioButton
+            android:id="@+id/radio_withdrawal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:onClick="onRadioButtonClicked"
+            android:text="@string/withdrawal" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="@string/enter_amount" />
+
+    <Button
+        android:id="@+id/choose_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/category_spinner"
+        android:layout_centerHorizontal="true"
+        android:onClick="showDatePickerDialog"
+        android:text="@string/choose_day" />
 
 </RelativeLayout>

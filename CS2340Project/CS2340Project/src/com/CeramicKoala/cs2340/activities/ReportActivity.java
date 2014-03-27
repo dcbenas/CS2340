@@ -1,18 +1,8 @@
 package com.CeramicKoala.cs2340.activities;
 
-import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
-import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
-import com.CeramicKoala.cs2340.model.DatabaseException;
-import com.CeramicKoala.cs2340.model.DatabaseOpenHelper;
-import com.CeramicKoala.cs2340.model.LoginOpenHelper;
-import com.CeramicKoala.cs2340.model.ReportGenerator;
 import com.CeramicKoala.cs2340.model.SessionManager;
-import com.CeramicKoala.cs2340.model.User;
-
-import java.util.Date;
-import java.text.NumberFormat;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
@@ -23,7 +13,6 @@ import android.view.View;
 import android.content.Intent;
 import android.widget.DatePicker;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;

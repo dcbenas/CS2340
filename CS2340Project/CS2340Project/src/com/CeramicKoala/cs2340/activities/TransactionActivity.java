@@ -1,26 +1,35 @@
 package com.CeramicKoala.cs2340.activities;
 
+import java.text.DateFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
-import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.Transaction;
 import com.CeramicKoala.cs2340.model.Transaction.TransactionType;
 import com.CeramicKoala.cs2340.model.TransactionOpenHelper;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -39,6 +48,8 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 	private AccountOpenHelper accountHelper;
 	private AlertDialogManager alertManager;
 	private SessionManager sessionManager;
+	private DatePickerFragment date = new DatePickerFragment();
+	//private Calendar currentDay = Calendar.getInstance();
 	
 	//0 = UNCHECKED, 1 = DEPOSIT, 2 = WITHDRAWAL
 	private Object[] depositTypes;
@@ -130,8 +141,16 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 				updatedAccount.setBalance(updatedAccount.getBalance() + balanceChange);
 		
 				int id = sessionManager.getAccountId();
-				Date date = new Date();
-				Transaction deposit = new Transaction(id, transCategory, balanceChange, date);
+				//CURRENT DATE
+				Date chosenDate = new Date();
+				SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+				//DATE SELECTED
+				if (date.dateS == null) {
+					Log.d(null, "NO DATE SELECTED BY USER");
+				} else {
+					chosenDate = formatter.parse(date.dateS);
+				}
+				Transaction deposit = new Transaction(id, transCategory, balanceChange, chosenDate);
 				transaction.addElement(deposit);
 				Intent intent = new Intent(this, AccountHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -171,8 +190,16 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 				if (newBal >= 0) {
 					
 					int id = sessionManager.getAccountId();
-					Date date = new Date();
-					Transaction withdrawal = new Transaction(id, transCategory, balanceChange, date);
+					//CURRENT DATE
+					Date chosenDate = new Date();
+					SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+					//DATE SELECTED
+					if (date.dateS == null) {
+						Log.d(null, "NO DATE SELECTED BY USER");
+					} else {
+						chosenDate = formatter.parse(date.dateS);
+					}
+					Transaction withdrawal = new Transaction(id, transCategory, balanceChange, chosenDate);
 					transaction.addElement(withdrawal);
 					
 					Account updatedAccount = sessionManager.getAccount();
@@ -344,6 +371,41 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 		startActivity(intent);
 		//TODO don't think we need this
 		finish();
+	}
+	
+    @SuppressLint("NewApi")
+	public static class DatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener {
+		
+		private String dateS;
+		private Calendar endCalendar;
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			
+			// Use the current date as the default date in the picker
+			final Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR);
+			int month = c.get(Calendar.MONTH);
+			int day = c.get(Calendar.DAY_OF_MONTH);
+			// Create a new instance of DatePickerDialog and return it
+			return new DatePickerDialog(getActivity(), this, year, month, day);
+		}
+		
+		public void onDateSet(DatePicker view, int year, int month, int day) {
+			
+			String stringMonth = new DateFormatSymbols().getMonths()[month];
+			String dateString = (stringMonth + " " + day + ", " + year);
+			dateS = dateString;
+			endCalendar = Calendar.getInstance();
+			endCalendar.set(year, month, day);
+		}
+	}
+    
+    @SuppressLint("NewApi")
+	public void showDatePickerDialog(View v) {
+ 	   
+		DialogFragment newFragment = date;
+	    newFragment.show(getFragmentManager(), "enddatePicker");
 	}
 
 }
