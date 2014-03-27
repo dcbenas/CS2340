@@ -6,6 +6,8 @@ import android.app.AlertDialog;
 //import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 /**
  * Session Manager is used to interact with SharedPreferences
@@ -17,6 +19,15 @@ import android.content.SharedPreferences.Editor;
  * @author Benjamin Newcomer
  */
 public class SessionManager {
+	
+	private static final String TAG = "SessionManager";
+	
+//	private static boolean isLoggedIn;
+//	private static String username;
+//	private static int userId;
+//	private static boolean hasCurrentAccount;
+//	private static String accountName;
+//	private static int accountId;
 
 	private SharedPreferences prefs;
 	private Editor editor;
@@ -45,7 +56,8 @@ public class SessionManager {
 	@SuppressLint("CommitPrefEdits")
 	public SessionManager(Activity activity) {
 		
-		prefs = activity.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+ 		//prefs = activity.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
+		prefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		editor = prefs.edit();
 		loginHelper = new LoginOpenHelper(activity);
 		accountHelper = new AccountOpenHelper(activity);
@@ -68,13 +80,19 @@ public class SessionManager {
 				// check that user exists in database
 				// will throw DatabaseException if user doesn't exist
 				User loggedInUser = loginHelper.getElementByName(user.getUsername());
+				System.out.println(loggedInUser.getFullName());
 				
+				Log.d(TAG, "got user from database");
 				//user exists, successful login
 				editor.putString(KEY_USERNAME, loggedInUser.getUsername());
 				editor.putInt(KEY_USER_ID, loggedInUser.getId());
 				editor.putBoolean(KEY_LOGGED_IN, true);
 				
-				editor.commit();
+				editor.apply();
+//				username = loggedInUser.getUsername();
+//				userId = loggedInUser.getId();
+//				isLoggedIn = true;
+				
 			} catch (DatabaseException e) {
 				
 				//user does not exist
@@ -84,7 +102,8 @@ public class SessionManager {
 				//change message to display message from Database Exception
 				alert.setMessage(e.getMessage());
 				alert.show();
-			}	
+			}
+			
 		}
 	}
 	
@@ -93,8 +112,13 @@ public class SessionManager {
 	 */
 	public void logOut() {
 		
+//		isLoggedIn = false;
+//		username = null;
+//		userId = 0;
+//		removeAccount();
+		
 		editor.clear();
-		editor.commit();
+		editor.apply();
 	}
 	
 	/**
@@ -109,7 +133,11 @@ public class SessionManager {
 		editor.putInt(KEY_ACCOUNT_ID, account.getAccountId());
 		editor.putBoolean(KEY_HAS_ACCOUNT, true);
 		
-		editor.commit();
+		editor.apply();
+		
+//		accountName = account.getName();
+//		accountId = account.getAccountId();
+//		hasCurrentAccount = true;
 	}
 	
 	/**
@@ -121,7 +149,11 @@ public class SessionManager {
 		editor.remove(KEY_ACCOUNT_ID);
 		editor.remove(KEY_HAS_ACCOUNT);
 		
-		editor.commit();
+		editor.apply();
+		
+//		accountName = null;
+//		accountId = 0;
+//		hasCurrentAccount = false;
 	}
 	
 	/**
@@ -132,6 +164,7 @@ public class SessionManager {
 	public boolean isLoggedIn() {
 		
 		return prefs.getBoolean(KEY_LOGGED_IN, false);
+//		return isLoggedIn;
 	}
 	
 	/**
@@ -142,6 +175,7 @@ public class SessionManager {
 	public String getUsername() {
 		
 		return prefs.getString(KEY_USERNAME, null);
+//		return username;
 	}
 	
 	/**
@@ -152,6 +186,7 @@ public class SessionManager {
 	public int getUserId() {
 		
 		return prefs.getInt(KEY_USER_ID, -1);
+//		return userId;
 	}
 	
 	/**
@@ -162,6 +197,7 @@ public class SessionManager {
 	public User getUser() {
 		
 		String username = prefs.getString(KEY_USERNAME, null);
+		System.out.println("username: " + username);
 		User user = null;
 		
 		try {
@@ -194,6 +230,7 @@ public class SessionManager {
 	public void updateUser(User user) {
 		
 		if (prefs.getBoolean(KEY_LOGGED_IN, false)) {
+//		if (isLoggedIn) {
 			logIn(user);
 		} else {
 			logOut();
@@ -208,6 +245,7 @@ public class SessionManager {
 	public boolean hasCurrentAccount() {
 		
 		return prefs.getBoolean(KEY_HAS_ACCOUNT, false);
+//		return hasCurrentAccount;
 	}
 	
 	/**
@@ -218,6 +256,7 @@ public class SessionManager {
 	public String getAccountName() {
 		
 		return prefs.getString(KEY_ACCOUNT_NAME, null);
+//		return accountName;
 	}
 	
 	/**
@@ -228,6 +267,7 @@ public class SessionManager {
 	public int getAccountId() {
 		
 		return prefs.getInt(KEY_ACCOUNT_ID, -1);
+//		return accountId;
 	}
 	
 	/**

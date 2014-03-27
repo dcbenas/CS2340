@@ -13,6 +13,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,8 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 	// activity automatically
 	//TODO David/Casey - Make our app look pro. Custom buttons and icons n such
 	
+	private static final String TAG = "LogInActivity";
+
 	//DEPRECATED private AlertDialog wrongPassword, noAccount;
 	private List<Account> accounts;
 	private AccountOpenHelper accountHelper;
@@ -56,7 +59,6 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 		sessionManager = new SessionManager(this);
 		alertManager = new AlertDialogManager(this);
 		
-		
 		//DEPRECATED alertDialog = setUpAlertDialog("Error", getString(R.string.log_in_error_no_account), true);
 		//DEPRECATED wrongPassword = setUpAlertDialog("Error", getString(R.string.log_in_error_incorrect_password), true);
 		//DEPRECATED noAccount = setUpAlertDialog("Error", getString(R.string.no_account),false);
@@ -65,7 +67,9 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 		//TODO this is a GIANT if statment. should be refactored to be more readable
 		//TODO replace reference to static current user usng SessionManager
 		
+		System.out.println("login activity: " + String.valueOf(sessionManager.isLoggedIn()));
 		if (sessionManager.isLoggedIn()) {
+			System.out.println("log in successful from inside Login activity");
 			
 			//set textView text with successful login message
 			TextView loginMessageTextView = (TextView) findViewById(R.id.login_message);

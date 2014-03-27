@@ -103,11 +103,13 @@ public class MainActivity extends Activity {
 			 
 			User user = new User(null, username, password);
 			
+			sessionManager.logOut();
 			sessionManager.logIn(user);
 			
+			System.out.println("logging in");
 			if (sessionManager.isLoggedIn()) {
-				
-				startActivity(getIntent(LogInActivity.class));
+			System.out.println("main activity: " + String.valueOf(sessionManager.isLoggedIn()));
+				startActivity(new Intent(this, LogInActivity.class));
 			} else {
 				
 				alertManager.generateAlertDialog(
@@ -147,7 +149,7 @@ public class MainActivity extends Activity {
 	  */
 	 public void register(View view) {
 	     
-		 startActivity(getIntent(RegisterActivity.class));
+		 startActivity(new Intent(this, RegisterActivity.class));
 	 }
  
 	/**
@@ -155,28 +157,28 @@ public class MainActivity extends Activity {
 	 * and password into an intent
 	 * @return Intent with username and password
 	 */
-	private Intent getIntent(Class<?> activityClass) {
-		
-		final String USERNAME = getString(R.string.username_constant);
-		final String PASSWORD = getString(R.string.password_constant);
-		Intent intent = new Intent(this, activityClass);
-		
-		//get username
-		EditText field_username = (EditText) findViewById(R.id.field_username);
-		String username = field_username.getText().toString();
-		intent.putExtra(USERNAME, username);
-		
-		//get password
-		EditText field_password = (EditText) findViewById(R.id.field_password);
-		String password = field_password.getText().toString();
-		intent.putExtra(PASSWORD, password);
-		
-		//making sure there are no 2 instances of LogInActivity and Logging out of current account
-		//TODO replace reference to log out with SessionManager#logOut()
-		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		sessionManager.logOut();
-		return intent;
-	}
+//	private Intent getIntent(Class<?> activityClass) {
+//		
+//		final String USERNAME = getString(R.string.username_constant);
+//		final String PASSWORD = getString(R.string.password_constant);
+//		Intent intent = new Intent(this, activityClass);
+//		
+//		//get username
+//		EditText field_username = (EditText) findViewById(R.id.field_username);
+//		String username = field_username.getText().toString();
+//		intent.putExtra(USERNAME, username);
+//		
+//		//get password
+//		EditText field_password = (EditText) findViewById(R.id.field_password);
+//		String password = field_password.getText().toString();
+//		intent.putExtra(PASSWORD, password);
+//		
+//		//making sure there are no 2 instances of LogInActivity and Logging out of current account
+//		//TODO replace reference to log out with SessionManager#logOut()
+//		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		
+//		return intent;
+//	}
 	
 	/**
 	 * resets database table login. for dev use only
