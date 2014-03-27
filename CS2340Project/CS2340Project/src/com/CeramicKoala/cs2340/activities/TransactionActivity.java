@@ -126,12 +126,15 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 			//TODO update code to use Account#incrementBalance instead of Account#setBalance()
 			EditText transactionAmount = (EditText) findViewById(R.id.transaction_amount);
 			String balChange = transactionAmount.getText().toString();
-			
+			Date chosenDate = new Date();
 			if (balChange.isEmpty()|| (Double.valueOf(balChange) <= 0)) {
 				
 				alertManager.generateAlertDialog(
 						AlertDialogManager.AlertType.EMPTY_TRANSACTION)
 						.show();
+			} else if (date.dateS == null) {
+				Log.d(null, "NO DATE SELECTED BY USER");
+				alertManager.generateAlertDialog(AlertDialogManager.AlertType.FIELD_IS_EMPTY).show();
 			} else {
 				
 				double balanceChange = Double.valueOf(balChange);
@@ -142,14 +145,9 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 		
 				int id = sessionManager.getAccountId();
 				//CURRENT DATE
-				Date chosenDate = new Date();
 				SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
 				//DATE SELECTED
-				if (date.dateS == null) {
-					Log.d(null, "NO DATE SELECTED BY USER");
-				} else {
-					chosenDate = formatter.parse(date.dateS);
-				}
+				chosenDate = formatter.parse(date.dateS);
 				Transaction deposit = new Transaction(id, transCategory, balanceChange, chosenDate);
 				transaction.addElement(deposit);
 				Intent intent = new Intent(this, AccountHomeActivity.class);
@@ -181,6 +179,10 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 				alertManager.generateAlertDialog(
 						AlertDialogManager.AlertType.EMPTY_TRANSACTION)
 						.show();
+			} else if (date.dateS == null) {
+				Log.d(null, "NO DATE SELECTED BY USER");
+				alertManager.generateAlertDialog(AlertDialogManager.AlertType.FIELD_IS_EMPTY).show();
+				
 			} else {
 				
 				double balanceChange = Double.valueOf(balChange);
@@ -194,11 +196,7 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 					Date chosenDate = new Date();
 					SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
 					//DATE SELECTED
-					if (date.dateS == null) {
-						Log.d(null, "NO DATE SELECTED BY USER");
-					} else {
-						chosenDate = formatter.parse(date.dateS);
-					}
+					chosenDate = formatter.parse(date.dateS);
 					Transaction withdrawal = new Transaction(id, transCategory, balanceChange, chosenDate);
 					transaction.addElement(withdrawal);
 					
