@@ -28,6 +28,7 @@ public class TransactionOpenHelperTest extends AndroidTestCase {
 	User testUser;
 	Account testAccount;
 	Transaction testTransaction;
+	Calendar calendar;
 	
 	@Before
 	protected void setUp() throws Exception {
@@ -41,9 +42,13 @@ public class TransactionOpenHelperTest extends AndroidTestCase {
 		testUser.setId(1);
 		testAccount = new Account(1);
 		testAccount.setId(1);
-		Calendar calendar = Calendar.getInstance();
+		calendar = Calendar.getInstance();
 		calendar.set(2014, 2, 28);
-		testTransaction = new Transaction(1, 0, 100, calendar.getTime());
+		testTransaction = new Transaction(
+				testAccount.getAccountId(), 
+				Transaction.TransactionType.DEPOSIT, 
+				100, 
+				calendar.getTime());
 		
 		loginHelper.resetTable();
 		accountHelper.resetTable();
@@ -53,21 +58,13 @@ public class TransactionOpenHelperTest extends AndroidTestCase {
 		accountHelper.addElement(testAccount);
 	}
 	
-	@After
-	protected void tearDown() throws Exception {
-		loginHelper.resetTable();
-		accountHelper.resetTable();
-		transactionHelper.resetTable();
-		super.tearDown();
-	}
-	
 	@Test
 	public void testAddElement() throws DatabaseException {
 		Transaction transaction = transactionHelper.addElement(testTransaction);
 		assertEquals(testTransaction, transaction);
 		
 		//see if adding transaction updated account balance
-		Account account = accountHelper.getElementById(testAccount.getId());
+		Account account = accountHelper.getElementById(testAccount.getAccountId());
 		double expectedBalance = testAccount.getBalance() + transaction.getAmount();
 		assertEquals(expectedBalance, account.getBalance());
 	}
@@ -80,9 +77,10 @@ public class TransactionOpenHelperTest extends AndroidTestCase {
 			//this just means transaction is already there, which is okay
 		}
 		
-		List<Transaction> transToDelete = transactionHelper.getAllElements(testAccount.getId());
+		List<Transaction> transToDelete = transactionHelper.getAllElements(testAccount.getAccountId());
 		assertEquals(1, transToDelete.size());
 		Transaction toDelete = transToDelete.get(0);
+		testTransaction.setId(toDelete.getId());
 		assertEquals(testTransaction, toDelete);
 		
 		boolean deleted = transactionHelper.deleteElement(toDelete);
@@ -97,14 +95,20 @@ public class TransactionOpenHelperTest extends AndroidTestCase {
 			//this just means transaction is already there, which is okay
 		}
 		
-		Calendar c = Calendar.getInstance();
-		Transaction testTrans2 = new Transaction(1, 0, 10, c.getTime());
-		transactionHelper.addElement(testTransaction);
+		Transaction testTrans2 = new Transaction(
+				testAccount.getAccountId(), 
+				Transaction.TransactionType.DEPOSIT, 
+				100, 
+				calendar.getTime());
+		
 		transactionHelper.addElement(testTrans2);
 		
 		List<Transaction> transactions = transactionHelper.getAllElements();
 		assertEquals(2, transactions.size());
+		
+		testTransaction.setId(transactions.get(0).getId());
 		assertEquals(testTransaction, transactions.get(0));
+		testTrans2.setId(transactions.get(1).getId());
 		assertEquals(testTrans2, transactions.get(1));
 	}
 

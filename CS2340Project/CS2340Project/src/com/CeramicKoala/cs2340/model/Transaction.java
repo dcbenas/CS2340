@@ -230,7 +230,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 	@Override
 	public String toString() {
 		StringBuilder out = new StringBuilder();
-		out.append(amount + "\n");
+		out.append(type.toString() + ", " + amount + "\n");
 		
 		return out.toString();
 	}
