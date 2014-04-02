@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,7 +39,6 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 	// activity automatically
 	//TODO David/Casey - Make our app look pro. Custom buttons and icons n such
 	
-	private static final String TAG = "LogInActivity";
 
 	//DEPRECATED private AlertDialog wrongPassword, noAccount;
 	private List<Account> accounts;

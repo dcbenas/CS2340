@@ -36,8 +36,6 @@ public class SessionManager {
 	private AlertDialogManager alertManager;
 	
 	//info for connectin to shared prefrences
-	private static final int PRIVATE_MODE = 0;
-	private static final String PREF_NAME = "CeramicKoalaPrefs";
 
 	//info for current user
 	private static final String KEY_LOGGED_IN = "isLoggedIn";

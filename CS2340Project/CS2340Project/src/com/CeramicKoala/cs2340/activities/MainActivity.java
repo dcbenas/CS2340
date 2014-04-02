@@ -13,8 +13,6 @@ import com.CeramicKoala.cs2340.model.User;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
@@ -38,7 +36,6 @@ public class MainActivity extends Activity {
 	 public static final String USERNAME = "com.example.cs2340project.USERNAME";
 	 public static final String PASSWORD = "com.example.cs2340project.PASSWORD";
 	 //DEPRECATED private AlertDialog isEmpty;
-	 private LoginOpenHelper loginHelper;
 	 private AlertDialogManager alertManager;
 	 private SessionManager sessionManager;
 	
@@ -47,7 +44,6 @@ public class MainActivity extends Activity {
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		loginHelper = new LoginOpenHelper(this);
 		alertManager = new AlertDialogManager(this);
 		sessionManager = new SessionManager(this);
 		//DEPRECATED isEmpty = setUpAlertDialog("Error",getString(R.string.log_in_error_field_empty));

@@ -1,6 +1,5 @@
 package com.CeramicKoala.cs2340.activities;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -15,10 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.CeramicKoala.cs2340.R;
-import com.CeramicKoala.cs2340.model.AccountOpenHelper;
-import com.CeramicKoala.cs2340.model.DatabaseException;
 import com.CeramicKoala.cs2340.model.ReportGenerator;
-import com.CeramicKoala.cs2340.model.ReportGenerator.ReportType;
 import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.Transaction;
 

@@ -5,8 +5,6 @@ import java.text.NumberFormat;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
-import com.CeramicKoala.cs2340.model.DatabaseException;
-import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.SessionManager;
 
 import android.os.Bundle;

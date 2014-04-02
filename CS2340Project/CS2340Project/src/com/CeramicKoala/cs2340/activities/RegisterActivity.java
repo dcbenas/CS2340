@@ -1,6 +1,5 @@
 package com.CeramicKoala.cs2340.activities;
 
-import com.CeramicKoala.cs2340.BuildConfig;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.DatabaseException;

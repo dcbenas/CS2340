@@ -2,17 +2,13 @@ package com.CeramicKoala.cs2340.activities;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.ReportGenerator;
 import com.CeramicKoala.cs2340.model.SessionManager;
-import com.CeramicKoala.cs2340.model.Transaction;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -39,8 +35,8 @@ public class AccountListingActivity extends Activity {
 		
 
 		TextView dateInfo = (TextView) findViewById(R.id.listing_date_info);
-		String stringMonth = new DateFormatSymbols().getMonths()[calendar.get(calendar.MONTH)];
-		String dateString = (stringMonth + " " + calendar.get(calendar.DATE) + ", " + calendar.get(calendar.YEAR));
+		String stringMonth = new DateFormatSymbols().getMonths()[calendar.get(Calendar.MONTH)];
+		String dateString = (stringMonth + " " + calendar.get(Calendar.DATE) + ", " + calendar.get(Calendar.YEAR));
 		String dateMessage = getString(R.string.as_of) + " " + dateString;
 		dateInfo.setText(dateMessage);
 		
