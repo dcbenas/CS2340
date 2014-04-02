@@ -113,6 +113,15 @@
                 android:value="com.example.cs2340project.LogInActivity" />
         </activity>
         
+        <activity
+            android:name="com.CeramicKoala.cs2340.activities.CashFlowActivity"
+            android:label="@string/title_activity_transaction_history" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.LogInActivity" />
+        </activity>
+        
     </application>
 
 </manifest>

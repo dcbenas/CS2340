@@ -25,15 +25,7 @@
         android:gravity="center"
         android:text="@string/date_start_to_end" />
 
-    <Button
-        android:id="@+id/acc_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:onClick="goAccountHome"
-        android:text="@string/go_acc_menu" />
+    
 
     <TextView
         android:id="@+id/trans_amount"

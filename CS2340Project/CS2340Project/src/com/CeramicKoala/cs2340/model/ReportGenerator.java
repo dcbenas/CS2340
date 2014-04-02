@@ -72,6 +72,7 @@ public class ReportGenerator {
 		return (accountHelper.getAccountsForUser(user));
 	}
 	
+	
 	/**
 	 * Generates a double array with the total income, total expenses, and flow
 	 * TODO - add date functionality
@@ -98,6 +99,22 @@ public class ReportGenerator {
 		output[1] = expenses;
 		output[2] = flow;
 		return output;
+	}
+	
+	public String getTitles() {
+		StringBuilder output = new StringBuilder();
+		output.append("Income" + "\n");
+		output.append("Expenses" + "\n");
+		output.append("Cash Flow" + "\n");
+		return (output.toString());
+	}
+	
+	public String formatValues(double[] report) {
+		StringBuilder output = new StringBuilder();
+		output.append(report[0] + "\n");
+		output.append(report[1] + "\n");
+		output.append(report[2] + "\n");
+		return (output.toString());
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -167,7 +184,8 @@ public class ReportGenerator {
 			}
 		}
 		
-		System.out.println(report);
+		
+		//System.out.println(report);
 		return report;
 	}
 	

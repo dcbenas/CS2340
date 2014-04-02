@@ -231,6 +231,13 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 		Intent intent = new Intent(this, AccountListingActivity.class);
 		startActivity(intent);
 	}
+	
+	public void getCashFlowReport(View view) {
+		int followUp = 2;
+		Intent intent = new Intent(this, ReportActivity.class);
+		intent.putExtra("followUpDecision", followUp);
+		startActivity(intent);
+	}
 
 // DEPRECATED
 //	@Override

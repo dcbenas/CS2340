@@ -123,7 +123,14 @@ public class ReportActivity extends Activity {
 				transIntent.putExtra("endDate", endDate.end);
 				startActivity(transIntent);
 				break;
-		}
+			
+			case 2:
+				Intent cashIntent = new Intent(this, CashFlowActivity.class);
+				cashIntent.putExtra("startDate", startDate.start);
+				cashIntent.putExtra("endDate", endDate.end);
+				startActivity(cashIntent);
+				break;
+			}
 	}
 		
 	}		

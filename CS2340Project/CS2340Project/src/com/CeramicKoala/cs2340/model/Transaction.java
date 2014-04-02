@@ -185,7 +185,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 		}
 		
 		Transaction t = (Transaction) o;
-		return this.timestamp.compareTo(t.getTimestamp());
+		return this.getDate().compareTo(t.getDate());
 	}
 	
 	@SuppressWarnings("deprecation")

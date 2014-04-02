@@ -28,16 +28,6 @@
         android:layout_marginTop="35dp" />
 
     <Button
-        android:id="@+id/createAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="94dp"
-        android:onClick="createAccount"
-        android:text="@string/create_acc" />
-
-    <Button
         android:id="@+id/view_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,5 +45,23 @@
         android:layout_centerHorizontal="true"
         android:onClick="getAccountListing"
         android:text= "@string/account_list_report" />
+    
+    <Button
+        android:id="@+id/cash_flow_report"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/account_listing_report"
+        android:layout_centerHorizontal="true"
+        android:onClick="getCashFlowReport"
+        android:text= "@string/cash_flow_report" />
+
+    <Button
+        android:id="@+id/createAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cash_flow_report"
+        android:layout_centerHorizontal="true"
+        android:onClick="createAccount"
+        android:text="@string/create_acc" />
 
 </RelativeLayout>

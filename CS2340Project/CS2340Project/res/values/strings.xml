@@ -64,10 +64,12 @@
     <!-- reports -->
     <string name="start_date">Select Beginning Date</string>
     <string name="end_date">Select End Date</string>
-    <string name="generate_report">Display Transaction Report</string>
+    <string name="generate_report">Display Report</string>
     <string name="withdrawal_report">Withdrawal Report for </string>
+    <string name="cash_flow_report">Cash Flow Report</string>
     <string name="account_listing">Account Listing Report</string>
     <string name="transaction_history">Transaction History for</string>
+    <string name="cashflow_history">Cash Flow Report for</string>
     <string name="rollback">Rollback a Transaction</string>
     <string name="undo_rollback">Undo Rollback</string>
     <string name="date_start_to_end"></string>
@@ -78,6 +80,8 @@
     <string name="as_of">As of</string>
     <string name="acc_list_default">Account</string>
     <string name="acc_list_default_bal">Current Balance</string>
+    <string name="go_home">Return to Home</string>
     <string name="go_acc_menu">Return to Account Menu</string>
+    <string name="report_problem">This should be overwritten</string>
 
 </resources>
