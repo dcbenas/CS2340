@@ -187,7 +187,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     		return false;
     	}
 	}
-
+	
 	@Override
 	public String getTableInfo() {
 		StringBuilder info = new StringBuilder();

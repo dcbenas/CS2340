@@ -131,19 +131,16 @@ public class ReportActivity extends Activity {
 				startActivity(cashIntent);
 				break;
 			}
-	}
-		
+		}	
 	}		
 
-	
 	//I'll javadoc it later, but basically they are the two date pickers
-	public static class DatePickerFragmentStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {
-		
+	public static class DatePickerFragmentStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {	
 		private String start;
 		private Calendar startCalendar;
+		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			
 			// Use the current date as the default date in the picker
 			final Calendar c = Calendar.getInstance();
 			int year = c.get(Calendar.YEAR);

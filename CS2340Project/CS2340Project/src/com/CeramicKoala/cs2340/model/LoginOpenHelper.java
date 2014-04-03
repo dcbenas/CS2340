@@ -213,7 +213,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     		return -1;
     	}
     }
-    
+
     @Override
     public boolean resetTable() {
     	//DEBUG

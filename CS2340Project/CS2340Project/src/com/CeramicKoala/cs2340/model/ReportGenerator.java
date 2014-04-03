@@ -116,7 +116,7 @@ public class ReportGenerator {
 		output.append(report[2] + "\n");
 		return (output.toString());
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	private List<Transaction> generateSpendingReport(Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = new ArrayList<Transaction>();
@@ -150,7 +150,6 @@ public class ReportGenerator {
 				report.add(t);
 			}
 		}
-		
 		Collections.sort(report);
 		
 		//remove transactions outside date window
