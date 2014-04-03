@@ -84,9 +84,6 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 		withdrawalTypes[2] = Transaction.TransactionType.CLOTHING;
 		withdrawalTypes[3] = Transaction.TransactionType.FOOD;
 		withdrawalTypes[4] = Transaction.TransactionType.ENTERTAINMENT;
-		
-		
-		
 	}
 	
 	@Override

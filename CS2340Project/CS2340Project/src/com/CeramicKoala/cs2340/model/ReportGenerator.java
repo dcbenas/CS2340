@@ -120,16 +120,13 @@ public class ReportGenerator {
 	@SuppressWarnings("unchecked")
 	private List<Transaction> generateSpendingReport(Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = new ArrayList<Transaction>();
-		
 		//get all transactions that are withdrawals
 		for (Transaction t : getAllTransactions()) {
 			if (t.typeToInt() == 1) {
 				report.add(t);
 			}
 		}
-		
 		Collections.sort(report);
-		
 		//remove transactions outside date window
 		Iterator<Transaction> i = report.iterator();
 		while (i.hasNext()) {

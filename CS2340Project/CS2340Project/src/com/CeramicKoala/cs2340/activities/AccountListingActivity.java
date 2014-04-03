@@ -69,7 +69,6 @@ public class AccountListingActivity extends Activity {
 				reportName.setText(reportNameMessage);
 				reportBal.setText(reportBalMessage);
 			}
-			
 		} catch (Exception e) {
 			
 			//TODO what exceptions can we expect from this try block?

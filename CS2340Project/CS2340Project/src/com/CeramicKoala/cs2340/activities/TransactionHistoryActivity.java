@@ -98,7 +98,6 @@ public class TransactionHistoryActivity extends Activity {
 			reportType.setText(reportTypeMessage);
 			reportCategory.setText(reportCategoryMessage);
 			reportAmount.setText(reportAmountMessage);
-			
 		} catch (Exception e) {
 			
 			//TODO what exceptions can we expect from this try block?

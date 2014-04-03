@@ -58,7 +58,6 @@ public class AccountHomeActivity extends Activity {
 					AlertDialogManager.AlertType.ACCOUNT_DOES_NOT_EXIST)
 					.show();
 		}	
-			
 	}
 	
 	@Override

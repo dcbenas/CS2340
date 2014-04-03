@@ -83,7 +83,6 @@ public class WithdrawalReportActivity extends Activity {
 			// set textviews with transaction report strings that were just populated
 			reportDate.setText(reportDateMessage);
 			reportAmount.setText(reportAmountMessage);
-			
 		} catch (Exception e) {
 			
 			//TODO what exceptions can we expect from this try block?

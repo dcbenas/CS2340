@@ -66,7 +66,6 @@ public class CashFlowActivity extends Activity {
 			reportBalances.setText(reportMaker.formatValues(cashFlowData));
 			
 		} catch (Exception e) {
-			
 			//TODO what exceptions can we expect from this try block?
 			e.printStackTrace();
 		}

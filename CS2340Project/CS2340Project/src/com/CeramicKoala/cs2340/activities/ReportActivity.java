@@ -141,7 +141,6 @@ public class ReportActivity extends Activity {
 		
 		private String start;
 		private Calendar startCalendar;
-		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			
