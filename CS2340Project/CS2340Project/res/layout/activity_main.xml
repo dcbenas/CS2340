@@ -95,7 +95,7 @@
         android:clickable="true"
         android:gravity="center"
         android:onClick="register"
-        android:text="@string/register"
+        android:text="@string/signup"
         android:width="@dimen/button_width" />
 
     <TextView

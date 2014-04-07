@@ -15,7 +15,7 @@
     <string name="username_hint">username</string>
     <string name="password_hint">password</string>
     <string name="log_in">Log In</string>
-    <string name="register">Register</string>
+    <string name="signup">Sign Up</string>
     <string name="default_full_name">administrator</string>
     <string name="default_user">admin1</string>
     <string name="default_password">pass123</string>
