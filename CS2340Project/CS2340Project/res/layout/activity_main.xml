@@ -5,64 +5,9 @@
     android:layout_height="match_parent"
     tools:layout_height="wrap_content"
     android:orientation="vertical"
+    android:background="@drawable/plaingreenwallpaper"
     android:gravity="center"
     tools:context=".MainActivity" >
-
-     <ImageView
-         android:id="@+id/background"
-         android:layout_width="fill_parent"
-         android:layout_height="fill_parent"
-         android:layout_alignParentLeft="true"
-         android:layout_alignParentRight="true"
-         android:layout_alignParentTop="true"
-         android:adjustViewBounds="true"
-         android:contentDescription="@string/auto"
-         android:scaleType="fitXY"
-         android:src="@drawable/plaingreenwallpaper" />
-        
-    <EditText
-        android:id="@+id/field_username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignParentTop="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="false"
-        android:layout_centerVertical="false"
-        android:layout_marginTop="150dp"
-        android:gravity="center"
-        android:hint="@string/username_hint"
-        android:ellipsize="end"
-        android:ems="10"
-        android:inputType="text"
-        android:singleLine="true"
-        android:textColor= "#000"/>
-
-    <EditText
-        android:id="@+id/field_password"
-        android:layout_width="wrap_content"
-        tools:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_height="wrap_content"
-        android:layout_alignParentEnd="false"
-        android:layout_alignParentStart="false"
-        android:layout_alignStart="@+id/field_username"
-        android:layout_below="@+id/field_username"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:hint="@string/password_hint"
-        android:ellipsize="end"
-        android:inputType="textPassword"
-        android:selectAllOnFocus="true"
-        android:singleLine="true"
-        android:ems="10"
-        android:textColor= "#000" />
 
     <Button
         android:id="@+id/button_login"
@@ -70,16 +15,80 @@
         tools:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout_height="wrap_content"
+        android:layout_above="@+id/button_register"
         android:layout_alignParentEnd="false"
         android:layout_alignParentStart="false"
-        android:layout_alignWithParentIfMissing="false"
-        android:layout_below="@+id/field_password"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="18dp"
         android:clickable="true"
         android:gravity="center"
         android:onClick="logIn"
         android:text="@string/log_in"
         android:width="@dimen/button_width" />
+
+    <EditText
+        android:id="@+id/field_password"
+        android:layout_width="wrap_content"
+        tools:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_height="wrap_content"
+        android:layout_above="@+id/button_login"
+        android:layout_alignLeft="@+id/field_username"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignRight="@+id/field_username"
+        android:layout_alignStart="@+id/field_username"
+        android:layout_marginBottom="14dp"
+        android:background="@drawable/texteditbox"
+        android:ellipsize="end"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/password_hint"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textColor="#000" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/field_username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/field_password"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/texteditbox"
+        android:ellipsize="end"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="@string/username_hint"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="#000" />
+
+    <TextView
+        android:id="@+id/db_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="52dp"
+        android:hint="db info"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/dev_reset_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/db_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="28dp"
+        android:onClick="resetDatabase"
+        android:text="@string/reset_db" />
 
     <Button
         android:id="@+id/button_register"
@@ -87,35 +96,12 @@
         tools:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:layout_height="wrap_content"
-        android:layout_alignParentBottom="false"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentTop="false"
-        android:layout_below="@+id/button_login"
-        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/dev_reset_db"
+        android:layout_alignLeft="@+id/button_login"
         android:clickable="true"
         android:gravity="center"
         android:onClick="register"
         android:text="@string/signup"
         android:width="@dimen/button_width" />
-
-    <TextView
-        android:id="@+id/db_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:hint="db info" 
-        android:textColor= "#fff"/>
-
-    <Button
-        android:id="@+id/dev_reset_db"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_register"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="17dp"
-        android:onClick="resetDatabase"
-        android:text="@string/reset_db" />
 
 </RelativeLayout>
