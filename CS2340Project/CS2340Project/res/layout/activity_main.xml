@@ -47,10 +47,7 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:textColor="#000" >
-
-        <requestFocus />
-    </EditText>
+        android:textColor="#000" />
 
     <EditText
         android:id="@+id/field_username"
@@ -70,26 +67,6 @@
         android:singleLine="true"
         android:textColor="#000" />
 
-    <TextView
-        android:id="@+id/db_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp"
-        android:hint="db info"
-        android:textColor="#fff" />
-
-    <Button
-        android:id="@+id/dev_reset_db"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/db_info"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="28dp"
-        android:onClick="resetDatabase"
-        android:text="@string/reset_db" />
-
     <Button
         android:id="@+id/button_register"
         android:layout_width="wrap_content"
@@ -103,5 +80,25 @@
         android:onClick="register"
         android:text="@string/signup"
         android:width="@dimen/button_width" />
+
+    <TextView
+        android:id="@+id/db_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp"
+        android:hint="db info"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/dev_reset_db"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/db_info"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:onClick="resetDatabase"
+        android:text="@string/reset_db" />
 
 </RelativeLayout>
