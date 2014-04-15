@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/plaingreenwallpaper"
     tools:context=".AccountHomeActivity" >
     
     <TextView
@@ -17,7 +18,9 @@
         android:gravity="center"
         android:text="@string/log_in_success"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="28sp" />
+        android:textSize="28sp" 
+        android:textColor="#fff"
+        android:textStyle= "bold"/>"
 
     <TextView
         android:id="@+id/current_balance"
@@ -26,7 +29,8 @@
         android:layout_below="@+id/login_message"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:text="@string/balance" />
+        android:text="@string/balance" 
+        android:textColor="#fff"/>
 
     <Button
         android:id="@+id/make_transaction"

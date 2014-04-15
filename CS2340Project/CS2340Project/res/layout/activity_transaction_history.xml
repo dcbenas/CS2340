@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/plaingreenwallpaper"
     tools:context=".TransactionHistoryActivity" >
     
     <TextView
@@ -15,7 +16,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/transaction_history" />
+        android:text="@string/transaction_history"
+        android:textColor="#fff" />
     
     <TextView
         android:id="@+id/transhist_date_info"
@@ -23,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_below ="@+id/transaction_history_header"
         android:gravity="center"
-        android:text="@string/date_start_to_end" />
+        android:text="@string/date_start_to_end"
+        android:textColor="#fff" />
 
     
 
@@ -36,7 +39,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="21dp"
         android:gravity="center"
-        android:text="@string/amount" />
+        android:text="@string/amount"
+        android:textColor="#fff" />
 
     <TextView
         android:id="@+id/catgeory_type"
@@ -47,7 +51,8 @@
         android:layout_marginRight="29dp"
         android:layout_toLeftOf="@+id/trans_amount"
         android:gravity="center"
-        android:text="@string/category" />
+        android:text="@string/category" 
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/report_base_type"
@@ -58,7 +63,8 @@
         android:layout_marginRight="15dp"
         android:layout_toLeftOf="@+id/catgeory_type"
         android:gravity="center"
-        android:text="@string/type" />
+        android:text="@string/type" 
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/trans_date"
@@ -67,7 +73,8 @@
         android:layout_alignLeft="@+id/transhist_date_info"
         android:layout_below="@+id/transhist_date_info"
         android:gravity="center"
-        android:text="@string/date" />
+        android:text="@string/date"
+        android:textColor="#fff" />
 
 </RelativeLayout>
 

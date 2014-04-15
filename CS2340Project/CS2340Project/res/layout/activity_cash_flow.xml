@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AccountListingActivity" >
+    tools:context=".AccountListingActivity" 
+    android:background="@drawable/plaingreenwallpaper">
     
     <TextView
         android:id="@+id/cash_flow_header"
@@ -15,7 +16,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/cash_flow_report" />
+        android:text="@string/cash_flow_report"
+        android:textColor="#fff" />
 
     <TextView
         android:id="@+id/cash_flow_date"
@@ -25,7 +27,8 @@
         android:layout_below="@+id/cash_flow_header"
         android:layout_marginLeft="16dp"
         android:gravity="center"
-        android:text="@string/as_of" />
+        android:text="@string/as_of" 
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/cash_flow_titles"
@@ -35,7 +38,8 @@
         android:layout_alignBottom="@+id/cash_flow_balances"
         android:layout_alignLeft="@+id/cash_flow_date"
         android:gravity="center"
-        android:text="@string/report_problem" />
+        android:text="@string/report_problem" 
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/cash_flow_balances"
@@ -46,7 +50,8 @@
         android:layout_marginRight="17dp"
         android:layout_marginTop="22dp"
         android:gravity="center"
-        android:text="@string/report_problem" />
+        android:text="@string/report_problem" 
+        android:textColor="#fff"/>
     
     <Button
         android:id="@+id/acc_menu"

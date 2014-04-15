@@ -6,6 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/plaingreenwallpaper"
     tools:context=".AccountRegistrationActivity" >
 
     <EditText
@@ -15,7 +16,8 @@
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true"
         android:ems="10"
-        android:inputType="numberDecimal" >
+        android:inputType="numberDecimal" 
+        android:background="@drawable/texteditbox">
 
         <requestFocus />
     </EditText>
@@ -53,7 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/transaction_amount"
-        android:orientation="vertical" >
+        android:orientation="vertical" 
+        android:textColor="#fff">
 
         <RadioButton
             android:id="@+id/radio_deposit"
@@ -61,7 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="19dp"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/deposit" />
+            android:text="@string/deposit" 
+            android:textColor="#fff"/>
 
         <RadioButton
             android:id="@+id/radio_withdrawal"
@@ -69,7 +73,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
             android:onClick="onRadioButtonClicked"
-            android:text="@string/withdrawal" />
+            android:text="@string/withdrawal" 
+            android:textColor="#fff"/>
     </RadioGroup>
 
     <TextView
@@ -79,7 +84,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="@string/enter_amount" />
+        android:text="@string/enter_amount" 
+        android:textColor="#fff"/>
 
     <Button
         android:id="@+id/choose_date"

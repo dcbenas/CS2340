@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AccountListingActivity" >
+    tools:context=".AccountListingActivity" 
+    android:background="@drawable/plaingreenwallpaper">
     
     <TextView
         android:id="@+id/account_listing_header"
@@ -15,7 +16,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/account_listing" />
+        android:text="@string/account_listing" 
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/listing_date_info"
@@ -25,7 +27,8 @@
         android:layout_below="@+id/account_listing_header"
         android:layout_marginLeft="16dp"
         android:gravity="center"
-        android:text="@string/as_of" />
+        android:text="@string/as_of" 
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/account_listing_bal"
@@ -37,7 +40,8 @@
         android:layout_marginRight="16dp"
         android:layout_toRightOf="@+id/account_listing_name"
         android:gravity="center"
-        android:text="@string/acc_list_default_bal" />
+        android:text="@string/acc_list_default_bal" 
+        android:textColor="#fff"/>
 
     <TextView
         android:id="@+id/account_listing_name"
@@ -47,6 +51,7 @@
         android:layout_below="@+id/listing_date_info"
         android:layout_marginTop="24dp"
         android:gravity="center"
-        android:text="@string/acc_list_default" />
+        android:text="@string/acc_list_default" 
+        android:textColor="#fff"/>
     
  </RelativeLayout>

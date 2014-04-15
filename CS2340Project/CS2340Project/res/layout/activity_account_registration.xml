@@ -6,13 +6,15 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".AccountRegistrationActivity" >
+    tools:context=".AccountRegistrationActivity" 
+    android:background="@drawable/plaingreenwallpaper">
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Account Name" />
+        android:text="Account Name"
+        android:textColor="#fff" />
 
     <EditText
         android:id="@+id/field_accountName"
@@ -20,7 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textView1"
         android:layout_below="@+id/textView1"
-        android:ems="10" />
+        android:ems="10" 
+        android:background="@drawable/texteditbox"/>
 
     <TextView
         android:id="@+id/textView3"
@@ -29,7 +32,8 @@
         android:layout_alignLeft="@+id/field_accountName"
         android:layout_below="@+id/field_accountName"
         android:layout_marginTop="22dp"
-        android:text="Starting Balance" />
+        android:text="Starting Balance" 
+        android:textColor="#fff"/>
 
     <EditText
         android:id="@+id/field_startingBalance"
@@ -38,7 +42,8 @@
         android:layout_alignLeft="@+id/textView3"
         android:layout_below="@+id/textView3"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal"
+        android:background="@drawable/texteditbox" />
 
     <TextView
         android:id="@+id/textView4"
@@ -47,7 +52,8 @@
         android:layout_alignLeft="@+id/field_startingBalance"
         android:layout_below="@+id/field_startingBalance"
         android:layout_marginTop="24dp"
-        android:text="Interest Rate" />
+        android:text="Interest Rate" 
+        android:textColor="#fff"/>
 
     <EditText
         android:id="@+id/field_interestRate"
@@ -56,7 +62,8 @@
         android:layout_alignLeft="@+id/textView4"
         android:layout_below="@+id/textView4"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberDecimal" 
+        android:background="@drawable/texteditbox"/>
 
     <Button
         android:id="@+id/submit_account"
