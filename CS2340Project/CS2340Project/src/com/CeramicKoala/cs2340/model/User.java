@@ -13,6 +13,8 @@ public class User extends DatabaseElement {
 	private String username;
 	private String password;
 	private String fullName;
+	private String email;
+	private String passwordHint;
 	private List<Integer> accounts;
 	
 	/**
@@ -25,6 +27,21 @@ public class User extends DatabaseElement {
 		this.fullName = fullName;
 		this.username = username;
 		this.password = password;
+		accounts = new ArrayList<Integer>();
+	}
+	
+	/**
+	 * constructor
+	 * @param fullName
+	 * @param username
+	 * @param password
+	 */
+	public User(String fullName, String username, String password, String passwordHint, String email) {
+		this.fullName = fullName;
+		this.username = username;
+		this.password = password;
+		this.passwordHint = passwordHint;
+		this.email = email;
 		accounts = new ArrayList<Integer>();
 	}
 	
@@ -94,6 +111,38 @@ public class User extends DatabaseElement {
 	}
 	
 	/**
+	 * setter for email
+	 * @param email
+	 */
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	/**
+	 * getter for email
+	 * @return
+	 */
+	public String getEmail() {
+		return email;
+	}
+	
+	/**
+	 * setter for password hint
+	 * @param hint
+	 */
+	public void setPasswordHint(String hint) {
+		passwordHint = hint;
+	}
+	
+	/**
+	 * getter for password hint
+	 * @return
+	 */
+	public String getPasswordHint() {
+		return passwordHint;
+	}
+	
+	/**
 	 * returns string representation of user
 	 */
 	public String toString() {
@@ -101,6 +150,8 @@ public class User extends DatabaseElement {
 		out.append("fullName=" + fullName + ", ");
 		out.append("username=" + username + ", ");
 		out.append("password=" + password + ", ");
+		out.append("email=" + email + ", ");
+		out.append("password hint=" + passwordHint + ", "); 
 		out.append("id=" + id + ".");
 		out.append("accounts= " + getAccounts());
 		

@@ -27,8 +27,8 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     static final String KEY_USERNAME = "username";
     static final String KEY_PASSWORD = "password";
     static final String KEY_FULL_NAME = "fullName";
-    //TODO Inseok - move currentUser to AccountManagementActivity
-   //DEPRECATED static User currentUser;
+    static final String KEY_EMAIL = "email";
+    static final String KEY_HINT = "hint";
     
     //sql queries for DatabaseOpenHelper
     static final String LOGIN_TABLE_CREATE =
@@ -36,7 +36,9 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
             "(" + KEY_ID + " INTEGER PRIMARY KEY, "
             + KEY_USERNAME + " TEXT, "
             + KEY_PASSWORD + " TEXT, "
-            + KEY_FULL_NAME + " TEXT);";
+            + KEY_FULL_NAME + " TEXT, "
+            + KEY_EMAIL + " TEXT, "
+            + KEY_HINT + " TEXT);";
     static final String LOGIN_TABLE_UPGRADE = 
 			"DROP TABLE IF EXISTS " + LOGIN_TABLE + ";";
 
@@ -56,6 +58,8 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     	values.put(KEY_FULL_NAME, user.getFullName());
     	values.put(KEY_USERNAME, user.getUsername());
     	values.put(KEY_PASSWORD, user.getPassword());
+    	values.put(KEY_EMAIL, user.getEmail());
+    	values.put(KEY_HINT, user.getPasswordHint());
     	
     	long success = db.insert(LOGIN_TABLE, null, values);
     	db.close();
@@ -77,6 +81,8 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     	values.put(KEY_FULL_NAME, user.getFullName());
     	values.put(KEY_USERNAME, user.getUsername());
     	values.put(KEY_PASSWORD, user.getPassword());
+    	values.put(KEY_EMAIL, user.getEmail());
+    	values.put(KEY_HINT, user.getPasswordHint());
     	
     	//update user if new username is not already in use
     	if (!checkUserAlreadyExists(user)) {
@@ -118,7 +124,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     @Override
     public User getElementByName(String username) throws DatabaseException {
     	SQLiteDatabase db = this.getReadableDatabase();
-    	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD, KEY_ID};
+    	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD, KEY_ID, KEY_HINT, KEY_EMAIL};
     	String selection = KEY_USERNAME + "=" + "'" + username + "'";
     	
     	Cursor cursor = db.query(LOGIN_TABLE, columns, selection, null, null, null, null);
@@ -129,11 +135,12 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     		User user = new User(
     				cursor.getString(cursor.getColumnIndex(KEY_FULL_NAME)),
         			cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
-        			cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
+        			cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)),
+    				cursor.getString(cursor.getColumnIndex(KEY_HINT)),
+    				cursor.getString(cursor.getColumnIndex(KEY_EMAIL)));
         	user.setId(cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         	
     		user = getAccountsForUser(user);
-        	//DEPRECATED currentUser = user;
         	return user;
     	} else {
     		throw new DatabaseException("user does not exist");
@@ -181,7 +188,7 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
     @Override
     public List<User> getAllElements() {
     	SQLiteDatabase db = this.getReadableDatabase();
-    	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD};
+    	String[] columns = {KEY_FULL_NAME, KEY_USERNAME, KEY_PASSWORD, KEY_HINT, KEY_EMAIL};
     	String orderBy = KEY_ID + " ASC";
     	
     	Cursor cursor = db.query(LOGIN_TABLE, columns, null, null, null, null, orderBy);
@@ -194,7 +201,9 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
         		User user = new User(
         				cursor.getString(cursor.getColumnIndex(KEY_FULL_NAME)),
         				cursor.getString(cursor.getColumnIndex(KEY_USERNAME)), 
-        				cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)));
+        				cursor.getString(cursor.getColumnIndex(KEY_PASSWORD)),
+        				cursor.getString(cursor.getColumnIndex(KEY_HINT)),
+        				cursor.getString(cursor.getColumnIndex(KEY_EMAIL)));
         		userList.add(user);
         	} while (cursor.moveToNext());
     	}
@@ -259,9 +268,4 @@ public class LoginOpenHelper extends DatabaseOpenHelper<User> {
         	return false;
     	}
     }
-
-// DEPRECATED
-//    public void logOut() {
-//    	currentUser = null;
-//    }
 }

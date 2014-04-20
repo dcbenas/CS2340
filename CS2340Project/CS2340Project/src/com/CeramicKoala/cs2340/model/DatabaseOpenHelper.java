@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public abstract class DatabaseOpenHelper<T extends DatabaseElement> extends SQLiteOpenHelper {
 
 	//info specific to SQLite database and table
-	static final int DATABASE_VERSION = 13;
+	static final int DATABASE_VERSION = 14;
 	static final String DATABASE_NAME = "CeramicKoala";
     Context context;
 	
