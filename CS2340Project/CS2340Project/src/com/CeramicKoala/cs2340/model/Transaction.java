@@ -4,6 +4,8 @@ import java.text.DateFormatSymbols;
 import java.util.Date;
 import java.text.NumberFormat;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Transaction represents a single account transaction. Transactions are
  * assigned to an account on creation through the accountId field. All
@@ -44,6 +46,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 	private final Date timestamp;
 	private final int accountId;
 	private final Date date;
+	private LatLng location;
 		
 	/**
 	 * constructor
@@ -61,8 +64,7 @@ public class Transaction extends DatabaseElement implements Comparable {
 		
 		//set timestamp with current system time
 		long currentTime = System.currentTimeMillis();
-		timestamp = new Date(currentTime);
-		
+		timestamp = new Date(currentTime);	
 	}
 	
 	/**
@@ -82,6 +84,14 @@ public class Transaction extends DatabaseElement implements Comparable {
 		this.id = id;
 		this.timestamp = timestamp;
 		
+	}
+	
+	public void setLocation(LatLng location) {
+		this.location = location;
+	}
+	
+	public LatLng getLocation() {
+		return location;
 	}
 	
 	/**
