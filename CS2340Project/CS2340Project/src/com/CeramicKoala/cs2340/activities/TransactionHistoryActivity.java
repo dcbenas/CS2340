@@ -30,7 +30,6 @@ public class TransactionHistoryActivity extends Activity {
 	
 	private ReportGenerator reportMaker;
 	private SessionManager sessionManager;
-	private String start, end;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +50,8 @@ public class TransactionHistoryActivity extends Activity {
 		
 		//For start / end dates to go with report generator functionality
 		// get start and end date strings from intent 
-		start = getIntent().getExtras().getString("startDate");
-		end = getIntent().getExtras().getString("endDate");
+		String start = getIntent().getExtras().getString("startDate");
+		String end = getIntent().getExtras().getString("endDate");
 		
 		// set textview with info about date range
 		TextView dateInfo = (TextView) findViewById(R.id.transhist_date_info);
@@ -138,18 +137,6 @@ public class TransactionHistoryActivity extends Activity {
 	public void goAccountHome(View view) {
 		
 		startActivity(new Intent(this, AccountHomeActivity.class));
-	}
-	
-	/**
-	 * shows map of transactions
-	 * @param view
-	 */
-	public void showMap(View view) {
-		Intent intent = new Intent(this, MapActivity.class);
-		intent.putExtra("start", start);
-		intent.putExtra("end", end);
-		
-		startActivity(intent);
 	}
 
 }

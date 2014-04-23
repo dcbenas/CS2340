@@ -10,7 +10,6 @@ import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.Account;
 import com.CeramicKoala.cs2340.model.AccountOpenHelper;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
-import com.CeramicKoala.cs2340.model.LocationFinder;
 import com.CeramicKoala.cs2340.model.SessionManager;
 import com.CeramicKoala.cs2340.model.Transaction;
 import com.CeramicKoala.cs2340.model.Transaction.TransactionType;
@@ -50,7 +49,6 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 	private AlertDialogManager alertManager;
 	private SessionManager sessionManager;
 	private DatePickerFragment date = new DatePickerFragment();
-	private LocationFinder locFinder;
 	//private Calendar currentDay = Calendar.getInstance();
 	
 	//0 = UNCHECKED, 1 = DEPOSIT, 2 = WITHDRAWAL
@@ -71,7 +69,6 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 		transaction = new TransactionOpenHelper(this);
 		alertManager = new AlertDialogManager(this);
 		sessionManager = new SessionManager(this);
-		locFinder = new LocationFinder(this);
 		transType = 0;
 		updateAccountSpinner();
 		//Size hardcoded, for now ?
@@ -149,7 +146,6 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 				//DATE SELECTED
 				chosenDate = formatter.parse(date.dateS);
 				Transaction deposit = new Transaction(id, transCategory, balanceChange, chosenDate);
-				deposit.setLocation(locFinder.getCurrentLocation());
 				transaction.addElement(deposit);
 				Intent intent = new Intent(this, AccountHomeActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -199,7 +195,6 @@ public class TransactionActivity extends Activity implements OnItemSelectedListe
 					//DATE SELECTED
 					chosenDate = formatter.parse(date.dateS);
 					Transaction withdrawal = new Transaction(id, transCategory, balanceChange, chosenDate);
-					withdrawal.setLocation(locFinder.getCurrentLocation());
 					transaction.addElement(withdrawal);
 					
 					Account updatedAccount = sessionManager.getAccount();
