@@ -63,8 +63,8 @@ public class MapActivity extends FragmentActivity {
 		
 		//For start / end dates to go with report generator functionality
 		// get start and end date strings from intent 
-		String start = getIntent().getExtras().getString("start");
-		String end = getIntent().getExtras().getString("end");
+		String start = getIntent().getExtras().getString("startDate");
+		String end = getIntent().getExtras().getString("endDate");
 		
 		// format start and end date strings into Date objects
 		SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);

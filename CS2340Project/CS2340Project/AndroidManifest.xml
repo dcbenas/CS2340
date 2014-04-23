@@ -149,10 +149,10 @@
         <activity
             android:name="com.CeramicKoala.cs2340.activities.MapActivity"
             android:label="@string/title_activity_transaction_history" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.ReportActivity">
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.TransactionHistoryActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.cs2340project.ReportActivity" />
+                android:value="com.example.cs2340project.TransactionHistoryActivity" />
         </activity>
         
         

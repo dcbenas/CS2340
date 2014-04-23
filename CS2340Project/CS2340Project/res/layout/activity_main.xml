@@ -65,9 +65,7 @@
         android:hint="@string/username_hint"
         android:inputType="text"
         android:singleLine="true"
-        android:textColor="#000" >
-    	<requestFocus/>    
-    </EditText>
+        android:textColor="#000" />
 
     <Button
         android:id="@+id/button_register"
