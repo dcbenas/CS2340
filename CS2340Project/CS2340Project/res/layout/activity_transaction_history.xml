@@ -76,18 +76,5 @@
         android:text="@string/date"
         android:textColor="#fff" />
 
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/trans_amount"
-        android:layout_alignTop="@+id/transaction_history_header"
-        android:background="@drawable/map"
-        android:maxHeight="24dp"
-        android:maxWidth="32dp"
-        android:minHeight="24dip"
-        android:minWidth="32dip"
-        android:onClick="showMap" />
-
 </RelativeLayout>
 

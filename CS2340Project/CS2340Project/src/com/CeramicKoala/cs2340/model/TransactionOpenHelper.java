@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import com.CeramicKoala.cs2340.BuildConfig;
-import com.google.android.gms.maps.model.LatLng;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -25,8 +24,6 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     static final String KEY_AMOUNT = "amount";
     static final String KEY_TIMESTAMP = "timestamp";
     static final String KEY_DATE = "date";
-    static final String KEY_LAT = "lat";
-    static final String KEY_LNG = "lng";
     
     //sql queries for DatabaseOpenHelper
     static final String TRANSACTION_TABLE_CREATE =
@@ -36,9 +33,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     		+ KEY_TYPE + " INTEGER, "
     		+ KEY_AMOUNT + " REAL, "
     		+ KEY_DATE + " TEXT, "
-    		+ KEY_TIMESTAMP + " TEXT"
-    		+ KEY_LAT + " REAL, "
-    		+ KEY_LNG + " REAL);";
+    		+ KEY_TIMESTAMP + " TEXT);";
     static final String TRANSACTION_TABLE_UPGRADE = 
 			"DROP TABLE IF EXISTS " + TRANSACTION_TABLE + ";";
 
@@ -61,8 +56,6 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
     	values.put(KEY_TIMESTAMP, timestamp);
     	values.put(KEY_DATE, date);
     	values.put(AccountOpenHelper.KEY_ACCOUNT_ID, transaction.getAccountId());
-    	values.put(KEY_LAT, transaction.getLocation().latitude);
-    	values.put(KEY_LNG, transaction.getLocation().longitude);
     	
     	long success = db.insert(TRANSACTION_TABLE, null, values);
     	db.close();
@@ -141,7 +134,7 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
 		SQLiteDatabase db = this.getReadableDatabase();
     	
 		String[] columns = {KEY_ID, KEY_TYPE, KEY_AMOUNT, KEY_DATE, 
-				KEY_TIMESTAMP, AccountOpenHelper.KEY_ACCOUNT_ID, KEY_LAT, KEY_LNG};
+				KEY_TIMESTAMP, AccountOpenHelper.KEY_ACCOUNT_ID};
     	String orderBy = KEY_ID + " ASC";
     	String selection = AccountOpenHelper.KEY_ACCOUNT_ID + "=" 
     			+ "'" + accountId + "'";
@@ -165,9 +158,6 @@ public class TransactionOpenHelper extends DatabaseOpenHelper<Transaction> {
         				formatDateToDate(cursor.getString(cursor.getColumnIndex(KEY_TIMESTAMP))),
         				cursor.getInt(cursor.getColumnIndex(KEY_ID)));
         				
-        		double lat = cursor.getDouble(cursor.getColumnIndex(KEY_LAT));
-        		double lng = cursor.getDouble(cursor.getColumnIndex(KEY_LNG));
-        		transaction.setLocation(new LatLng(lat, lng));
         		transactionList.add(transaction);
         	} while (cursor.moveToNext());
     	}
