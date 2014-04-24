@@ -49,10 +49,6 @@ public class ReportGenerator {
 		List<Transaction> report = null;
 		
 		switch (type) {
-			case SPENDING_REPORT:
-				report = generateSpendingReport(beginning, end);
-				break;
-			
 			case DEPOSIT_REPORT:
 				report = generateDepositReport(beginning, end);
 				break;
@@ -82,7 +78,13 @@ public class ReportGenerator {
 	 * @throws ParseException
 	 */
 	public double[] generateCashFlowReport() throws DatabaseException, ParseException {
-		List<Transaction> transList = getAllTransactions();
+		List<Transaction> transList = new ArrayList<Transaction>();
+		//get all transactions that are withdrawals
+		for (Transaction t : getAllTransactions()) {
+			if (t.typeToInt() == 1) {
+				transList.add(t);
+			}
+		}
 		double[] output = new double[3];
 		double income = 0.0;
 		double expenses = 0.0;
@@ -118,11 +120,12 @@ public class ReportGenerator {
 	}
 
 	@SuppressWarnings("unchecked")
-	private List<Transaction> generateSpendingReport(Date beginning, Date end) throws ParseException, DatabaseException {
+	public double[] generateSpendingReport(Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = new ArrayList<Transaction>();
 		//get all transactions that are withdrawals
 		for (Transaction t : getAllTransactions()) {
-			if (t.typeToInt() == 1) {
+			//All withdrawals have type greater than 4
+			if (t.typeToInt() > 4) {
 				report.add(t);
 			}
 		}
@@ -137,7 +140,48 @@ public class ReportGenerator {
 			}
 		}
 		
-		return report;
+		double[] output = new double[6];
+		double other = 0;
+		double food = 0;
+		double rent = 0;
+		double entertainment = 0;
+		double clothing = 0;
+		double total = 0;
+		for (Transaction t: report) {
+			switch (t.typeToInt()) {
+			    case 5:
+			    	other += t.getAmount();
+			    	break;
+			    	
+			    case 6:
+			    	food += t.getAmount();
+			    	break;
+			    	
+			    case 7:
+			    	rent += t.getAmount();
+			    	break;
+			    	
+			    case 8:
+			    	entertainment += t.getAmount();
+			    	break;
+			    	
+			    case 9:
+			    	clothing += t.getAmount();
+			    	break;
+			    	
+			    default:
+			    	System.out.println("Error!");
+			    	break;
+			}
+		}
+		total = other + food + rent + entertainment + clothing ;
+		output[0] = food;
+		output[1] = rent;
+		output[2] = entertainment;
+		output[3] = clothing;
+		output[4] = other;
+		output[5] = total;
+		return output;
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -1,6 +1,5 @@
 package com.CeramicKoala.cs2340.activities;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -17,7 +16,7 @@ import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.ReportGenerator;
 import com.CeramicKoala.cs2340.model.SessionManager;
 
-public class WithdrawalReportActivity extends Activity {
+public class DepositReportActivity extends Activity {
 	
 	private ReportGenerator reportMaker;
 	private SessionManager sessionManager;
@@ -35,8 +34,8 @@ public class WithdrawalReportActivity extends Activity {
 		
 		// set textview with appropriate report header
 		// defaults to withdrawal report header right now
-		TextView reportHeader = (TextView) findViewById(R.id.withdrawal_report_header);
-		String loginMessage = getString(R.string.withdrawal_report) + " "
+		TextView reportHeader = (TextView) findViewById(R.id.deposit_report_header);
+		String loginMessage = getString(R.string.deposit_report) + " "
 				+ sessionManager.getUser().getFullName();
 		reportHeader.setText(loginMessage);
 		
@@ -80,10 +79,8 @@ public class WithdrawalReportActivity extends Activity {
 			
 			// loop through list of transactions and populate strings with transaction info
 			for (int i = 0; i < 6; i++) {
-				NumberFormat format = NumberFormat.getCurrencyInstance();
-				String amount = format.format(spendingReport[i]);
 				reportDateMessage = (reportDateMessage + "\n" + reportTitles[i]);
-				reportAmountMessage = (reportAmountMessage + "\n" + amount);
+				reportAmountMessage = (reportAmountMessage + "\n" + spendingReport[i]);
 			}
 			
 			// set textviews with transaction report strings that were just populated
@@ -133,3 +130,4 @@ public class WithdrawalReportActivity extends Activity {
 	}
 
 }
+

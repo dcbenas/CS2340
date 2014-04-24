@@ -65,7 +65,8 @@
     <string name="start_date">Select Beginning Date</string>
     <string name="end_date">Select End Date</string>
     <string name="generate_report">Display Report</string>
-    <string name="withdrawal_report">Withdrawal Report for </string>
+    <string name="withdrawal_report">Spending Category Report for </string>
+    <string name ="deposit_report">Income Source Report for</string>
     <string name="cash_flow_report">Cash Flow Report</string>
     <string name="account_listing">Account Listing Report</string>
     <string name="transaction_history">Transaction History for</string>
