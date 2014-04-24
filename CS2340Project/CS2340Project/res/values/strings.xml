@@ -48,6 +48,7 @@
     <string name="title_activity_withdrawal_report">Withdrawal Report</string>
     <string name="title_activity_transaction_history">Transaction History</string>
     <string name="title_activity_deposit_report">Deposit Report</string>
+    <string name ="title_activity_account_listing">Account Listing Report</string>
     <string name="title_activity_cash_flow">Cash Flow Report</string>
     <string name="chosen_account_constant">com.CeramicKoala.cs2340.CHOSEN_ACCOUNT</string>
     <string name="balance_message">Current Balance is: </string>
@@ -66,6 +67,7 @@
     <!-- reports -->
     <string name="start_date">Select Beginning Date</string>
     <string name="end_date">Select End Date</string>
+    <string name = "date_select">Date Selection</string>
     <string name="generate_report">Display Report</string>
     <string name="withdrawal_report">Spending Category Report for </string>
     <string name ="withdrawal_report_button">Spending Category Report</string>

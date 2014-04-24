@@ -109,7 +109,7 @@
         </activity>
         <activity
             android:name="com.CeramicKoala.cs2340.activities.AccountListingActivity"
-            android:label="@string/title_activity_transaction_history"
+            android:label="@string/title_activity_account_listing"
             android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

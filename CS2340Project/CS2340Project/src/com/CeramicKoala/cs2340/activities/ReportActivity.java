@@ -3,6 +3,7 @@ package com.CeramicKoala.cs2340.activities;
 import com.CeramicKoala.cs2340.R;
 import com.CeramicKoala.cs2340.model.AlertDialogManager;
 import com.CeramicKoala.cs2340.model.SessionManager;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 
@@ -136,9 +137,19 @@ public class ReportActivity extends Activity {
 				depositIntent.putExtra("startDate", startDate.start);
 				depositIntent.putExtra("endDate", endDate.end);
 				startActivity(depositIntent);
+				break;
+			
+			default:
+				alertManager.generateAlertDialog(AlertDialogManager.AlertType.ERROR_QUIT_FALSE).show();
+				returnToMenu();
 			}
 		}	
-	}		
+	}
+	
+	public void returnToMenu() {
+		
+		startActivity(new Intent(this, LogInActivity.class));
+	}
 
 	//I'll javadoc it later, but basically they are the two date pickers
 	public static class DatePickerFragmentStart extends DialogFragment implements DatePickerDialog.OnDateSetListener {	

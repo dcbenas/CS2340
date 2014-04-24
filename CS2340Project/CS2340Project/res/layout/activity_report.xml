@@ -16,7 +16,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="@string/log_in_success"
+        android:text="@string/date_select"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28sp" 
         android:textColor="#fff"

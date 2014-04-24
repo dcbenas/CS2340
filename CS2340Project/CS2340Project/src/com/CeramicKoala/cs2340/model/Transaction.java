@@ -16,9 +16,9 @@ import java.text.NumberFormat;
 public class Transaction extends DatabaseElement implements Comparable {
 	
 	public enum TransactionType {
-		DEPOSIT(0, "Deposit"), SALARY(1, "Salary"), GIFT(2, "Gift"), 
+		DEPOSIT(0, "Other"), SALARY(1, "Salary"), GIFT(2, "Gift"), 
 		PARENTS(3, "Parents"), SCHOLARSHIP(4, "Scholarship"), 
-		WITHDRAWAL(5, "Withdrawal"), FOOD(6, "Food"), RENT(7, "Rent"), 
+		WITHDRAWAL(5, "Other"), FOOD(6, "Food"), RENT(7, "Rent"), 
 		ENTERTAINMENT(8, "Entertainment"), CLOTHING(9, "Clothing");
 		
 		//sourceID identifies which type of deposit / withdrawal the transaction is
