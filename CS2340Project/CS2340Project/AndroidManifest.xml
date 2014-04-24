@@ -13,18 +13,20 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <!--  Dat Splash screen -->
-        <activity
+
+        <!-- Dat Splash screen -->
+        <activity android:name="com.CeramicKoala.cs2340.activities.EasterEggActivity" android:screenOrientation="landscape" android:label="@string/title_activity_easter_egg">
+        </activity><activity
             android:name="com.CeramicKoala.cs2340.activities.SplashScreen"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
- 
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--  Dat other stuff -->
+        <!-- Dat other stuff -->
         <activity
             android:name="com.CeramicKoala.cs2340.activities.MainActivity"
             android:label="@string/app_name" >
@@ -59,71 +61,64 @@
         </activity>
         <activity
             android:name="com.CeramicKoala.cs2340.activities.AccountRegistrationActivity"
-            android:label="@string/title_activity_account_registration" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            android:label="@string/title_activity_account_registration"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.LogInActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.AccountHomeActivity"
-            android:label="@string/title_activity_account_home" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            android:label="@string/title_activity_account_home"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.LogInActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.TransactionActivity"
-            android:label="@string/title_activity_account_home" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.AccountHomeActivity">
+            android:label="@string/title_activity_account_home"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.AccountHomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.AccountHomeActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.ReportActivity"
-            android:label="@string/title_activity_report" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.AccountHomeActivity">
+            android:label="@string/title_activity_report"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.AccountHomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.AccountHomeActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.WithdrawalReportActivity"
-            android:label="@string/title_activity_withdrawal_report" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.ReportActivity">
+            android:label="@string/title_activity_withdrawal_report"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.ReportActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.ReportActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.TransactionHistoryActivity"
-            android:label="@string/title_activity_transaction_history" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.ReportActivity">
+            android:label="@string/title_activity_transaction_history"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.ReportActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.ReportActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.AccountListingActivity"
-            android:label="@string/title_activity_transaction_history" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            android:label="@string/title_activity_transaction_history"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.LogInActivity" />
         </activity>
-        
         <activity
             android:name="com.CeramicKoala.cs2340.activities.CashFlowActivity"
-            android:label="@string/title_activity_transaction_history" 
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            android:label="@string/title_activity_transaction_history"
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.LogInActivity" />

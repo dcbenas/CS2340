@@ -100,6 +100,8 @@ public class MainActivity extends Activity {
 			User user = new User(null, username, password);
 			
 			sessionManager.logOut();
+			if (username.equals("Hello") && password.equals("World!"))
+				startActivity(new Intent(this, EasterEggActivity.class));
 			sessionManager.logIn(user);
 			
 			System.out.println("logging in");
