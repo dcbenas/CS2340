@@ -35,7 +35,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="148dp"
         android:onClick="goAccountHome"
-        android:text="Return to Account Menu" />
+        android:text="@string/go_home" />
 
     <TextView
         android:id="@+id/spending_report_amount"

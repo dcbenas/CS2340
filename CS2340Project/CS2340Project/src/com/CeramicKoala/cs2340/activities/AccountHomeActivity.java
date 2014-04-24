@@ -96,12 +96,13 @@ public class AccountHomeActivity extends Activity {
 		startActivity(new Intent(this, TransactionActivity.class));
 	}
 	
-	public void generateReport(View view) {
+	//DEPRECATED - MOVED TO USER MENU
+	/*public void generateReport(View view) {
 		followUp = 0;
 		Intent intent = new Intent(this, ReportActivity.class);
 		intent.putExtra("followUpDecision", followUp);
 		startActivity(intent);
-	}
+	}*/
 	
 	public void getTransactionHistory(View view) {
 		

@@ -130,6 +130,12 @@ public class ReportActivity extends Activity {
 				cashIntent.putExtra("endDate", endDate.end);
 				startActivity(cashIntent);
 				break;
+				
+			case 3:
+				Intent depositIntent = new Intent(this, DepositReportActivity.class);
+				depositIntent.putExtra("startDate", startDate.start);
+				depositIntent.putExtra("endDate", endDate.end);
+				startActivity(depositIntent);
 			}
 		}	
 	}		

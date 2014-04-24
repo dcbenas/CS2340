@@ -32,40 +32,58 @@
         android:textColor="#fff"/>
 
     <Button
-        android:id="@+id/view_account"
+        android:id="@+id/createAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/account_spinner"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp"
-        android:onClick="viewAccount"
-        android:text="@string/view_acc" />
-    
-    <Button
-        android:id="@+id/account_listing_report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view_account"
-        android:layout_centerHorizontal="true"
-        android:onClick="getAccountListing"
-        android:text= "@string/account_list_report" />
-    
+        android:layout_marginBottom="22dp"
+        android:onClick="createAccount"
+        android:text="@string/create_acc" />
+
     <Button
         android:id="@+id/cash_flow_report"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/account_listing_report"
+        android:layout_above="@+id/createAccount"
         android:layout_centerHorizontal="true"
         android:onClick="getCashFlowReport"
-        android:text= "@string/cash_flow_report" />
+        android:text="@string/cash_flow_report" />
 
     <Button
-        android:id="@+id/createAccount"
+        android:id="@+id/account_listing_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/cash_flow_report"
+        android:layout_above="@+id/cash_flow_report"
+        android:layout_alignLeft="@+id/deposit_report_button"
+        android:onClick="getAccountListing"
+        android:text="@string/account_list_report" />
+
+    <Button
+        android:id="@+id/deposit_report_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/withdrawal_report_button"
         android:layout_centerHorizontal="true"
-        android:onClick="createAccount"
-        android:text="@string/create_acc" />
+        android:onClick="getDepositReport"
+        android:text="@string/deposit_report_button" />
+
+    <Button
+        android:id="@+id/view_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/deposit_report_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="viewAccount"
+        android:text="@string/view_acc" />
+
+    <Button
+        android:id="@+id/withdrawal_report_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/account_listing_button"
+        android:layout_centerHorizontal="true"
+        android:onClick="getWithdrawalReport"
+        android:text="@string/withdrawal_report_button" />
 
 </RelativeLayout>

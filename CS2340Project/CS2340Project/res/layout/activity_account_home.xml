@@ -20,7 +20,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="28sp" 
         android:textColor="#fff"
-        android:textStyle= "bold"/>"
+        android:textStyle= "bold"/>
 
     <TextView
         android:id="@+id/current_balance"
@@ -36,28 +36,20 @@
         android:id="@+id/make_transaction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/generate_report"
-        android:layout_centerHorizontal="true"
-        android:onClick="startTransaction"
-        android:text= "@string/make_a_transaction" />
-
-    <Button
-        android:id="@+id/generate_report"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/current_balance"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
-        android:onClick="generateReport"
-        android:text="@string/report_generate" />
-    
+        android:layout_marginTop="55dp"
+        android:onClick="startTransaction"
+        android:text="@string/make_a_transaction" />
+
     <Button
         android:id="@+id/transaction_history"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/make_transaction"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
         android:onClick="getTransactionHistory"
-        android:text= "@string/view_transaction_history" />
+        android:text="@string/view_transaction_history" />
 
 </RelativeLayout>

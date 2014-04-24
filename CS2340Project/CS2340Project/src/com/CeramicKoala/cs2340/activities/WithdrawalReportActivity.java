@@ -129,7 +129,7 @@ public class WithdrawalReportActivity extends Activity {
 	
 	public void goAccountHome(View view) {
 		
-		startActivity(new Intent(this, AccountHomeActivity.class));
+		startActivity(new Intent(this, LogInActivity.class));
 	}
 
 }
