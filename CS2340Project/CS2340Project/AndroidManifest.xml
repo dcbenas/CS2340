@@ -85,11 +85,11 @@
         </activity>
         <activity
             android:name="com.CeramicKoala.cs2340.activities.ReportActivity"
-            android:label="@string/title_activity_report"
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.AccountHomeActivity" >
+            android:label="@string/title_activity_report" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.cs2340project.AccountHomeActivity" />
+                android:value="com.example.cs2340project.LogInActivity" />
         </activity>
         <activity
             android:name="com.CeramicKoala.cs2340.activities.WithdrawalReportActivity"
@@ -117,8 +117,17 @@
         </activity>
         <activity
             android:name="com.CeramicKoala.cs2340.activities.CashFlowActivity"
-            android:label="@string/title_activity_transaction_history"
-            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity" >
+            android:label="@string/title_activity_cash_flow" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cs2340project.LogInActivity" />
+        </activity>
+        
+        <activity
+            android:name="com.CeramicKoala.cs2340.activities.DepositReportActivity"
+            android:label="@string/title_activity_deposit_report" 
+            android:parentActivityName="com.CeramicKoala.cs2340.activities.LogInActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cs2340project.LogInActivity" />

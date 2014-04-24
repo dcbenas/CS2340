@@ -236,6 +236,20 @@ public class LogInActivity extends Activity implements OnItemSelectedListener {
 		intent.putExtra("followUpDecision", followUp);
 		startActivity(intent);
 	}
+	
+	public void getDepositReport(View view) {
+		int followUp = 3;
+		Intent intent = new Intent(this, ReportActivity.class);
+		intent.putExtra("followUpDecision", followUp);
+		startActivity(intent);
+	}
+	
+	public void getWithdrawalReport(View view) {
+		int followUp = 0;
+		Intent intent = new Intent(this, ReportActivity.class);
+		intent.putExtra("followUpDecision", followUp);
+		startActivity(intent);
+	}
 
 // DEPRECATED
 //	@Override

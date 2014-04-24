@@ -1,5 +1,6 @@
 package com.CeramicKoala.cs2340.model;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,10 +50,6 @@ public class ReportGenerator {
 		List<Transaction> report = null;
 		
 		switch (type) {
-			case DEPOSIT_REPORT:
-				report = generateDepositReport(beginning, end);
-				break;
-			
 			case TRANSACTION_HISTORY:
 				report = generateTransactionHistory(beginning, end, accountID);
 				break;
@@ -78,13 +75,7 @@ public class ReportGenerator {
 	 * @throws ParseException
 	 */
 	public double[] generateCashFlowReport() throws DatabaseException, ParseException {
-		List<Transaction> transList = new ArrayList<Transaction>();
-		//get all transactions that are withdrawals
-		for (Transaction t : getAllTransactions()) {
-			if (t.typeToInt() == 1) {
-				transList.add(t);
-			}
-		}
+		List<Transaction> transList = getAllTransactions();
 		double[] output = new double[3];
 		double income = 0.0;
 		double expenses = 0.0;
@@ -113,9 +104,11 @@ public class ReportGenerator {
 	
 	public String formatValues(double[] report) {
 		StringBuilder output = new StringBuilder();
-		output.append(report[0] + "\n");
-		output.append(report[1] + "\n");
-		output.append(report[2] + "\n");
+		for (int i = 0; i < 3; i++) {
+			NumberFormat format = NumberFormat.getCurrencyInstance();
+			String amount = format.format(report[i]);
+			output.append(amount + "\n");
+		}
 		return (output.toString());
 	}
 
@@ -124,7 +117,7 @@ public class ReportGenerator {
 		List<Transaction> report = new ArrayList<Transaction>();
 		//get all transactions that are withdrawals
 		for (Transaction t : getAllTransactions()) {
-			//All withdrawals have type greater than 4
+			//All withdRawal types are greater than 4
 			if (t.typeToInt() > 4) {
 				report.add(t);
 			}
@@ -185,12 +178,12 @@ public class ReportGenerator {
 	}
 	
 	@SuppressWarnings("unchecked")
-	private List<Transaction> generateDepositReport(Date beginning, Date end) throws ParseException, DatabaseException {
+	public double[] generateDepositReport(Date beginning, Date end) throws ParseException, DatabaseException {
 		List<Transaction> report = new ArrayList<Transaction>();
 		
 		//get all transactions that are withdrawals
 		for (Transaction t : getAllTransactions()) {
-			if (t.typeToInt() == 0) {
+			if (t.typeToInt() <= 4) {
 				report.add(t);
 			}
 		}
@@ -206,7 +199,48 @@ public class ReportGenerator {
 			}
 		}
 		
-		return report;
+		double[] output = new double[6];
+		double other = 0;
+		double salary = 0;
+		double gift = 0;
+		double parents = 0;
+		double scholarship = 0;
+		double total = 0;
+		for (Transaction t: report) {
+			switch (t.typeToInt()) {
+			    case 0:
+			    	other += t.getAmount();
+			    	break;
+			    	
+			    case 1:
+			    	salary += t.getAmount();
+			    	break;
+			    	
+			    case 2:
+			    	gift += t.getAmount();
+			    	break;
+			    	
+			    case 3:
+			    	parents += t.getAmount();
+			    	break;
+			    	
+			    case 4:
+			    	scholarship += t.getAmount();
+			    	break;
+			    	
+			    default:
+			    	System.out.println("Error!");
+			    	break;
+			}
+		}
+		total = other + salary + gift + parents + scholarship;
+		output[0] = salary;
+		output[1] = gift;
+		output[2] = parents;
+		output[3] = scholarship;
+		output[4] = other;
+		output[5] = total;
+		return output;
 	}
 	
 	@SuppressWarnings("unchecked")

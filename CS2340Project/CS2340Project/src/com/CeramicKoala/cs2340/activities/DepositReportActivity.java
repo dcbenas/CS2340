@@ -1,5 +1,6 @@
 package com.CeramicKoala.cs2340.activities;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -25,7 +26,7 @@ public class DepositReportActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_withdrawal_report);
+		setContentView(R.layout.activity_deposit_report);
 		
 		// instantiate helper objects
 		sessionManager = new SessionManager(this);
@@ -59,19 +60,20 @@ public class DepositReportActivity extends Activity {
 			// get list of transactions specific to report
 			// defaults to SPENDING REPORT right now
 			String [] reportTitles = new String[6];
-			reportTitles[0] = "Food";
-			reportTitles[1] = "Rent";
-			reportTitles[2] = "Entertainment";
-			reportTitles[3] = "Clothing";
+			reportTitles[0] = "Salary";
+			reportTitles[1] = "Gift";
+			reportTitles[2] = "Parents";
+			reportTitles[3] = "Scholarship";
 			reportTitles[4] = "Other";
 			reportTitles[5] = "Total";
 					
 			
-			double[] spendingReport = reportMaker.generateSpendingReport(beginning, endDate);
+			double[] depositReport = reportMaker.generateDepositReport(beginning, endDate);
+			System.out.println(depositReport[5]);
 			
 			// get textviews to update with report info
-			TextView reportDate = (TextView) findViewById(R.id.spending_report);
-			TextView reportAmount = (TextView) findViewById(R.id.spending_report_amount);
+			TextView reportDate = (TextView) findViewById(R.id.deposit_report);
+			TextView reportAmount = (TextView) findViewById(R.id.income_report_amount);
 			
 			// generate strings with report column headers
 			String reportDateMessage = getString(R.string.category);
@@ -79,8 +81,10 @@ public class DepositReportActivity extends Activity {
 			
 			// loop through list of transactions and populate strings with transaction info
 			for (int i = 0; i < 6; i++) {
+				NumberFormat format = NumberFormat.getCurrencyInstance();
+				String amount = format.format(depositReport[i]);
 				reportDateMessage = (reportDateMessage + "\n" + reportTitles[i]);
-				reportAmountMessage = (reportAmountMessage + "\n" + spendingReport[i]);
+				reportAmountMessage = (reportAmountMessage + "\n" + amount);
 			}
 			
 			// set textviews with transaction report strings that were just populated
@@ -126,7 +130,7 @@ public class DepositReportActivity extends Activity {
 	
 	public void goAccountHome(View view) {
 		
-		startActivity(new Intent(this, AccountHomeActivity.class));
+		startActivity(new Intent(this, LogInActivity.class));
 	}
 
 }

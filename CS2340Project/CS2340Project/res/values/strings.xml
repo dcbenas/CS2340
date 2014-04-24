@@ -47,6 +47,8 @@
     <string name="title_activity_report">Report Generation</string>
     <string name="title_activity_withdrawal_report">Withdrawal Report</string>
     <string name="title_activity_transaction_history">Transaction History</string>
+    <string name="title_activity_deposit_report">Deposit Report</string>
+    <string name="title_activity_cash_flow">Cash Flow Report</string>
     <string name="chosen_account_constant">com.CeramicKoala.cs2340.CHOSEN_ACCOUNT</string>
     <string name="balance_message">Current Balance is: </string>
     <string name="no_account">No accounts have been created yet!</string>
@@ -66,7 +68,9 @@
     <string name="end_date">Select End Date</string>
     <string name="generate_report">Display Report</string>
     <string name="withdrawal_report">Spending Category Report for </string>
-    <string name="deposit_report">Income Source Report for</string>
+    <string name ="withdrawal_report_button">Spending Category Report</string>
+    <string name ="deposit_report_button">Income Source Report</string>
+    <string name ="deposit_report">Income Source Report for</string>
     <string name="cash_flow_report">Cash Flow Report</string>
     <string name="account_listing">Account Listing Report</string>
     <string name="transaction_history">Transaction History for</string>
@@ -81,7 +85,7 @@
     <string name="as_of">As of</string>
     <string name="acc_list_default">Account</string>
     <string name="acc_list_default_bal">Current Balance</string>
-    <string name="go_home">Return to Home</string>
+    <string name="go_home">Return to Menu</string>
     <string name="go_acc_menu">Return to Account Menu</string>
     <string name="report_problem">This should be overwritten</string>
     <!-- other stuff by Casey -->

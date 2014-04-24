@@ -27,15 +27,6 @@
         android:gravity="center"
         android:text="@string/date_start_to_end" 
         android:textColor="#fff"/>
-    <Button
-        android:id="@+id/acc_menu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/report_date_info"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="148dp"
-        android:onClick="goAccountHome"
-        android:text="@string/go_acc_menu" />
 
     <TextView
         android:id="@+id/income_report_amount"
@@ -48,15 +39,25 @@
         android:text="@string/amount" 
         android:textColor="#fff"/>
 
+    <Button
+        android:id="@+id/acc_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="138dp"
+        android:onClick="goAccountHome"
+        android:text="@string/go_home" />
+
     <TextView
-        android:id="@+id/spending_report"
+        android:id="@+id/deposit_report"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/income_report_amount"
         android:layout_alignBottom="@+id/income_report_amount"
         android:layout_alignLeft="@+id/report_date_info"
         android:gravity="center"
-        android:text="@string/date" 
-        android:textColor="#fff"/>
+        android:text="@string/date"
+        android:textColor="#fff" />
 
 </RelativeLayout>
